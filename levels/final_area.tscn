@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://i2pemo8f7rjr"]
+
+[ext_resource type="Script" uid="uid://cpxi34recutqy" path="res://levels/final_area.gd" id="1_gdc5o"]
+[ext_resource type="PackedScene" uid="uid://c4p3hcvijpfxf" path="res://player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://systems/egg.tscn" id="3_egg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.35, 0.55, 0.9, 1)
+sky_horizon_color = Color(0.85, 0.9, 1, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 3
+
+[sub_resource type="BoxShape3D" id="Shape_ground"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="StandardMaterial3D" id="Mat_ground"]
+albedo_color = Color(0.45, 0.75, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_ground"]
+material = SubResource("Mat_ground")
+size = Vector3(40, 1, 40)
+
+[sub_resource type="BoxShape3D" id="Shape_rock"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock"]
+albedo_color = Color(0.6, 0.5, 0.45, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_rock"]
+material = SubResource("Mat_rock")
+size = Vector3(3, 3, 3)
+
+[sub_resource type="BoxShape3D" id="Shape_pedestal"]
+size = Vector3(2, 1, 2)
+
+[node name="FinalArea" type="Node3D" unique_id=827512447]
+script = ExtResource("1_gdc5o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=77314483]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1599350849]
+transform = Transform3D(0.86601907, -0.35356307, 0.3535593, 0, 0.707103, 0.7071106, -0.500011, -0.6123712, 0.61236465, 0, 11.667041, 0)
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=869697116]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=860522515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("Shape_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=414235193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("Mesh_ground")
+
+[node name="RockLeft" type="StaticBody3D" parent="." unique_id=1836825931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.5, -4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RockLeft" unique_id=1834503716]
+shape = SubResource("Shape_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RockLeft" unique_id=823295369]
+mesh = SubResource("Mesh_rock")
+
+[node name="RockRight" type="StaticBody3D" parent="." unique_id=5712411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, -8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RockRight" unique_id=322260650]
+shape = SubResource("Shape_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RockRight" unique_id=1407785799]
+mesh = SubResource("Mesh_rock")
+
+[node name="Pedestal" type="StaticBody3D" parent="." unique_id=2097367687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -14)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pedestal" unique_id=297416120]
+shape = SubResource("Shape_pedestal")
+
+[node name="Player" parent="." unique_id=523971385 instance=ExtResource("2_player")]
+transform = Transform3D(-0.99864906, 0, -0.05196224, 0, 1, 0, 0.05196224, 0, -0.99864906, 0, 0, 0)
+
+[node name="MysteryEgg" parent="." unique_id=1589323571 instance=ExtResource("3_egg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -14)
+is_mystery = true
+egg_color = Color(1, 0.85, 0.3, 1)
