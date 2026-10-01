@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://systems/egg.gd" id="1_egg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_egg"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egg"]
+albedo_color = Color(1, 0.75, 0.85, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.9, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_egg"]
+material = SubResource("StandardMaterial3D_egg")
+radius = 0.25
+height = 0.5
+
+[node name="Egg" type="Area3D"]
+script = ExtResource("1_egg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("SphereShape3D_egg")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.35, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("SphereMesh_egg")
+
+[node name="HintLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+visible = false
+light_color = Color(1, 0.9, 0.5, 1)
+light_energy = 2.5
+omni_range = 4.0
