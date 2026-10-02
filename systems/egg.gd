@@ -22,6 +22,8 @@ class_name Egg
 @export var is_mystery: bool = false
 @export var spin_speed: float = 1.5
 @export var egg_color: Color = Color(1.0, 0.75, 0.85)
+## เสียงตอนเก็บไข่ — คนที่ 3 ใส่ไฟล์เสียงใน Inspector (ว่างไว้ = ไม่มีเสียง)
+@export var collect_sound: AudioStream
 
 
 # =========================================================
@@ -143,6 +145,13 @@ func collect() -> void:
 	collected = true
 
 	print("Egg: COLLECTED -> ", name)
+
+	# หยุดอนิเมชัน Hint ที่อาจเล่นค้างอยู่ ไม่ให้ชนกับอนิเมชันเก็บไข่
+	if _hint_tween != null:
+		_hint_tween.kill()
+		_hint_tween = null
+
+	_play_collect_sound()
 
 
 	# -------------------------------------------------------
@@ -290,3 +299,21 @@ func _on_hint_finished() -> void:
 
 	if is_instance_valid(hint_light):
 		hint_light.visible = false
+
+
+# =========================================================
+# Sound
+# =========================================================
+## เล่นเสียงแยกจากตัวไข่ เพราะไข่จะ queue_free() ทันทีหลังอนิเมชัน
+
+func _play_collect_sound() -> void:
+
+	if collect_sound == null:
+		return
+
+	var p := AudioStreamPlayer3D.new()
+	p.stream = collect_sound
+	get_tree().current_scene.add_child(p)
+	p.global_position = global_position
+	p.finished.connect(p.queue_free)
+	p.play()
