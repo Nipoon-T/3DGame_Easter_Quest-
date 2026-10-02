@@ -24,6 +24,10 @@ GameManager="*uid://cmudc5c0tbf2q"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 interact={
