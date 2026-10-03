@@ -28,9 +28,13 @@ const LEVELS: Array[String] = [
 const FINAL_AREA := "res://levels/final_area.tscn"
 const WIN_SCREEN := "res://ui/win_screen.tscn"
 const LOSE_SCREEN := "res://ui/lose_screen.tscn"
+# เพิ่มโดยคนที่ 3 (UI) สำหรับปุ่ม Main Menu / ป้าย Time's Up
+const MAIN_MENU := "res://ui/main_menu.tscn"
 
 const START_HINTS := 3          # จำนวน Hint ตอนเริ่มเกม
 const NEXT_LEVEL_DELAY := 1.5   # หน่วงก่อนเปลี่ยนด่าน (วินาที) ให้ UI โชว์ "ผ่านด่าน!"
+# เพิ่มโดยคนที่ 3 (UI) สำหรับปุ่ม Main Menu / ป้าย Time's Up
+const LOSE_DELAY := 1.5         # หน่วงก่อนไปหน้าแพ้ (วินาที) ให้ UI โชว์ "Time's Up!"
 
 ## Hint โบนัสที่ได้เพิ่มตอนเริ่มแต่ละด่าน (index ตรงกับ LEVELS) — ปรับตรงนี้ตอนบาลานซ์วันที่ 9
 ## เช่น [0, 1, 2] = ด่าน 1 ไม่ได้เพิ่ม, ด่าน 2 ได้ +1, ด่าน 3 (ยากสุด) ได้ +2
@@ -51,6 +55,8 @@ var is_running := false
 var _total_at_level_start := 0
 var _hints_at_level_start := START_HINTS
 var _bonus_given_for := -1   # กันไม่ให้ได้โบนัสซ้ำเมื่อกดลองใหม่
+# เพิ่มโดยคนที่ 3 (UI) สำหรับปุ่ม Main Menu / ป้าย Time's Up
+var _lose_pending := false   # กำลังรอ LOSE_DELAY — quit_to_menu() ยกเลิกได้
 
 
 func _ready() -> void:
@@ -249,13 +255,30 @@ func _win() -> void:
 
 
 func _lose() -> void:
+	if _lose_pending:
+		return
 	is_running = false
+	_lose_pending = true
 	game_lost.emit()
+	await get_tree().create_timer(LOSE_DELAY).timeout
+	if not _lose_pending:   # ผู้เล่นกด Main Menu ระหว่างรอ -> ไม่ไปหน้าแพ้
+		return
+	_lose_pending = false
 	if not _change_scene_safe(LOSE_SCREEN):
 		# ยังไม่มีหน้าแพ้ของคนที่ 3 -> รอสักครู่แล้วเริ่มด่านเดิมใหม่ให้ทดสอบต่อได้
 		print("GameManager: หมดเวลา! (ยังไม่มี lose_screen.tscn) เริ่มด่านใหม่ใน 2 วินาที")
 		await get_tree().create_timer(2.0).timeout
 		retry_level()
+
+
+# เพิ่มโดยคนที่ 3 (UI) สำหรับปุ่ม Main Menu / ป้าย Time's Up
+## กลับเมนูหลัก (ปุ่ม MAIN MENU ใน Pause / หน้าแพ้ / หน้าชนะ)
+func quit_to_menu() -> void:
+	is_running = false
+	_lose_pending = false
+	set_paused(false)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE   # set_paused(false) จับเมาส์กลับ แต่เมนูหลักต้องใช้เมาส์
+	_change_scene_safe(MAIN_MENU)
 
 
 ## เปลี่ยน scene เฉพาะเมื่อไฟล์มีอยู่จริง คืนค่า false ถ้าไม่มีไฟล์

@@ -186,8 +186,8 @@ func _on_hover(button: Button, hovered: bool) -> void:
 # ============ การทำงานของปุ่ม ============
 
 func _on_menu_pressed() -> void:
-	_play_click()
-	_leave(func() -> void: get_tree().change_scene_to_file(MAIN_MENU_SCENE))
+	# ผ่าน quit_to_menu() เพื่อให้ GameManager ล้างสถานะ (เปิดหน้านี้ตรง ๆ ด้วย F6 ก็ยังไม่ค้าง ดู _call_game_manager)
+	_leave_to_game_manager(&"quit_to_menu")
 
 
 ## เรียกฟังก์ชันของ GameManager หลังเฟดดำ (ใช้จากคลาสลูก)

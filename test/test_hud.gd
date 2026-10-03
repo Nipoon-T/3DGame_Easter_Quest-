@@ -2,8 +2,10 @@ extends Node
 ## ทดสอบ HUD: จำลอง signal ผ่าน GameManager
 ## B = สลับพื้นหลังมืด/สว่าง  1 = เก็บไข่  2 = เวลาเหลือ 25 วิ (นับถอยหลัง)
 ## 3 = ใช้ Hint  4 = เริ่มด่านถัดไป  5 = ผ่านด่าน  6 = หมดเวลา (game_lost)
+## 8 = จำลองการ์ดไกด์ปุ่มตอนเริ่มด่าน 1 (รีเซ็ตค่า "เคยขึ้นแล้ว" แล้วเริ่มด่าน 1 ใหม่)
 ## 7 = สลับ pause/resume (เรียก GameManager.set_paused จึงเหมือนกด P จริง ๆ แต่ใช้ได้โดยไม่ต้องมีด่าน)
 
+const HudScript := preload("res://ui/hud.gd")
 const REQUIRED: int = 10
 
 @onready var background: ColorRect = %Background
@@ -58,6 +60,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_start_level((_level + 1) % 4)
 		KEY_5:
 			GameManager.level_completed.emit(_level)
+		KEY_8:
+			HudScript.guide_seen = false
+			_start_level(0)
 		KEY_7:
 			GameManager.set_paused(not get_tree().paused)
 		KEY_6:

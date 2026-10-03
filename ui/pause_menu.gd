@@ -1,12 +1,12 @@
 extends CanvasLayer
-## เมนู Pause: แผงไข่ + ปุ่ม RESUME / SETTINGS / MAIN MENU
+## เมนู Pause: แผงไข่ + ปุ่ม RESUME / SETTINGS / CONTROLS / MAIN MENU
 ## ตามสถานะของ GameManager เท่านั้น (signal paused_changed) ไม่รับปุ่ม P เอง
 ## GameManager รับ P / action "pause" และเป็นคนสั่ง get_tree().paused + mouse mode
 ## ปุ่มในเมนูแค่เรียก GameManager.set_paused(false)
 
 const UIStyle := preload("res://ui/ui_style.gd")
 const SettingsPanelScript := preload("res://ui/settings_panel.gd")
-const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
+const ControlsPanelScript := preload("res://ui/controls_panel.gd")
 
 # ---------- ขนาด ----------
 ## ความสูงแผงไข่เทียบกับความสูงจอ
@@ -14,12 +14,13 @@ const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
 ## ความสูงแผงที่ font_size ด้านล่างถูกออกแบบไว้ (จอ 648 สูง x 0.85) ถ้าแผงสูงขึ้นฟอนต์จะขยายตาม
 @export var reference_panel_height: float = 550.0
 @export var title_font_size: int = 56
-@export var button_font_size: int = 34
+@export var button_font_size: int = 28
 @export var button_font: Font
 
 # ---------- สี ----------
 @export var resume_color := Color("a8e6cf")     # เขียวมินต์
 @export var settings_color := Color("f7e08a")   # เหลือง
+@export var controls_color := Color("a8d8f0")   # ฟ้า
 @export var menu_color := Color("f2b8dc")       # ชมพู
 @export var text_color := Color("fff6e0")       # ครีม
 @export var border_color := Color("7a4a22")     # น้ำตาลไม้
@@ -33,8 +34,10 @@ const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
 @onready var title_label: Label = %TitleLabel
 @onready var resume_button: Button = %ResumeButton
 @onready var settings_button: Button = %SettingsButton
+@onready var controls_button: Button = %ControlsButton
 @onready var menu_button: Button = %MenuButton
 @onready var settings_panel: SettingsPanelScript = %SettingsPanel
+@onready var controls_panel: ControlsPanelScript = %ControlsPanel
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var hover_sound: AudioStreamPlayer = %HoverSound
 @onready var click_sound: AudioStreamPlayer = %ClickSound
@@ -50,14 +53,19 @@ func _ready() -> void:
 
 	UIStyle.setup_hover(resume_button, _on_hover)
 	UIStyle.setup_hover(settings_button, _on_hover)
+	UIStyle.setup_hover(controls_button, _on_hover)
 	UIStyle.setup_hover(menu_button, _on_hover)
 
 	resume_button.pressed.connect(_on_resume_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
+	controls_button.pressed.connect(_on_controls_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
 	settings_panel.opened.connect(_set_menu_focusable.bind(false))
 	settings_panel.closed.connect(_on_settings_closed)
 	settings_panel.button_hovered.connect(_play_hover)
+	controls_panel.opened.connect(_set_menu_focusable.bind(false))
+	controls_panel.closed.connect(_on_controls_closed)
+	controls_panel.button_hovered.connect(_play_hover)
 
 	root.hide()
 	fade_rect.hide()
@@ -98,6 +106,7 @@ func _layout() -> void:
 	var fs := roundi(button_font_size * k)
 	UIStyle.style_button(resume_button, resume_color, text_color, border_color, button_font, fs, k)
 	UIStyle.style_button(settings_button, settings_color, text_color, border_color, button_font, fs, k)
+	UIStyle.style_button(controls_button, controls_color, text_color, border_color, button_font, fs, k)
 	UIStyle.style_button(menu_button, menu_color, text_color, border_color, button_font, fs, k)
 
 
@@ -134,6 +143,7 @@ func _hide_menu() -> void:
 	_closing = true
 	# เกมกลับมาเล่นแล้ว (GameManager คืนเมาส์/สถานะให้) แผง Settings ที่เปิดค้างต้องปิดด้วย
 	settings_panel.close()
+	controls_panel.close()
 	if _tween:
 		_tween.kill()
 	_tween = create_tween()
@@ -166,6 +176,19 @@ func _on_settings_closed() -> void:
 	settings_button.grab_focus()
 
 
+func _on_controls_pressed() -> void:
+	if _closing or _leaving:
+		return
+	_play_click()
+	controls_panel.open()
+
+
+func _on_controls_closed() -> void:
+	_play_click()
+	_set_menu_focusable(true)
+	controls_button.grab_focus()
+
+
 func _on_menu_pressed() -> void:
 	if _closing or _leaving:
 		return
@@ -177,18 +200,14 @@ func _on_menu_pressed() -> void:
 	t.tween_property(fade_rect, "modulate:a", 1.0, fade_time)
 	await t.finished
 
-	# ยกเลิก pause ก่อนออก ไม่ให้ค้างสถานะ paused ในหน้าเมนูหลัก
-	# หยุดนาฬิกาด่านด้วย ไม่งั้นเวลายังเดินอยู่หลังกลับเมนูแล้วสลับไปหน้าแพ้เอง
-	GameManager.is_running = false
-	GameManager.set_paused(false)
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE   # set_paused(false) จับเมาส์กลับ แต่เมนูหลักต้องใช้เมาส์
-	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+	# quit_to_menu() หยุดนาฬิกา ยกเลิก pause คืนเมาส์ และเปลี่ยนไปเมนูหลักให้เอง
+	GameManager.quit_to_menu()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Esc: แผง Settings ที่เปิดอยู่จัดการเอง (ปิดแผง) ไม่อย่างนั้น = Resume
 	# ปุ่ม P / action "pause" ปล่อยให้ GameManager จัดการ เมนูตามสัญญาณ
-	if not root.visible or _closing or _leaving or settings_panel.is_open():
+	if not root.visible or _closing or _leaving or settings_panel.is_open() or controls_panel.is_open():
 		return
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
@@ -199,7 +218,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _set_menu_focusable(enabled: bool) -> void:
 	var mode := Control.FOCUS_ALL if enabled else Control.FOCUS_NONE
-	for b: Button in [resume_button, settings_button, menu_button]:
+	for b: Button in [resume_button, settings_button, controls_button, menu_button]:
 		b.focus_mode = mode
 
 

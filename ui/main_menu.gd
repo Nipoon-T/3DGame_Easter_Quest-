@@ -3,6 +3,7 @@ extends Control
 ## ปุ่ม START / SETTINGS / QUIT วางทับป้ายไม้ในภาพพื้นหลัง
 
 const SettingsPanelScript := preload("res://ui/settings_panel.gd")
+const ControlsPanelScript := preload("res://ui/controls_panel.gd")
 
 # ---------- ปลายทาง ----------
 ## หน้าเลือกตัวละคร ถ้ายังไม่มีไฟล์นี้ ปุ่ม START จะเรียก GameManager.start_new_game() แทน
@@ -14,6 +15,7 @@ const SettingsPanelScript := preload("res://ui/settings_panel.gd")
 @export var start_color := Color("f2b8dc")     # ชมพู
 @export var settings_color := Color("a8d8f0")  # ฟ้า
 @export var quit_color := Color("f7a39a")      # ส้มอมชมพู
+@export var help_color := Color("f7e08a")      # เหลือง (ปุ่ม ? How to Play)
 @export var text_color := Color("fff6e0")      # ครีม
 @export var border_color := Color("7a4a22")    # น้ำตาลไม้
 
@@ -22,7 +24,9 @@ const SettingsPanelScript := preload("res://ui/settings_panel.gd")
 @onready var start_button: Button = %StartButton
 @onready var settings_button: Button = %SettingsButton
 @onready var quit_button: Button = %QuitButton
+@onready var help_button: Button = %HelpButton
 @onready var settings_panel: SettingsPanelScript = %SettingsPanel
+@onready var controls_panel: ControlsPanelScript = %ControlsPanel
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var hover_sound: AudioStreamPlayer = %HoverSound
 @onready var click_sound: AudioStreamPlayer = %ClickSound
@@ -36,7 +40,9 @@ func _ready() -> void:
 	_style_button(settings_button, settings_color)
 	_style_button(quit_button, quit_color)
 
-	for b in [start_button, settings_button, quit_button]:
+	_style_help_button()
+
+	for b in [start_button, settings_button, quit_button, help_button]:
 		_setup_hover(b)
 
 	# ---- เชื่อมปุ่ม ----
@@ -46,6 +52,10 @@ func _ready() -> void:
 	settings_panel.opened.connect(_set_menu_focusable.bind(false))
 	settings_panel.closed.connect(_on_settings_closed)
 	settings_panel.button_hovered.connect(_play_hover)
+	help_button.pressed.connect(_on_help_pressed)
+	controls_panel.opened.connect(_set_menu_focusable.bind(false))
+	controls_panel.closed.connect(_on_controls_closed)
+	controls_panel.button_hovered.connect(_play_hover)
 
 	# เกมบนเว็บปิดตัวเองไม่ได้ ซ่อนปุ่ม QUIT ไปเลย
 	if OS.has_feature("web"):
@@ -101,6 +111,26 @@ func _make_focus_box() -> StyleBoxFlat:
 	box.border_color = Color.WHITE
 	box.set_expand_margin_all(6)
 	return box
+
+
+## ปุ่มกลมเล็ก "?" มุมขวาบนของจอ (ป้ายไม้มีแค่ 3 แผ่น จึงไม่เพิ่มปุ่มบนป้าย)
+func _style_help_button() -> void:
+	for state in ["normal", "hover", "pressed"]:
+		var color := help_color
+		if state == "hover":
+			color = help_color.lightened(0.15)
+		elif state == "pressed":
+			color = help_color.darkened(0.12)
+		var box := _make_box(color, state == "pressed")
+		box.set_corner_radius_all(999)
+		box.set_content_margin_all(0)
+		help_button.add_theme_stylebox_override(state, box)
+	help_button.add_theme_stylebox_override("focus", _make_focus_box())
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+		help_button.add_theme_color_override(state, border_color)
+	if button_font:
+		help_button.add_theme_font_override("font", button_font)
+	help_button.add_theme_font_size_override("font_size", 40)
 
 
 # ============ เอฟเฟกต์ hover ============
@@ -165,9 +195,22 @@ func _on_settings_closed() -> void:
 	settings_button.grab_focus()
 
 
+func _on_help_pressed() -> void:
+	if _busy:
+		return
+	_play_click()
+	controls_panel.open()
+
+
+func _on_controls_closed() -> void:
+	_play_click()
+	_set_menu_focusable(true)
+	help_button.grab_focus()
+
+
 func _set_menu_focusable(enabled: bool) -> void:
 	var mode := Control.FOCUS_ALL if enabled else Control.FOCUS_NONE
-	for b: Button in [start_button, settings_button, quit_button]:
+	for b: Button in [start_button, settings_button, quit_button, help_button]:
 		b.focus_mode = mode
 
 

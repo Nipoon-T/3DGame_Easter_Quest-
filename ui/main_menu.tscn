@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://5go5yt872x2y" path="res://ui/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://2nmuoeibkep2" path="res://ui/backgrounds/menu_bg.jpg" id="2_bg"]
 [ext_resource type="PackedScene" path="res://ui/settings_panel.tscn" id="4_settings"]
+[ext_resource type="PackedScene" path="res://ui/controls_panel.tscn" id="5_controls"]
 [ext_resource type="FontFile" uid="uid://rajlp8esewom" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="3_font"]
 
 [node name="MainMenu" type="Control" unique_id=2031561457]
@@ -79,7 +80,24 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
 
+[node name="HelpButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = 92.0
+grow_horizontal = 0
+tooltip_text = "How to Play"
+text = "?"
+
 [node name="SettingsPanel" parent="." instance=ExtResource("4_settings")]
+unique_name_in_owner = true
+
+[node name="ControlsPanel" parent="." instance=ExtResource("5_controls")]
 unique_name_in_owner = true
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=480185881]

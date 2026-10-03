@@ -1,7 +1,7 @@
 extends Control
-## ไอคอนที่วาดด้วยโค้ด (ไม่ใช้ไฟล์ภาพ) ใช้ใน HUD: ไข่ และ พระอาทิตย์
+## ไอคอนที่วาดด้วยโค้ด (ไม่ใช้ไฟล์ภาพ) ใช้ใน HUD: ไข่ พระอาทิตย์ และไอคอนหยุด (สองขีด)
 
-enum Kind { EGG, SUN }
+enum Kind { EGG, SUN, PAUSE }
 
 @export var kind: Kind = Kind.EGG:
 	set(value):
@@ -27,6 +27,8 @@ func _draw() -> void:
 			_draw_egg()
 		Kind.SUN:
 			_draw_sun()
+		Kind.PAUSE:
+			_draw_pause()
 
 
 func _draw_egg() -> void:
@@ -63,3 +65,15 @@ func _draw_sun() -> void:
 	# ตัวพระอาทิตย์
 	draw_circle(center, r * 0.5, outline_color)
 	draw_circle(center, r * 0.5 - line_w * 0.7, fill_color)
+
+
+func _draw_pause() -> void:
+	# สองขีดตั้งมุมมน
+	var bar_w := size.x * 0.17
+	var bar_h := size.y * 0.42
+	var top := (size.y - bar_h) * 0.5
+	for x in [size.x * 0.5 - bar_w * 1.35, size.x * 0.5 + bar_w * 0.35]:
+		var box := StyleBoxFlat.new()
+		box.bg_color = fill_color
+		box.set_corner_radius_all(roundi(bar_w * 0.4))
+		draw_style_box(box, Rect2(x, top, bar_w, bar_h))
