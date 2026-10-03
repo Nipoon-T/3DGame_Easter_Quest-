@@ -8,6 +8,7 @@ radius = 0.4
 height = 1.8
 
 [node name="Player" type="CharacterBody3D" unique_id=1368215656]
+slide_on_ceiling = false
 script = ExtResource("1_player")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=958833994]
@@ -15,10 +16,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=188662945]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 2.176516)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1495332166]
-transform = Transform3D(-0.99833846, -3.7191006e-09, -0.05762236, -0.029138684, 0.86271906, 0.5048434, 0.0497119, 0.5056836, -0.8612856, 0, 1.55, 0.05)
+transform = Transform3D(-0.99833846, -5.32604e-09, -0.057622366, 0.0036129858, 0.99803233, -0.062597014, 0.057508983, -0.062701195, -0.99637413, 0, 1.0291846, 0.39013124)
 
 [node name="Character_Animated" parent="." unique_id=1080105555 instance=ExtResource("2_rkbax")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
