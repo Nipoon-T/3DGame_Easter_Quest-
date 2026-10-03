@@ -1,0 +1,883 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://cqs6y81xvknry" path="res://levels/level.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://dl6ex4ksku27k" path="res://asset_gam/geometry/floorWood2.glb" id="2_floorWood2"]
+[ext_resource type="PackedScene" uid="uid://b1s8bom2mkl8q" path="res://asset_gam/geometry/ceilingWood.glb" id="3_ceilingWood"]
+[ext_resource type="PackedScene" uid="uid://cg4jct2ec56rx" path="res://asset_gam/geometry/wallBrick.glb" id="4_wallBrick"]
+[ext_resource type="PackedScene" uid="uid://k1g7s1xj1fg0" path="res://asset_gam/geometry/wallDoorBrick.glb" id="5_wallDoorBric"]
+[ext_resource type="PackedScene" uid="uid://tu5khx26i35y" path="res://asset_gam/geometry/wallWindowBrick.glb" id="6_wallWindowBr"]
+[ext_resource type="PackedScene" uid="uid://bxcsnkarjd4cw" path="res://asset_gam/geometry/wallPlaster3.glb" id="7_wallPlaster3"]
+[ext_resource type="PackedScene" uid="uid://ddilkene4aio1" path="res://asset_gam/geometry/doorWood2.glb" id="8_doorWood2"]
+[ext_resource type="PackedScene" uid="uid://qmu3qx4yw2vc" path="res://asset_gam/geometry/WindowWood.glb" id="9_WindowWood"]
+[ext_resource type="PackedScene" uid="uid://ds3pq3qehga63" path="res://asset_gam/props/windowCurtains3.glb" id="10_windowCurtai"]
+[ext_resource type="PackedScene" uid="uid://6e0grgjd6kde" path="res://asset_gam/props/shelves2.glb" id="11_shelves2"]
+[ext_resource type="PackedScene" uid="uid://cy3qdv64ra8e8" path="res://asset_gam/props/bookshelf.glb" id="12_bookshelf"]
+[ext_resource type="PackedScene" uid="uid://bwvk2d8gwwy4e" path="res://asset_gam/props/cabinetBig.glb" id="13_cabinetBig"]
+[ext_resource type="PackedScene" uid="uid://c3bp2gbja5bnd" path="res://asset_gam/props/trashBin.glb" id="14_trashBin"]
+[ext_resource type="PackedScene" uid="uid://toohqex42y64" path="res://asset_gam/props/bucket.glb" id="15_bucket"]
+[ext_resource type="PackedScene" uid="uid://buxf83vynulpi" path="res://asset_gam/props/bookStack.glb" id="16_bookStack"]
+[ext_resource type="PackedScene" uid="uid://cngfgeu5o1n50" path="res://asset_gam/props/bookStack3.glb" id="17_bookStack3"]
+[ext_resource type="PackedScene" uid="uid://cau6qqkmypcrw" path="res://asset_gam/props/bookStack5.glb" id="18_bookStack5"]
+[ext_resource type="PackedScene" uid="uid://cbfrtp2q4dxfb" path="res://asset_gam/props/globe.glb" id="19_globe"]
+[ext_resource type="PackedScene" uid="uid://ddunuhdfsxn6w" path="res://asset_gam/props/box3.glb" id="20_box3"]
+[ext_resource type="PackedScene" uid="uid://du0jdbd435gjf" path="res://asset_gam/props/box2.glb" id="21_box2"]
+[ext_resource type="PackedScene" uid="uid://dagbjqyfhloem" path="res://asset_gam/props/bottle.glb" id="22_bottle"]
+[ext_resource type="PackedScene" uid="uid://cdufrcipt1xkp" path="res://asset_gam/props/radio.glb" id="23_radio"]
+[ext_resource type="PackedScene" uid="uid://oeq5m54ykq1f" path="res://asset_gam/props/sideboard.glb" id="24_sideboard"]
+[ext_resource type="PackedScene" uid="uid://bx38qa77w2w3p" path="res://asset_gam/props/tableLamp.glb" id="25_tableLamp"]
+[ext_resource type="PackedScene" uid="uid://cavtutnigotd5" path="res://asset_gam/props/plant3.glb" id="26_plant3"]
+[ext_resource type="PackedScene" uid="uid://oobg7k3bk5qj" path="res://asset_gam/props/couchBig.glb" id="27_couchBig"]
+[ext_resource type="PackedScene" uid="uid://b7k0rnkvspkoi" path="res://asset_gam/props/teddybear.glb" id="28_teddybear"]
+[ext_resource type="PackedScene" uid="uid://bdcx5frc0h8al" path="res://asset_gam/props/washingMachine.glb" id="29_washingMachi"]
+[ext_resource type="PackedScene" uid="uid://hil4fvpd48qs" path="res://asset_gam/props/shelves.glb" id="30_shelves"]
+[ext_resource type="PackedScene" uid="uid://cyge78ioce4q1" path="res://asset_gam/props/product3.glb" id="31_product3"]
+[ext_resource type="PackedScene" uid="uid://djiopla7ka0e8" path="res://asset_gam/props/milkCarton.glb" id="32_milkCarton"]
+[ext_resource type="PackedScene" uid="uid://cio50qmjm4n1a" path="res://asset_gam/props/wallShelf2.glb" id="33_wallShelf2"]
+[ext_resource type="PackedScene" uid="uid://668ww831fvl5" path="res://asset_gam/props/bottle1.glb" id="34_bottle1"]
+[ext_resource type="PackedScene" uid="uid://b30memwbt3blt" path="res://asset_gam/props/cup4.glb" id="35_cup4"]
+[ext_resource type="PackedScene" uid="uid://cx02p86dudk2o" path="res://asset_gam/props/clock.glb" id="36_clock"]
+[ext_resource type="PackedScene" uid="uid://cnybive037ae5" path="res://asset_gam/props/ladder.glb" id="37_ladder"]
+[ext_resource type="PackedScene" uid="uid://dsth80vhlgykw" path="res://asset_gam/props/trashBag.glb" id="38_trashBag"]
+[ext_resource type="PackedScene" uid="uid://bebukv4rw74a" path="res://asset_gam/props/trashBag2.glb" id="39_trashBag2"]
+[ext_resource type="PackedScene" uid="uid://dmp865w3rccvh" path="res://asset_gam/props/broom.glb" id="40_broom"]
+[ext_resource type="PackedScene" uid="uid://drvay51u017e7" path="res://asset_gam/props/painting3.glb" id="41_painting3"]
+[ext_resource type="PackedScene" uid="uid://lw34tmbw7v1c" path="res://asset_gam/props/pallet.glb" id="42_pallet"]
+[ext_resource type="PackedScene" uid="uid://doamxvn36v6gg" path="res://asset_gam/props/box.glb" id="43_box"]
+[ext_resource type="PackedScene" uid="uid://c00wmdtkqiys4" path="res://asset_gam/props/carpet2.glb" id="44_carpet2"]
+[ext_resource type="PackedScene" uid="uid://dm250nkn5uqtd" path="res://asset_gam/props/table2.glb" id="45_table2"]
+[ext_resource type="PackedScene" uid="uid://btkiny00lv3bi" path="res://asset_gam/props/chair.glb" id="46_chair"]
+[ext_resource type="PackedScene" uid="uid://cflu4nl6p52d3" path="res://asset_gam/props/chair2.glb" id="47_chair2"]
+[ext_resource type="PackedScene" uid="uid://bo63ruj6dygcj" path="res://asset_gam/props/plate2.glb" id="48_plate2"]
+[ext_resource type="PackedScene" uid="uid://dtyp001k8u3vd" path="res://asset_gam/props/cup.glb" id="49_cup"]
+[ext_resource type="PackedScene" uid="uid://dk3g1kjq068cm" path="res://asset_gam/geometry/pillarBrick.glb" id="50_pillarBrick"]
+[ext_resource type="PackedScene" uid="uid://cvgcjenmiyis" path="res://asset_gam/props/ceilingLight2.glb" id="51_ceilingLight"]
+[ext_resource type="Script" uid="uid://du6ojttnd3nml" path="res://systems/flicker_light.gd" id="52_flicker_ligh"]
+[ext_resource type="Script" uid="uid://cikjnk2li704s" path="res://systems/follow_player_light.gd" id="53_follow_playe"]
+[ext_resource type="PackedScene" path="res://player/player.tscn" id="54_player"]
+[ext_resource type="PackedScene" path="res://systems/easter_spirit.tscn" id="55_easter_spiri"]
+[ext_resource type="PackedScene" path="res://systems/dev_hud.tscn" id="56_dev_hud"]
+[ext_resource type="PackedScene" path="res://systems/hint_spot.tscn" id="57_hint_spot"]
+[ext_resource type="PackedScene" path="res://systems/egg.tscn" id="58_egg"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.005, 0.005, 0.012, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.32, 0.35, 0.5, 1)
+ambient_light_energy = 0.12
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.9
+glow_bloom = 0.08
+fog_enabled = true
+fog_light_color = Color(0.03, 0.035, 0.06, 1)
+fog_density = 0.035
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(13, 1, 13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
+size = Vector3(13, 0.4, 13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4"]
+size = Vector3(13, 4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5"]
+size = Vector3(13, 4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6"]
+size = Vector3(0.4, 4, 13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7"]
+size = Vector3(0.4, 4, 13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+size = Vector3(0.04, 2.415, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+size = Vector3(0.04, 2.415, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(2.81, 2.415, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11"]
+size = Vector3(2.81, 0.04, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_12"]
+size = Vector3(2.81, 0.04, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_13"]
+size = Vector3(2.81, 0.04, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_14"]
+size = Vector3(2.81, 0.04, 0.7134)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15"]
+size = Vector3(0.04, 2.509, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_16"]
+size = Vector3(0.04, 2.509, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_17"]
+size = Vector3(1.692, 2.509, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_19"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_20"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_22"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_23"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_24"]
+size = Vector3(1.692, 0.04, 0.493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_25"]
+size = Vector3(1.662, 2.509, 0.585)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_26"]
+size = Vector3(0.4238, 0.8423, 0.5576)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_27"]
+size = Vector3(0.4325, 0.5044, 0.4325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_28"]
+size = Vector3(1.647, 0.9302, 0.6303)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_29"]
+size = Vector3(0.4, 1, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30"]
+size = Vector3(2.374, 1.1, 1.152)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_31"]
+size = Vector3(0.9204, 1.061, 0.9963)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_32"]
+size = Vector3(0.04, 1.916, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_33"]
+size = Vector3(0.04, 1.916, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_34"]
+size = Vector3(2.229, 1.916, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_35"]
+size = Vector3(2.229, 0.04, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36"]
+size = Vector3(2.229, 0.04, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_37"]
+size = Vector3(2.229, 0.04, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_38"]
+size = Vector3(2.229, 0.04, 0.5659)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_39"]
+size = Vector3(0.8997, 0.7682, 0.8184)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_40"]
+size = Vector3(0.8, 0.6, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41"]
+size = Vector3(0.6, 0.7, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_42"]
+size = Vector3(1.41, 0.17, 1.41)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_43"]
+size = Vector3(0.4188, 0.38, 0.787)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_44"]
+size = Vector3(0.6929, 0.3113, 0.7231)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_45"]
+size = Vector3(0.3641, 0.2364, 0.4263)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_46"]
+size = Vector3(0.4188, 0.38, 0.787)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_47"]
+size = Vector3(1.933, 0.12, 1.266)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_48"]
+size = Vector3(0.622, 1.196, 0.7699)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_49"]
+size = Vector3(0.7185, 1.243, 0.7273)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_50"]
+size = Vector3(0.7424, 3.9, 0.7424)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_51"]
+size = Vector3(0.6929, 0.3113, 0.7231)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_52"]
+size = Vector3(0.4188, 0.38, 0.787)
+
+[node name="Level1DarkRoom" type="Node3D"]
+script = ExtResource("1_level")
+time_limit = 180.0
+eggs_required = 8
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="World" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="Room" type="Node3D" parent="World"]
+
+[node name="Floor" type="Node3D" parent="World/Room"]
+
+[node name="Ceiling" type="Node3D" parent="World/Room"]
+
+[node name="Walls" type="Node3D" parent="World/Room"]
+
+[node name="F00" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="C00" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="F01" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="C01" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="F02" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="C02" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="F10" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="C10" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="F11" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="C11" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="F12" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="C12" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="F20" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="C20" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="F21" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="C21" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="F22" parent="World/Room/Floor" instance=ExtResource("2_floorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="C22" parent="World/Room/Ceiling" instance=ExtResource("3_ceilingWood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="N0" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4, 0, -4)
+
+[node name="N4" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -4)
+
+[node name="N8" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 4, 0, -4)
+
+[node name="S0" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="S4" parent="World/Room/Walls" instance=ExtResource("5_wallDoorBric")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="S8" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="W0" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4, 0, -4)
+
+[node name="W4" parent="World/Room/Walls" instance=ExtResource("6_wallWindowBr")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4, 0, 0)
+
+[node name="W8" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4, 0, 4)
+
+[node name="E0" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -4)
+
+[node name="E4" parent="World/Room/Walls" instance=ExtResource("7_wallPlaster3")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, 0)
+
+[node name="E8" parent="World/Room/Walls" instance=ExtResource("4_wallBrick")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, 4)
+
+[node name="Door" parent="World/Room" instance=ExtResource("8_doorWood2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Window" parent="World/Room" instance=ExtResource("9_WindowWood")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4, 0, 0)
+
+[node name="Curtains" parent="World/Room" instance=ExtResource("10_windowCurtai")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4, 0, 0)
+
+[node name="RoomCollision" type="Node3D" parent="World/Room"]
+
+[node name="FloorBody" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/FloorBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+shape = SubResource("BoxShape3D_2")
+
+[node name="CeilingBody" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/CeilingBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15, 0)
+shape = SubResource("BoxShape3D_3")
+
+[node name="WallN" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/WallN"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -6.1)
+shape = SubResource("BoxShape3D_4")
+
+[node name="WallS" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/WallS"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6.1)
+shape = SubResource("BoxShape3D_5")
+
+[node name="WallW" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/WallW"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 2, 0)
+shape = SubResource("BoxShape3D_6")
+
+[node name="WallE" type="StaticBody3D" parent="World/Room/RoomCollision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Room/RoomCollision/WallE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 2, 0)
+shape = SubResource("BoxShape3D_7")
+
+[node name="Props" type="Node3D" parent="World"]
+
+[node name="ShelvesBig" parent="World/Props" instance=ExtResource("11_shelves2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.05, -5.49331)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38477, 1.20771, -6.85453e-07)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Col1" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38477, 1.20771, -6.85453e-07)
+shape = SubResource("BoxShape3D_9")
+
+[node name="Col2" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20771, -0.336692)
+shape = SubResource("BoxShape3D_10")
+
+[node name="Col3" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -6.85453e-07)
+shape = SubResource("BoxShape3D_11")
+
+[node name="Col4" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17, -6.85453e-07)
+shape = SubResource("BoxShape3D_12")
+
+[node name="Col5" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73, -6.85453e-07)
+shape = SubResource("BoxShape3D_13")
+
+[node name="Col6" type="StaticBody3D" parent="World/Props/ShelvesBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesBig/Col6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.29, -6.85453e-07)
+shape = SubResource("BoxShape3D_14")
+
+[node name="Bookshelf" parent="World/Props" instance=ExtResource("12_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.05, -5.55072)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.825788, 1.25449, -0.0527564)
+shape = SubResource("BoxShape3D_15")
+
+[node name="Col1" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.825789, 1.25449, -0.0527564)
+shape = SubResource("BoxShape3D_16")
+
+[node name="Col2" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25449, -0.279275)
+shape = SubResource("BoxShape3D_17")
+
+[node name="Col3" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, -0.0527564)
+shape = SubResource("BoxShape3D_18")
+
+[node name="Col4" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57, -0.0527564)
+shape = SubResource("BoxShape3D_19")
+
+[node name="Col5" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94, -0.0527564)
+shape = SubResource("BoxShape3D_20")
+
+[node name="Col6" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32, -0.0527564)
+shape = SubResource("BoxShape3D_21")
+
+[node name="Col7" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -0.0527564)
+shape = SubResource("BoxShape3D_22")
+
+[node name="Col8" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08, -0.0527564)
+shape = SubResource("BoxShape3D_23")
+
+[node name="Col9" type="StaticBody3D" parent="World/Props/Bookshelf"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bookshelf/Col9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49, -0.0527564)
+shape = SubResource("BoxShape3D_24")
+
+[node name="CabinetBig" parent="World/Props" instance=ExtResource("13_cabinetBig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0.05, -5.6)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/CabinetBig"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/CabinetBig/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25449, 0.0459829)
+shape = SubResource("BoxShape3D_25")
+
+[node name="TrashBin" parent="World/Props" instance=ExtResource("14_trashBin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.05, -5.5)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/TrashBin"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/TrashBin/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.17233e-06, 0.421132, -2.01166e-06)
+shape = SubResource("BoxShape3D_26")
+
+[node name="Bucket" parent="World/Props" instance=ExtResource("15_bucket")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0.05, -5.5)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Bucket"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Bucket/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06219e-06, 0.252179, -7.6741e-07)
+shape = SubResource("BoxShape3D_27")
+
+[node name="Books1" parent="World/Props" instance=ExtResource("16_bookStack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 1.39, -5.6)
+
+[node name="Books2" parent="World/Props" instance=ExtResource("17_bookStack3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 1.01, -5.6)
+
+[node name="Books3" parent="World/Props" instance=ExtResource("18_bookStack5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, -5.6)
+
+[node name="Globe" parent="World/Props" instance=ExtResource("19_globe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1.77, -5.6)
+
+[node name="Box_S1" parent="World/Props" instance=ExtResource("20_box3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3, 0.67, -5.5)
+
+[node name="Box_S2" parent="World/Props" instance=ExtResource("21_box2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 0.11, -5.5)
+
+[node name="Bottle_S" parent="World/Props" instance=ExtResource("22_bottle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, 1.8, -5.5)
+
+[node name="Radio_S" parent="World/Props" instance=ExtResource("23_radio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.24, -5.5)
+
+[node name="Sideboard" parent="World/Props" instance=ExtResource("24_sideboard")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.56, 0.05, -3)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Sideboard"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Sideboard/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46031e-06, 0.465113, 0.0218833)
+shape = SubResource("BoxShape3D_28")
+
+[node name="Radio" parent="World/Props" instance=ExtResource("23_radio")]
+transform = Transform3D(-0.34202, 0, 0.939693, 0, 1, 0, -0.939693, 0, -0.34202, -5.55, 0.98, -3.4)
+
+[node name="TableLampSB" parent="World/Props" instance=ExtResource("25_tableLamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.55, 0.98, -2.1)
+
+[node name="DeadPlant" parent="World/Props" instance=ExtResource("26_plant3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 0.05, 1.5)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/DeadPlant"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/DeadPlant/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_29")
+
+[node name="Couch" parent="World/Props" instance=ExtResource("27_couchBig")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.27, 0.05, 3.3)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Couch"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Couch/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.550073, 6.55651e-07)
+shape = SubResource("BoxShape3D_30")
+
+[node name="Teddy" parent="World/Props" instance=ExtResource("28_teddybear")]
+transform = Transform3D(0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, 0.173648, -5.1, 0.47, 2.6)
+
+[node name="Washer" parent="World/Props" instance=ExtResource("29_washingMachi")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.35, 0.05, -3.2)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Washer"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Washer/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012602, 0.530271, 4.91738e-07)
+shape = SubResource("BoxShape3D_31")
+
+[node name="ShelvesSmall" parent="World/Props" instance=ExtResource("30_shelves")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.57, 0.05, 0.6)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09426, 0.95796, -5.36442e-07)
+shape = SubResource("BoxShape3D_32")
+
+[node name="Col1" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09426, 0.95796, -5.36442e-07)
+shape = SubResource("BoxShape3D_33")
+
+[node name="Col2" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95796, -0.262929)
+shape = SubResource("BoxShape3D_34")
+
+[node name="Col3" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, -5.36442e-07)
+shape = SubResource("BoxShape3D_35")
+
+[node name="Col4" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, -5.36442e-07)
+shape = SubResource("BoxShape3D_36")
+
+[node name="Col5" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37, -5.36442e-07)
+shape = SubResource("BoxShape3D_37")
+
+[node name="Col6" type="StaticBody3D" parent="World/Props/ShelvesSmall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/ShelvesSmall/Col6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.81, -5.36442e-07)
+shape = SubResource("BoxShape3D_38")
+
+[node name="Product1" parent="World/Props" instance=ExtResource("31_product3")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.6, 0.54, 1.2)
+
+[node name="Product2" parent="World/Props" instance=ExtResource("32_milkCarton")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.6, 1.44, -0.1)
+
+[node name="Product3" parent="World/Props" instance=ExtResource("20_box3")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.6, 0.1, 0)
+
+[node name="WallShelf" parent="World/Props" instance=ExtResource("33_wallShelf2")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5.88, 1.75, -3.2)
+
+[node name="Bottle1" parent="World/Props" instance=ExtResource("34_bottle1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 1.77, -3.6)
+
+[node name="Cup1" parent="World/Props" instance=ExtResource("35_cup4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 1.77, -2.9)
+
+[node name="Clock" parent="World/Props" instance=ExtResource("36_clock")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5.88, 2.6, -1.4)
+
+[node name="Ladder" parent="World/Props" instance=ExtResource("37_ladder")]
+transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 4.9, 0.05, 4.8)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Ladder"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Ladder/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96695e-06, 0.384111, -2.5332e-07)
+shape = SubResource("BoxShape3D_39")
+
+[node name="TrashBag1" parent="World/Props" instance=ExtResource("38_trashBag")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -2.6, 0.05, 5.35)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/TrashBag1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/TrashBag1/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_40")
+
+[node name="TrashBag2" parent="World/Props" instance=ExtResource("39_trashBag2")]
+transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, -1.8, 0.05, 5.43)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/TrashBag2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/TrashBag2/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_41")
+
+[node name="Broom" parent="World/Props" instance=ExtResource("40_broom")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.3, 0.05, 5.6)
+
+[node name="Painting" parent="World/Props" instance=ExtResource("41_painting3")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 2.3, 5.88)
+
+[node name="Pallet" parent="World/Props" instance=ExtResource("42_pallet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.05, 4.3)
+
+[node name="Col0" type="StaticBody3D" parent="World/Props/Pallet"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Pallet/Col0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.085, 0)
+shape = SubResource("BoxShape3D_42")
+
+[node name="BoxA" parent="World/Props" instance=ExtResource("43_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95, 0.22, 4.3)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxA"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxA/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0152e-07, 0.189984, -1.49012e-06)
+shape = SubResource("BoxShape3D_43")
+
+[node name="BoxB" parent="World/Props" instance=ExtResource("21_box2")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 3.85, 0.22, 4.4)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxB"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxB/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000441432, 0.155647, 0.0150568)
+shape = SubResource("BoxShape3D_44")
+
+[node name="BoxC" parent="World/Props" instance=ExtResource("20_box3")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, 3.85, 0.53, 4.4)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxC"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxC/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40071e-06, 0.118213, 1.11759e-06)
+shape = SubResource("BoxShape3D_45")
+
+[node name="BoxD" parent="World/Props" instance=ExtResource("43_box")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 3.4, 0.22, 4.85)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxD"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxD/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0152e-07, 0.189984, -1.49012e-06)
+shape = SubResource("BoxShape3D_46")
+
+[node name="Carpet" parent="World/Props" instance=ExtResource("44_carpet2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.01, -0.6)
+
+[node name="Table" parent="World/Props" instance=ExtResource("45_table2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.05, -0.6)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Table"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Table/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68221e-07, 0.772238, -9.83477e-07)
+shape = SubResource("BoxShape3D_47")
+
+[node name="Chair1" parent="World/Props" instance=ExtResource("46_chair")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -1.2, 0.05, 0.55)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Chair1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Chair1/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81794e-06, 0.598077, -0.0429686)
+shape = SubResource("BoxShape3D_48")
+
+[node name="Chair2" parent="World/Props" instance=ExtResource("47_chair2")]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -0.3, 0.05, -1.6)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Chair2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Chair2/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11434e-06, 0.621617, -0.0209126)
+shape = SubResource("BoxShape3D_49")
+
+[node name="TableLamp" parent="World/Props" instance=ExtResource("25_tableLamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.88, -0.95)
+
+[node name="Plate" parent="World/Props" instance=ExtResource("48_plate2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.88, -0.4)
+
+[node name="Cup2" parent="World/Props" instance=ExtResource("49_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0.88, -0.2)
+
+[node name="Pillar" parent="World/Props" instance=ExtResource("50_pillarBrick")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.05, -1.2)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/Pillar"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Pillar/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_50")
+
+[node name="BoxE" parent="World/Props" instance=ExtResource("21_box2")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 2.7, 0.05, -0.6)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxE"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxE/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000441432, 0.155647, 0.0150568)
+shape = SubResource("BoxShape3D_51")
+
+[node name="BoxF" parent="World/Props" instance=ExtResource("43_box")]
+transform = Transform3D(0.34202, 0, 0.939693, 0, 1, 0, -0.939693, 0, 0.34202, 1.55, 0.05, -0.3)
+
+[node name="Col" type="StaticBody3D" parent="World/Props/BoxF"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/BoxF/Col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0152e-07, 0.189984, -1.49012e-06)
+shape = SubResource("BoxShape3D_52")
+
+[node name="HangingBulb" parent="World/Props" instance=ExtResource("51_ceilingLight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 3.95, -0.6)
+
+[node name="Lights" type="Node3D" parent="World"]
+
+[node name="BulbLight" type="OmniLight3D" parent="World/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2.9, -0.6)
+script = ExtResource("52_flicker_ligh")
+light_color = Color(1, 0.75, 0.45, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 6.5
+omni_attenuation = 1.6
+
+[node name="MoonBeam" type="SpotLight3D" parent="World/Lights"]
+transform = Transform3D(-0.114624, 0.773715, -0.623079, 0, 0.627213, 0.778848, 0.993409, 0.0892748, -0.0718937, -5.6, 3.3, 0)
+light_color = Color(0.55, 0.65, 1, 1)
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 9.0
+spot_angle = 26.0
+
+[node name="PlayerGlow" type="OmniLight3D" parent="World/Lights"]
+script = ExtResource("53_follow_playe")
+light_color = Color(1, 0.9, 0.75, 1)
+light_energy = 0.45
+omni_range = 4.0
+
+[node name="LampGlowSB" type="OmniLight3D" parent="World/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.4, -2.1)
+light_color = Color(1, 0.6, 0.3, 1)
+light_energy = 0.5
+omni_range = 2.2
+
+[node name="Player" parent="." instance=ExtResource("54_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -4.4)
+
+[node name="EasterSpirit" parent="World" instance=ExtResource("55_easter_spiri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.6, 1.8)
+
+[node name="DevHUD" parent="." instance=ExtResource("56_dev_hud")]
+
+[node name="HintSpots" type="Node3D" parent="World"]
+
+[node name="HintSpot1" parent="World/HintSpots" instance=ExtResource("57_hint_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.05, -1)
+
+[node name="HintSpot2" parent="World/HintSpots" instance=ExtResource("57_hint_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 0.05, 2.4)
+
+[node name="Eggs" type="Node3D" parent="World"]
+
+[node name="Egg1_UnderTable" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -1.55, 0.05, -0.85)
+egg_color = Color(1, 0.6, 0.75, 1)
+
+[node name="Egg2_Sideboard" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, -5.5, 0.98, -2.6)
+egg_color = Color(0.6, 0.85, 1, 1)
+
+[node name="Egg3_SmallShelf" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.55, 0.99, 0.95)
+egg_color = Color(1, 0.9, 0.4, 1)
+
+[node name="Egg4_CabinetTop" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.3, 2.56, -5.3)
+egg_color = Color(0.7, 1, 0.6, 1)
+
+[node name="Egg5_BehindCouch" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -5.35, 0.05, 4.95)
+egg_color = Color(0.85, 0.7, 1, 1)
+
+[node name="Egg6_BoxPile" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 3.45, 0.22, 4.25)
+egg_color = Color(1, 0.7, 0.5, 1)
+
+[node name="Egg7_BehindPillar" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 2, 0.05, -1.85)
+egg_color = Color(0.6, 1, 0.9, 1)
+
+[node name="Egg8_Bookshelf" parent="World/Eggs" instance=ExtResource("58_egg")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0.45, 1.39, -5.6)
+egg_color = Color(1, 0.6, 0.6, 1)
