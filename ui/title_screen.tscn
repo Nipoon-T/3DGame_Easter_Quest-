@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://obnhudhh7emd"]
+
+[ext_resource type="PackedScene" uid="uid://i2pemo8f7rjr" path="res://levels/final_area.tscn" id="1_7xhpk"]
+
+[node name="TitleScreen" type="Node2D" unique_id=1088370987]
+
+[node name="FinalArea" parent="." unique_id=827512447 instance=ExtResource("1_7xhpk")]
+
+[node name="MeshInstance3D" parent="FinalArea/RockLeft" parent_id_path=PackedInt32Array(827512447, 1836825931) index="1" unique_id=823295369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="MeshInstance3D" parent="FinalArea/RockRight" parent_id_path=PackedInt32Array(827512447, 5712411) index="1" unique_id=1407785799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[editable path="FinalArea"]
