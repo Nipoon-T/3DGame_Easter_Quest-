@@ -1,7 +1,8 @@
 extends Node
 ## ทดสอบ HUD: จำลอง signal ผ่าน GameManager
 ## B = สลับพื้นหลังมืด/สว่าง  1 = เก็บไข่  2 = เวลาเหลือ 25 วิ (นับถอยหลัง)
-## 3 = ใช้ Hint  4 = เริ่มด่านถัดไป  5 = ผ่านด่าน
+## 3 = ใช้ Hint  4 = เริ่มด่านถัดไป  5 = ผ่านด่าน  6 = หมดเวลา (game_lost)
+## 7 = สลับ pause/resume (เรียก GameManager.set_paused จึงเหมือนกด P จริง ๆ แต่ใช้ได้โดยไม่ต้องมีด่าน)
 
 const REQUIRED: int = 10
 
@@ -16,6 +17,8 @@ var _counting: bool = false
 
 
 func _ready() -> void:
+	# ต้องรับปุ่มต่อได้ตอนเกม pause ไม่งั้นกด 7 เพื่อ resume ไม่ได้
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# HUD ฟัง signal เท่านั้น จึงต้องตั้งค่าสถานะที่ HUD อ่านเป็นค่าเริ่มต้นเอง
 	GameManager.has_timer = true
 	_apply_background()
@@ -23,7 +26,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not _counting:
+	if not _counting or get_tree().paused:
 		return
 	_time_left = maxf(_time_left - delta, 0.0)
 	GameManager.time_left = _time_left
@@ -55,6 +58,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_start_level((_level + 1) % 4)
 		KEY_5:
 			GameManager.level_completed.emit(_level)
+		KEY_7:
+			GameManager.set_paused(not get_tree().paused)
+		KEY_6:
+			_counting = false
+			GameManager.game_lost.emit()
 
 
 func _start_level(index: int) -> void:

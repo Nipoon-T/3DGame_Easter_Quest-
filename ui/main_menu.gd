@@ -2,6 +2,8 @@ extends Control
 ## เมนูหลัก Easter Quest
 ## ปุ่ม START / SETTINGS / QUIT วางทับป้ายไม้ในภาพพื้นหลัง
 
+const SettingsPanelScript := preload("res://ui/settings_panel.gd")
+
 # ---------- ปลายทาง ----------
 ## หน้าเลือกตัวละคร ถ้ายังไม่มีไฟล์นี้ ปุ่ม START จะเรียก GameManager.start_new_game() แทน
 @export_file("*.tscn") var character_select_scene: String = "res://ui/character_select.tscn"
@@ -12,7 +14,6 @@ extends Control
 @export var start_color := Color("f2b8dc")     # ชมพู
 @export var settings_color := Color("a8d8f0")  # ฟ้า
 @export var quit_color := Color("f7a39a")      # ส้มอมชมพู
-@export var close_color := Color("a8e6cf")     # เขียวมินต์ (ปุ่มปิดหน้า Settings)
 @export var text_color := Color("fff6e0")      # ครีม
 @export var border_color := Color("7a4a22")    # น้ำตาลไม้
 
@@ -21,10 +22,7 @@ extends Control
 @onready var start_button: Button = %StartButton
 @onready var settings_button: Button = %SettingsButton
 @onready var quit_button: Button = %QuitButton
-@onready var settings_panel: PanelContainer = %SettingsPanel
-@onready var settings_dim: ColorRect = %SettingsDim
-@onready var volume_slider: HSlider = %VolumeSlider
-@onready var close_button: Button = %CloseButton
+@onready var settings_panel: SettingsPanelScript = %SettingsPanel
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var hover_sound: AudioStreamPlayer = %HoverSound
 @onready var click_sound: AudioStreamPlayer = %ClickSound
@@ -37,31 +35,21 @@ func _ready() -> void:
 	_style_button(start_button, start_color)
 	_style_button(settings_button, settings_color)
 	_style_button(quit_button, quit_color)
-	_style_button(close_button, close_color)
-	_style_settings_panel()
 
-	for b in [start_button, settings_button, quit_button, close_button]:
+	for b in [start_button, settings_button, quit_button]:
 		_setup_hover(b)
 
 	# ---- เชื่อมปุ่ม ----
 	start_button.pressed.connect(_on_start_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
-	close_button.pressed.connect(_close_settings)
-	volume_slider.value_changed.connect(_on_volume_changed)
+	settings_panel.opened.connect(_set_menu_focusable.bind(false))
+	settings_panel.closed.connect(_on_settings_closed)
+	settings_panel.button_hovered.connect(_play_hover)
 
 	# เกมบนเว็บปิดตัวเองไม่ได้ ซ่อนปุ่ม QUIT ไปเลย
 	if OS.has_feature("web"):
 		quit_button.hide()
-
-	# ค่าเริ่มต้นของ slider = ระดับเสียงปัจจุบันของบัส Master
-	volume_slider.min_value = 0.0
-	volume_slider.max_value = 1.0
-	volume_slider.step = 0.05
-	volume_slider.value = db_to_linear(AudioServer.get_bus_volume_db(0))
-
-	settings_panel.hide()
-	settings_dim.hide()
 
 	# ---- เฟดเข้า ----
 	fade_rect.show()
@@ -115,18 +103,6 @@ func _make_focus_box() -> StyleBoxFlat:
 	return box
 
 
-func _style_settings_panel() -> void:
-	var box := StyleBoxFlat.new()
-	box.bg_color = Color("fff6e0")
-	box.set_corner_radius_all(28)
-	box.set_border_width_all(6)
-	box.border_color = border_color
-	box.shadow_color = Color(0, 0, 0, 0.35)
-	box.shadow_size = 12
-	box.set_content_margin_all(32)
-	settings_panel.add_theme_stylebox_override("panel", box)
-
-
 # ============ เอฟเฟกต์ hover ============
 
 func _setup_hover(button: Button) -> void:
@@ -146,7 +122,12 @@ func _on_hover(button: Button, hovered: bool) -> void:
 	var target := Vector2.ONE * (1.06 if hovered else 1.0)
 	create_tween().tween_property(button, "scale", target, 0.12) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	if hovered and hover_sound.stream:
+	if hovered:
+		_play_hover()
+
+
+func _play_hover() -> void:
+	if hover_sound.stream:
 		hover_sound.play()
 
 
@@ -174,25 +155,12 @@ func _on_settings_pressed() -> void:
 	if _busy:
 		return
 	_play_click()
-	# ฉากมืดด้านหลัง (mouse filter Stop) กันคลิกโดนปุ่มเมนูข้างหลัง
-	settings_dim.show()
-	# ขังโฟกัสไว้ในแผง คีย์บอร์ด/จอยจะเลื่อนไปปุ่มเมนูข้างหลังไม่ได้
-	_set_menu_focusable(false)
-	settings_panel.show()
-	settings_panel.pivot_offset = settings_panel.size / 2.0
-	settings_panel.scale = Vector2(0.8, 0.8)
-	settings_panel.modulate.a = 0.0
-	var t := create_tween().set_parallel()
-	t.tween_property(settings_panel, "scale", Vector2.ONE, 0.2) \
-		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	t.tween_property(settings_panel, "modulate:a", 1.0, 0.15)
-	volume_slider.grab_focus()
+	# ขังโฟกัสไว้ในแผง คีย์บอร์ด/จอยจะเลื่อนไปปุ่มเมนูข้างหลังไม่ได้ (ทำใน signal opened)
+	settings_panel.open()
 
 
-func _close_settings() -> void:
+func _on_settings_closed() -> void:
 	_play_click()
-	settings_panel.hide()
-	settings_dim.hide()
 	_set_menu_focusable(true)
 	settings_button.grab_focus()
 
@@ -203,21 +171,9 @@ func _set_menu_focusable(enabled: bool) -> void:
 		b.focus_mode = mode
 
 
-func _on_volume_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(0, linear_to_db(value))
-	AudioServer.set_bus_mute(0, value <= 0.0)
-
-
 func _on_quit_pressed() -> void:
 	_play_click()
 	_leave(func(): get_tree().quit())
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	# กด Esc เพื่อปิดหน้า Settings
-	if settings_panel.visible and event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()
-		_close_settings()
 
 
 # ============ ตัวช่วย ============

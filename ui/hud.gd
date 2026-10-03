@@ -17,6 +17,7 @@ extends CanvasLayer
 @export var key_font_size: int = 22
 @export var title_font_size: int = 96
 @export var complete_font_size: int = 72
+@export var time_up_font_size: int = 84
 
 # ---------- สี ----------
 @export_group("Colors")
@@ -30,12 +31,14 @@ extends CanvasLayer
 @export var hint_color := Color("fff2a8")      # เหลืองอ่อน
 @export var hint_disabled_color := Color("b9b4a8")
 @export var danger_color := Color("e03b3b")
+@export var time_up_color := Color("e8553a")   # แดงอมส้ม
 
 # ---------- พฤติกรรม ----------
 @export_group("Behavior")
 @export var level_names: Array[String] = ["Dark Room", "Funfair", "Secret Garden", "Secret Area"]
 @export var title_duration: float = 2.0
 @export var low_time_threshold: float = 30.0
+@export var time_up_pop_time: float = 0.45   ## เวลาที่ป้าย Time's Up เด้งเข้า
 
 @onready var margin: MarginContainer = %Margin
 @onready var egg_panel: PanelContainer = %EggPanel
@@ -52,6 +55,8 @@ extends CanvasLayer
 @onready var level_title: Label = %LevelTitle
 @onready var complete_panel: PanelContainer = %CompletePanel
 @onready var complete_label: Label = %CompleteLabel
+@onready var time_up_panel: PanelContainer = %TimeUpPanel
+@onready var time_up_label: Label = %TimeUpLabel
 
 var _egg_style_normal: StyleBoxFlat
 var _egg_style_done: StyleBoxFlat
@@ -62,6 +67,7 @@ var _low_tween: Tween
 var _bounce_tween: Tween
 var _title_tween: Tween
 var _complete_tween: Tween
+var _time_up_tween: Tween
 
 
 func _ready() -> void:
@@ -74,7 +80,7 @@ func _ready() -> void:
 	_style_all()
 
 	# pivot ตรงกลาง ให้ scale แล้วเด้งจากกลาง
-	for c: Control in [egg_label, time_label, level_title, complete_panel, hint_button]:
+	for c: Control in [egg_label, time_label, level_title, complete_panel, time_up_panel, hint_button]:
 		_center_pivot(c)
 		c.resized.connect(_center_pivot.bind(c))
 
@@ -86,6 +92,7 @@ func _ready() -> void:
 	GameManager.hints_changed.connect(_on_hints_changed)
 	GameManager.level_started.connect(_on_level_started)
 	GameManager.level_completed.connect(_on_level_completed)
+	GameManager.game_lost.connect(_on_game_lost)
 
 	# ---- ค่าเริ่มต้น: GameManager อาจส่ง signal ไปแล้วก่อน HUD โหลด ----
 	_last_collected = GameManager.eggs_collected
@@ -96,6 +103,7 @@ func _ready() -> void:
 		_on_time_changed(GameManager.time_left)
 	level_title.modulate.a = 0.0
 	complete_panel.hide()
+	time_up_panel.hide()
 	if GameManager.is_running:
 		_show_level_title(GameManager.current_level)
 
@@ -108,6 +116,7 @@ func _style_all() -> void:
 	egg_panel.add_theme_stylebox_override("panel", _egg_style_normal)
 	clock_panel.add_theme_stylebox_override("panel", _make_panel(cream, 40))
 	complete_panel.add_theme_stylebox_override("panel", _make_panel(cream, 36, 32))
+	time_up_panel.add_theme_stylebox_override("panel", _make_time_up_panel())
 	hint_badge.add_theme_stylebox_override("panel", _make_circle(pink, 4))
 
 	_style_label(egg_label, counter_font_size)
@@ -124,6 +133,10 @@ func _style_all() -> void:
 	level_title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.4))
 	level_title.add_theme_constant_override("shadow_offset_y", 6)
 	_style_label(complete_label, complete_font_size)
+	_style_label(time_up_label, time_up_font_size)
+	time_up_label.add_theme_color_override("font_color", cream)
+	time_up_label.add_theme_color_override("font_outline_color", border_color)
+	time_up_label.add_theme_constant_override("outline_size", 12)
 
 	egg_icon.custom_minimum_size = Vector2.ONE * icon_size
 	sun_icon.custom_minimum_size = Vector2.ONE * icon_size
@@ -154,6 +167,12 @@ func _make_panel(color: Color, radius: int, pad: int = 14) -> StyleBoxFlat:
 	box.content_margin_right = pad + 6
 	box.content_margin_top = pad - 4
 	box.content_margin_bottom = pad - 4
+	return box
+
+
+func _make_time_up_panel() -> StyleBoxFlat:
+	var box := _make_panel(time_up_color, 36, 32)
+	box.bg_color = time_up_color
 	return box
 
 
@@ -308,6 +327,7 @@ func _on_level_started(level_index: int) -> void:
 	_last_collected = 0
 	_last_seconds = -1
 	complete_panel.hide()
+	time_up_panel.hide()
 	clock_panel.visible = GameManager.has_timer
 	_set_low_time(false)
 	_show_level_title(level_index)
@@ -349,3 +369,22 @@ func _on_level_completed(_level_index: int) -> void:
 	_complete_tween.tween_property(complete_panel, "scale", Vector2.ONE, pop_time) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_complete_tween.tween_property(complete_panel, "modulate:a", 1.0, pop_time * 0.5)
+
+
+# ============ หมดเวลา ============
+
+func _on_game_lost() -> void:
+	if _title_tween:
+		_title_tween.kill()
+	level_title.modulate.a = 0.0
+	complete_panel.hide()
+	_set_low_time(false)
+	time_label.add_theme_color_override("font_color", danger_color)
+	time_up_panel.show()
+	time_up_panel.scale = Vector2.ZERO
+	time_up_panel.modulate.a = 0.0
+	if _time_up_tween:
+		_time_up_tween.kill()
+	_time_up_tween = create_tween().set_parallel()
+	_time_up_tween.tween_property(time_up_panel, "scale", Vector2.ONE, time_up_pop_time) 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_time_up_tween.tween_property(time_up_panel, "modulate:a", 1.0, time_up_pop_time * 0.5)

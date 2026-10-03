@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://5go5yt872x2y" path="res://ui/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://2nmuoeibkep2" path="res://ui/backgrounds/menu_bg.jpg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://ui/settings_panel.tscn" id="4_settings"]
 [ext_resource type="FontFile" uid="uid://rajlp8esewom" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="3_font"]
 
 [node name="MainMenu" type="Control" unique_id=2031561457]
@@ -78,73 +79,8 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
 
-[node name="SettingsDim" type="ColorRect" parent="." unique_id=1401143724]
+[node name="SettingsPanel" parent="." instance=ExtResource("4_settings")]
 unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.45)
-
-[node name="SettingsPanel" type="PanelContainer" parent="." unique_id=488102007]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(520, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBox" type="VBoxContainer" parent="SettingsPanel" unique_id=1280660706]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 28
-
-[node name="TitleLabel" type="Label" parent="SettingsPanel/VBox" unique_id=2145714682]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.964706, 0.878431, 1)
-theme_override_colors/font_outline_color = Color(0.478431, 0.290196, 0.133333, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 48
-text = "SETTINGS"
-horizontal_alignment = 1
-
-[node name="VolumeRow" type="HBoxContainer" parent="SettingsPanel/VBox" unique_id=827426341]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="VolumeLabel" type="Label" parent="SettingsPanel/VBox/VolumeRow" unique_id=1491306041]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 30
-text = "VOLUME"
-vertical_alignment = 1
-
-[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBox/VolumeRow" unique_id=765135554]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.05
-value = 1.0
-
-[node name="CloseButton" type="Button" parent="SettingsPanel/VBox" unique_id=638523636]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "CLOSE"
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=480185881]
 unique_name_in_owner = true
