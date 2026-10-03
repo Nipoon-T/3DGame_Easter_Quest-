@@ -1,7 +1,7 @@
 extends Node
 ## GameManager — ตั้งเป็น Autoload ชื่อ "GameManager"
 ## (Project > Project Settings > Globals > Autoload > path: res://systems/game_manager.gd)
-<<<<<<< Updated upstream
+
 ##
 ## เจ้าของไฟล์: สมาชิกคนที่ 2 (Game Systems)
 ## คนอื่นเรียกใช้ได้ แต่ถ้าจะแก้ให้แจ้งเจ้าของก่อน
@@ -10,8 +10,8 @@ extends Node
 ##   - ทุกด่านใช้ levels/level.gd เป็น script ของ node ราก -> ด่านจะเรียก start_level() เอง
 ##   - ไข่ (egg.tscn) จะเรียก collect_egg() เองเมื่อผู้เล่นเดินชน
 ##   - UI ฟัง signal ด้านล่างเพื่ออัปเดต HUD ไม่ต้องไปอ่านค่าจาก node อื่น
-=======
->>>>>>> Stashed changes
+
+
 
 signal egg_collected(collected: int, required: int)
 signal time_changed(seconds_left: float)
@@ -20,10 +20,10 @@ signal level_started(level_index: int)
 signal level_completed(level_index: int)
 signal game_won
 signal game_lost
-<<<<<<< Updated upstream
-=======
+
+
 signal paused_changed(is_paused: bool)
->>>>>>> Stashed changes
+
 
 # ---- ลำดับด่าน ----
 const LEVELS: Array[String] = [
@@ -39,11 +39,10 @@ const LOSE_SCREEN := "res://ui/lose_screen.tscn"
 const START_HINTS := 3
 const NEXT_LEVEL_DELAY := 1.5
 
-<<<<<<< Updated upstream
-=======
+
 const LEVEL_BONUS_HINTS: Array[int] = [0, 1, 2]
 
->>>>>>> Stashed changes
+
 # ---- สถานะเกม ----
 var selected_character := "lily"
 var current_level := -1
@@ -55,8 +54,8 @@ var has_timer := false
 var hints_left := START_HINTS
 var is_running := false
 
-<<<<<<< Updated upstream
-=======
+
+
 # ---- ค่าตอนเริ่มด่าน ----
 var _total_at_level_start := 0
 var _hints_at_level_start := START_HINTS
@@ -105,11 +104,11 @@ func _ready() -> void:
 	var screen_size := DisplayServer.screen_get_size()
 
 	window.position = Vector2i(
-		(screen_size.x - window.size.x) / 2,
-		(screen_size.y - window.size.y) / 2
-	)
+	(screen_size.x - window.size.x) / 2.0,
+	(screen_size.y - window.size.y) / 2.0
+)
 
->>>>>>> Stashed changes
+
 
 # ================== เริ่ม / เปลี่ยนด่าน ==================
 
@@ -120,11 +119,11 @@ func start_new_game() -> void:
 
 
 func load_level(index: int) -> void:
-<<<<<<< Updated upstream
+
 	current_level = index
 	is_running = false
 	get_tree().paused = false
-=======
+
 	# ข้ามด่านที่ยังไม่มีไฟล์
 	while index < LEVELS.size() and not ResourceLoader.exists(LEVELS[index]):
 		push_warning(
@@ -140,25 +139,20 @@ func load_level(index: int) -> void:
 	_total_at_level_start = total_eggs_collected
 	_hints_at_level_start = hints_left
 
->>>>>>> Stashed changes
+
 	if index < LEVELS.size():
 		get_tree().change_scene_to_file.call_deferred(LEVELS[index])
 	else:
 		get_tree().change_scene_to_file.call_deferred(FINAL_AREA)
 
 
-<<<<<<< Updated upstream
-=======
 ## ลองด่านเดิมใหม่
->>>>>>> Stashed changes
 func retry_level() -> void:
 	load_level(max(current_level, 0))
 
 
 ## ถูกเรียกจาก level.gd ตอนด่านโหลดเสร็จ
-<<<<<<< Updated upstream
-func start_level(level: Node, time_limit: float, required: int) -> void:
-=======
+
 func start_level(
 	level: Node,
 	time_limit: float,
@@ -174,7 +168,7 @@ func start_level(
 	elif path == FINAL_AREA:
 		current_level = LEVELS.size()
 
->>>>>>> Stashed changes
+
 	var eggs_in_level := 0
 
 	for e in get_tree().get_nodes_in_group("egg"):
@@ -205,8 +199,7 @@ func start_level(
 	time_left = time_limit
 	is_running = true
 
-<<<<<<< Updated upstream
-=======
+
 	# Hint โบนัสประจำด่าน
 	if (
 		current_level < LEVEL_BONUS_HINTS.size()
@@ -216,7 +209,7 @@ func start_level(
 		hints_left += LEVEL_BONUS_HINTS[current_level]
 		_hints_at_level_start = hints_left
 
->>>>>>> Stashed changes
+
 	level_started.emit(current_level)
 	egg_collected.emit(eggs_collected, eggs_required)
 	hints_changed.emit(hints_left)
@@ -285,14 +278,13 @@ func use_hint() -> bool:
 	for e in get_tree().get_nodes_in_group("egg"):
 		if not (e is Egg) or e.collected:
 			continue
-<<<<<<< Updated upstream
-=======
+
 
 		# ด่านปกติไม่ชี้ไข่ลับ
 		if e.is_mystery and current_level < LEVELS.size():
 			continue
 
->>>>>>> Stashed changes
+
 		var d := 0.0
 
 		if player:
@@ -315,12 +307,12 @@ func use_hint() -> bool:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-<<<<<<< Updated upstream
+
 	if InputMap.has_action("hint") and event.is_action_pressed("hint"):
 		use_hint()
 
 
-=======
+
 	# ---- Pause ----
 	if InputMap.has_action("pause"):
 		if event.is_action_pressed("pause"):
@@ -377,7 +369,7 @@ func toggle_pause() -> void:
 	set_paused(not get_tree().paused)
 
 
->>>>>>> Stashed changes
+
 # ================== จบด่าน / ชนะ / แพ้ ==================
 
 func _complete_level() -> void:
@@ -394,9 +386,7 @@ func _complete_level() -> void:
 func _win() -> void:
 	is_running = false
 	game_won.emit()
-<<<<<<< Updated upstream
 	get_tree().change_scene_to_file.call_deferred(WIN_SCREEN)
-=======
 
 	if not _change_scene_safe(WIN_SCREEN):
 		print(
@@ -405,15 +395,15 @@ func _win() -> void:
 			+ "ไข่รวม = %d"
 			% total_eggs_collected
 		)
->>>>>>> Stashed changes
+
 
 
 func _lose() -> void:
 	is_running = false
 	game_lost.emit()
-<<<<<<< Updated upstream
+
 	get_tree().change_scene_to_file.call_deferred(LOSE_SCREEN)
-=======
+
 
 	if not _change_scene_safe(LOSE_SCREEN):
 		print(
@@ -437,4 +427,3 @@ func _change_scene_safe(path: String) -> bool:
 
 	get_tree().change_scene_to_file.call_deferred(path)
 	return true
->>>>>>> Stashed changes
