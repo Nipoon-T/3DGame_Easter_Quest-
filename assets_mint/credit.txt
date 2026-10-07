@@ -6,3 +6,6 @@ Bouncy castle by Poly by Google [CC-BY] via Poly Pizza
 Cotton candy by Poly by Google [CC-BY] via Poly Pizza
 Swing set by Poly by Google [CC-BY] via Poly Pizza
 Fountain by Poly by Google [CC-BY] via Poly Pizza
+kenney/
+Starter Kit 3D Platformer by Kenney - https://github.com/KenneyNL/Starter-Kit-3D-Platformer
+License: CC0

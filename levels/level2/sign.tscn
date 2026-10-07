@@ -1,0 +1,80 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/level2/sign.gd" id="1_de5y7"]
+[ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="2_dcr3f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tu0w"]
+albedo_color = Color(0.47843137, 0.2901961, 0.13333334, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_np77s"]
+size = Vector3(0.1, 1.9, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15sww"]
+size = Vector3(0.1, 1.9, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ub8wy"]
+size = Vector3(0.1, 1.9, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_djbrk"]
+size = Vector3(0.1, 1.9, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pj1x4"]
+size = Vector3(1.9, 0.9, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kygg4"]
+albedo_color = Color(1, 0.9647059, 0.8784314, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_cni5i"]
+size = Vector3(1.8, 0.8, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jvoe"]
+size = Vector3(1.9, 0.9, 0.12)
+
+[node name="Sign" type="Node3D" unique_id=2081942820]
+script = ExtResource("1_de5y7")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=363639088]
+
+[node name="Post" type="MeshInstance3D" parent="Body" unique_id=1353187605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.95, -0.13)
+material_override = SubResource("StandardMaterial3D_5tu0w")
+mesh = SubResource("BoxMesh_np77s")
+
+[node name="PostShape" type="CollisionShape3D" parent="Body" unique_id=275403758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.95, -0.13)
+shape = SubResource("BoxShape3D_15sww")
+
+[node name="@MeshInstance3D@39" type="MeshInstance3D" parent="Body" unique_id=1578743443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.95, -0.13)
+material_override = SubResource("StandardMaterial3D_5tu0w")
+mesh = SubResource("BoxMesh_ub8wy")
+
+[node name="@CollisionShape3D@40" type="CollisionShape3D" parent="Body" unique_id=1664963090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.95, -0.13)
+shape = SubResource("BoxShape3D_djbrk")
+
+[node name="Frame" type="MeshInstance3D" parent="Body" unique_id=874241698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.02)
+material_override = SubResource("StandardMaterial3D_5tu0w")
+mesh = SubResource("BoxMesh_pj1x4")
+
+[node name="Board" type="MeshInstance3D" parent="Body" unique_id=846381441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kygg4")
+mesh = SubResource("BoxMesh_cni5i")
+
+[node name="BoardShape" type="CollisionShape3D" parent="Body" unique_id=1078757400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_5jvoe")
+
+[node name="Label" type="Label3D" parent="." unique_id=1629773106]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.06)
+pixel_size = 0.01
+modulate = Color(0.47843137, 0.2901961, 0.13333334, 1)
+text = "THIS WAY"
+font = ExtResource("2_dcr3f")
+font_size = 40
+outline_size = 0
