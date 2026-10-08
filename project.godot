@@ -11,13 +11,10 @@ config_version=5
 [application]
 
 config/name="game3D"
-<<<<<<< Updated upstream
 run/main_scene="uid://obnhudhh7emd"
-=======
-run/main_scene="uid://bk4pi7gapuen3"
->>>>>>> Stashed changes
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+<<<<<<<Updatedupstreamrun/main_scene="uid://obnhudhh7emd"
 
 [autoload]
 
@@ -28,6 +25,7 @@ GameManager="*uid://cmudc5c0tbf2q"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [filesystem]
 
