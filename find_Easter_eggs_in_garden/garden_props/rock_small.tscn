@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://btcfl8aj8n00m" path="res://asset_nhoon/Rock by Quaternius - RtLRqYjfMs.glb" id="1_rockbyquat"]
+[ext_resource type="Script" path="res://find_Easter_eggs_in_garden/scripts/glb_part.gd" id="2_glb_part"]
+
+[sub_resource type="BoxShape3D" id="shape"]
+size = Vector3(0.5, 0.5, 0.55)
+
+[node name="RockSmall" type="StaticBody3D"]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("2_glb_part")
+source = ExtResource("1_rockbyquat")
+part_name = "Resource_Rock_1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.25, 0.02)
+shape = SubResource("shape")

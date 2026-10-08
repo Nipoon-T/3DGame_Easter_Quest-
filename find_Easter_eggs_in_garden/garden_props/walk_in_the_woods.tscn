@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://djnkvqdy3aovh" path="res://asset_nhoon/Walk in the Woods by Don Carson - 38m6Q1H12DU.glb" id="1_walkinthew"]
+[ext_resource type="Script" path="res://find_Easter_eggs_in_garden/scripts/glb_part.gd" id="2_glb_part"]
+
+[node name="WalkInTheWoods" type="Node3D"]
+
+[node name="Model" type="Node3D" parent="."]
+script = ExtResource("2_glb_part")
+source = ExtResource("1_walkinthew")
+part_name = "*"
+trimesh_collision = true
