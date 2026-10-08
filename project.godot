@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="game3D"
+<<<<<<< Updated upstream
 run/main_scene="uid://obnhudhh7emd"
+=======
+run/main_scene="uid://bk4pi7gapuen3"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
