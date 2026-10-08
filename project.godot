@@ -14,7 +14,6 @@ config/name="game3D"
 run/main_scene="uid://obnhudhh7emd"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
-<<<<<<<Updatedupstreamrun/main_scene="uid://obnhudhh7emd"
 
 [autoload]
 

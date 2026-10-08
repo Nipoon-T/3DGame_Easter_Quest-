@@ -13,7 +13,7 @@
    - `eggs_required` = จำนวนไข่ที่ต้องเก็บ — ใส่ `0` = ต้องเก็บทุกใบในด่าน
 3. instance `res://player/player.tscn` เข้าด่าน
 4. ชื่อไฟล์ด่านต้องตรงกับ `LEVELS` ใน `game_manager.gd`
-   (`level1_dark_room.tscn`, `level2_funfair.tscn`, `level3_secret_garden.tscn`)
+   (`levels/level1_dark_room.tscn`, `levels/level2_funfair.tscn`, `find_Easter_eggs_in_garden/find_Easter_eggs_in_garden.tscn`)
 5. ทดสอบ: เปิดไฟล์ด่านแล้วกด **F6** ได้เลย ไม่ต้องผ่านเมนู
 
 ## 2. ของที่ลากใส่ด่านได้
