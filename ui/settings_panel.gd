@@ -10,7 +10,7 @@ signal closed
 signal button_hovered
 
 @export var button_font: Font
-@export var font_size: int = 34
+@export var font_size: int = 48
 @export var close_color := Color("a8e6cf")   # เขียวมินต์
 @export var text_color := Color("fff6e0")    # ครีม
 @export var border_color := Color("7a4a22")  # น้ำตาลไม้
@@ -22,6 +22,7 @@ signal button_hovered
 
 func _ready() -> void:
 	_style_panel()
+	_style_slider()
 	UIStyle.style_button(close_button, close_color, text_color, border_color, button_font, font_size)
 	UIStyle.setup_hover(close_button, _on_hover)
 
@@ -104,10 +105,48 @@ func _on_hover(button: Button, hovered: bool) -> void:
 func _style_panel() -> void:
 	var box := StyleBoxFlat.new()
 	box.bg_color = Color("fff6e0")
-	box.set_corner_radius_all(28)
-	box.set_border_width_all(6)
+	box.set_corner_radius_all(42)
+	box.set_border_width_all(9)
 	box.border_color = border_color
 	box.shadow_color = Color(0, 0, 0, 0.35)
-	box.shadow_size = 12
-	box.set_content_margin_all(32)
+	box.shadow_size = 18
+	box.set_content_margin_all(52)
 	panel.add_theme_stylebox_override("panel", box)
+
+
+## slider หนาและมีหัวจับวงกลม (ค่าเริ่มต้นของ Godot บางและเล็กเกินไปที่จอ 1920x1080)
+func _style_slider() -> void:
+	var track := StyleBoxFlat.new()
+	track.bg_color = Color(border_color, 0.25)
+	track.set_corner_radius_all(14)
+	track.content_margin_top = 14
+	track.content_margin_bottom = 14
+	var filled := StyleBoxFlat.new()
+	filled.bg_color = close_color
+	filled.set_corner_radius_all(14)
+	filled.set_border_width_all(3)
+	filled.border_color = border_color
+	filled.content_margin_top = 14
+	filled.content_margin_bottom = 14
+	volume_slider.add_theme_stylebox_override("slider", track)
+	volume_slider.add_theme_stylebox_override("grabber_area", filled)
+	volume_slider.add_theme_stylebox_override("grabber_area_highlight", filled)
+	var knob := _make_knob(52)
+	volume_slider.add_theme_icon_override("grabber", knob)
+	volume_slider.add_theme_icon_override("grabber_highlight", knob)
+	volume_slider.add_theme_icon_override("grabber_disabled", knob)
+
+
+func _make_knob(diameter: int) -> GradientTexture2D:
+	var gradient := Gradient.new()
+	var clear := Color(border_color, 0.0)
+	gradient.offsets = PackedFloat32Array([0.0, 0.6, 0.64, 0.9, 0.94])
+	gradient.colors = PackedColorArray([Color("fff6e0"), Color("fff6e0"), border_color, border_color, clear])
+	var tex := GradientTexture2D.new()
+	tex.gradient = gradient
+	tex.fill = GradientTexture2D.FILL_RADIAL
+	tex.fill_from = Vector2(0.5, 0.5)
+	tex.fill_to = Vector2(1.0, 0.5)
+	tex.width = diameter
+	tex.height = diameter
+	return tex

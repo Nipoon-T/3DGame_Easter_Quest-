@@ -13,20 +13,21 @@ static var guide_seen: bool = false
 # ---------- ขนาด (ปรับใน Inspector ถ้าเปลี่ยนขนาดจอ) ----------
 @export_group("Size")
 @export var font: Font
-@export var screen_margin: int = 28
-@export var counter_font_size: int = 36
-@export var clock_font_size: int = 36
-@export var icon_size: int = 44
-@export var hint_button_size: int = 120
-@export var hint_font_size: int = 28
-@export var badge_font_size: int = 24
-@export var key_font_size: int = 22
-@export var pause_button_size: int = 72
-@export var guide_key_size: int = 40
-@export var guide_font_size: int = 24
-@export var title_font_size: int = 96
-@export var complete_font_size: int = 72
-@export var time_up_font_size: int = 84
+@export var screen_margin: int = 44
+@export var counter_font_size: int = 56
+@export var clock_font_size: int = 56
+@export var icon_size: int = 68
+@export var hint_button_size: int = 180
+@export var hint_lift: int = 0   ## ยกกล่อง Hint ขึ้นจากขอบล่างเพิ่มกี่หน่วย (กัน [H] ถูกขอบจอ/แถบงานบัง)
+@export var hint_font_size: int = 40
+@export var badge_font_size: int = 36
+@export var key_font_size: int = 36
+@export var pause_button_size: int = 104
+@export var guide_key_size: int = 64
+@export var guide_font_size: int = 40
+@export var title_font_size: int = 140
+@export var complete_font_size: int = 96
+@export var time_up_font_size: int = 112
 
 # ---------- สี ----------
 @export_group("Colors")
@@ -96,6 +97,11 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", screen_margin)
 	margin.add_theme_constant_override("margin_bottom", screen_margin)
 
+	# ยกกล่อง Hint (ปุ่ม + [H]) ขึ้นเพิ่ม ให้ label ไม่ชิดขอบล่างจอ
+	var hint_box := hint_holder.get_parent() as Control
+	hint_box.offset_top -= hint_lift
+	hint_box.offset_bottom -= hint_lift
+
 	_style_all()
 
 	# pivot ตรงกลาง ให้ scale แล้วเด้งจากกลาง
@@ -133,13 +139,13 @@ func _ready() -> void:
 # ============ สไตล์ ============
 
 func _style_all() -> void:
-	_egg_style_normal = _make_panel(cream, 24)
-	_egg_style_done = _make_panel(mint, 24)
+	_egg_style_normal = _make_panel(cream, 36)
+	_egg_style_done = _make_panel(mint, 36)
 	egg_panel.add_theme_stylebox_override("panel", _egg_style_normal)
-	clock_panel.add_theme_stylebox_override("panel", _make_panel(cream, 40))
-	complete_panel.add_theme_stylebox_override("panel", _make_panel(cream, 36, 32))
+	clock_panel.add_theme_stylebox_override("panel", _make_panel(cream, 60))
+	complete_panel.add_theme_stylebox_override("panel", _make_panel(cream, 54, 48))
 	time_up_panel.add_theme_stylebox_override("panel", _make_time_up_panel())
-	hint_badge.add_theme_stylebox_override("panel", _make_circle(pink, 4))
+	hint_badge.add_theme_stylebox_override("panel", _make_circle(pink, 6))
 
 	_style_label(egg_label, counter_font_size)
 	_style_label(time_label, clock_font_size)
@@ -147,18 +153,18 @@ func _style_all() -> void:
 	_style_label(hint_key_label, key_font_size)
 	hint_key_label.add_theme_color_override("font_color", Color.WHITE)
 	hint_key_label.add_theme_color_override("font_outline_color", border_color)
-	hint_key_label.add_theme_constant_override("outline_size", 8)
+	hint_key_label.add_theme_constant_override("outline_size", 10)
 	_style_label(level_title, title_font_size)
 	level_title.add_theme_color_override("font_color", cream)
 	level_title.add_theme_color_override("font_outline_color", border_color)
-	level_title.add_theme_constant_override("outline_size", 24)
+	level_title.add_theme_constant_override("outline_size", 32)
 	level_title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.4))
 	level_title.add_theme_constant_override("shadow_offset_y", 6)
 	_style_label(complete_label, complete_font_size)
 	_style_label(time_up_label, time_up_font_size)
 	time_up_label.add_theme_color_override("font_color", cream)
 	time_up_label.add_theme_color_override("font_outline_color", border_color)
-	time_up_label.add_theme_constant_override("outline_size", 12)
+	time_up_label.add_theme_constant_override("outline_size", 16)
 
 	egg_icon.custom_minimum_size = Vector2.ONE * icon_size
 	sun_icon.custom_minimum_size = Vector2.ONE * icon_size
@@ -175,9 +181,9 @@ func _style_all() -> void:
 	_style_label(pause_key_label, key_font_size)
 	pause_key_label.add_theme_color_override("font_color", Color.WHITE)
 	pause_key_label.add_theme_color_override("font_outline_color", border_color)
-	pause_key_label.add_theme_constant_override("outline_size", 8)
+	pause_key_label.add_theme_constant_override("outline_size", 10)
 
-	guide_card.add_theme_stylebox_override("panel", _make_panel(cream, 28, 18))
+	guide_card.add_theme_stylebox_override("panel", _make_panel(cream, 42, 28))
 
 
 func _style_label(label: Label, font_size: int) -> void:
@@ -187,15 +193,15 @@ func _style_label(label: Label, font_size: int) -> void:
 	label.add_theme_color_override("font_color", text_color)
 
 
-func _make_panel(color: Color, radius: int, pad: int = 14) -> StyleBoxFlat:
+func _make_panel(color: Color, radius: int, pad: int = 22) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
 	box.bg_color = Color(color, panel_alpha)
 	box.set_corner_radius_all(radius)
-	box.set_border_width_all(4)
+	box.set_border_width_all(6)
 	box.border_color = border_color
 	box.shadow_color = Color(0, 0, 0, 0.3)
-	box.shadow_size = 6
-	box.shadow_offset = Vector2(0, 4)
+	box.shadow_size = 9
+	box.shadow_offset = Vector2(0, 6)
 	box.content_margin_left = pad + 6
 	box.content_margin_right = pad + 6
 	box.content_margin_top = pad - 4
@@ -204,7 +210,7 @@ func _make_panel(color: Color, radius: int, pad: int = 14) -> StyleBoxFlat:
 
 
 func _make_time_up_panel() -> StyleBoxFlat:
-	var box := _make_panel(time_up_color, 36, 32)
+	var box := _make_panel(time_up_color, 54, 48)
 	box.bg_color = time_up_color
 	return box
 
@@ -218,15 +224,15 @@ func _make_circle(color: Color, border: int) -> StyleBoxFlat:
 	box.shadow_color = Color(0, 0, 0, 0.3)
 	box.shadow_size = 3
 	box.shadow_offset = Vector2(0, 2)
-	box.content_margin_left = 10
-	box.content_margin_right = 10
+	box.content_margin_left = 16
+	box.content_margin_right = 16
 	box.content_margin_top = 2
 	box.content_margin_bottom = 2
 	return box
 
 
 func _pause_circle_box() -> StyleBoxFlat:
-	var box := _make_circle(hint_color, 4)
+	var box := _make_circle(hint_color, 6)
 	box.shadow_size = 6
 	box.shadow_offset = Vector2(0, 4)
 	box.set_content_margin_all(0)
@@ -234,10 +240,10 @@ func _pause_circle_box() -> StyleBoxFlat:
 
 
 func _style_hint_button() -> void:
-	var normal := _make_circle(hint_color, 5)
-	var hover := _make_circle(hint_color.lightened(0.25), 5)
-	var pressed := _make_circle(hint_color.darkened(0.12), 5)
-	var disabled := _make_circle(hint_disabled_color, 5)
+	var normal := _make_circle(hint_color, 7)
+	var hover := _make_circle(hint_color.lightened(0.25), 7)
+	var pressed := _make_circle(hint_color.darkened(0.12), 7)
+	var disabled := _make_circle(hint_disabled_color, 7)
 	for box: StyleBoxFlat in [normal, hover, pressed, disabled]:
 		box.shadow_size = 8
 		box.shadow_offset = Vector2(0, 5)
@@ -459,7 +465,7 @@ func _show_guide() -> void:
 		c.queue_free()
 	for entry in Guide.ENTRIES:
 		if entry["compact"]:
-			guide_box.add_child(Guide.build_row(entry, font, guide_key_size, guide_font_size, 130.0, text_color))
+			guide_box.add_child(Guide.build_row(entry, font, guide_key_size, guide_font_size, 200.0, text_color))
 	guide_card.show()
 	guide_card.reset_size()
 	guide_card.modulate.a = 0.0

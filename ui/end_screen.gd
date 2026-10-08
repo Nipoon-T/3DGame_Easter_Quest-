@@ -11,8 +11,8 @@ const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
 
 # ---------- หน้าตา ----------
 @export var button_font: Font
-@export var button_font_size: int = 34
-@export var title_font_size: int = 56
+@export var button_font_size: int = 52
+@export var title_font_size: int = 132
 @export var primary_color := Color("a8d8f0")   # ฟ้า
 @export var menu_color := Color("f2b8dc")      # ชมพู
 @export var text_color := Color("fff6e0")      # ครีม
@@ -112,7 +112,7 @@ func _style_title() -> void:
 	title_label.add_theme_font_size_override("font_size", title_font_size)
 	title_label.add_theme_color_override("font_color", title_color)
 	title_label.add_theme_color_override("font_outline_color", title_outline_color)
-	title_label.add_theme_constant_override("outline_size", 16)
+	title_label.add_theme_constant_override("outline_size", 24)
 	title_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.35))
 	title_label.add_theme_constant_override("shadow_offset_y", 4)
 	title_label.resized.connect(func() -> void: title_label.pivot_offset = title_label.size / 2.0)
@@ -128,7 +128,7 @@ func _style_button(button: Button, base: Color) -> void:
 	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, text_color)
 	button.add_theme_color_override("font_outline_color", border_color)
-	button.add_theme_constant_override("outline_size", 10)
+	button.add_theme_constant_override("outline_size", 14)
 
 	if button_font:
 		button.add_theme_font_override("font", button_font)
@@ -138,14 +138,14 @@ func _style_button(button: Button, base: Color) -> void:
 func _make_box(color: Color, pressed: bool) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
 	box.bg_color = color
-	box.set_corner_radius_all(24)
-	box.set_border_width_all(4)
+	box.set_corner_radius_all(36)
+	box.set_border_width_all(6)
 	box.border_color = border_color
 	box.shadow_color = Color(0, 0, 0, 0.3)
-	box.shadow_size = 2 if pressed else 6
-	box.shadow_offset = Vector2(0, 2 if pressed else 6)
-	box.content_margin_left = 24
-	box.content_margin_right = 24
+	box.shadow_size = 3 if pressed else 9
+	box.shadow_offset = Vector2(0, 3 if pressed else 9)
+	box.content_margin_left = 32
+	box.content_margin_right = 32
 	return box
 
 

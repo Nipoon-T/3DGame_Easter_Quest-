@@ -12,9 +12,9 @@ signal closed
 signal button_hovered
 
 @export var button_font: Font
-@export var font_size: int = 34
-@export var key_size: int = 52
-@export var row_font_size: int = 30
+@export var font_size: int = 48
+@export var key_size: int = 76
+@export var row_font_size: int = 42
 @export var close_color := Color("a8e6cf")   # เขียวมินต์
 @export var text_color := Color("fff6e0")    # ครีม
 @export var border_color := Color("7a4a22")  # น้ำตาลไม้
@@ -83,7 +83,7 @@ func _build_rows() -> void:
 		rows.remove_child(c)
 		c.queue_free()
 	for entry in Guide.ENTRIES:
-		rows.add_child(Guide.build_row(entry, button_font, key_size, row_font_size, 190.0, border_color))
+		rows.add_child(Guide.build_row(entry, button_font, key_size, row_font_size, 280.0, border_color))
 
 
 func _on_hover(button: Button, hovered: bool) -> void:
@@ -95,10 +95,10 @@ func _on_hover(button: Button, hovered: bool) -> void:
 func _style_panel() -> void:
 	var box := StyleBoxFlat.new()
 	box.bg_color = Color("fff6e0")
-	box.set_corner_radius_all(28)
-	box.set_border_width_all(6)
+	box.set_corner_radius_all(42)
+	box.set_border_width_all(9)
 	box.border_color = border_color
 	box.shadow_color = Color(0, 0, 0, 0.35)
-	box.shadow_size = 12
-	box.set_content_margin_all(32)
+	box.shadow_size = 18
+	box.set_content_margin_all(52)
 	panel.add_theme_stylebox_override("panel", box)

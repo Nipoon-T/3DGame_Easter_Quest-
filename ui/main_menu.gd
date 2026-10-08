@@ -81,7 +81,7 @@ func _style_button(button: Button, base: Color) -> void:
 	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, text_color)
 	button.add_theme_color_override("font_outline_color", border_color)
-	button.add_theme_constant_override("outline_size", 10)
+	button.add_theme_constant_override("outline_size", 14)
 
 	if button_font:
 		button.add_theme_font_override("font", button_font)
@@ -91,14 +91,14 @@ func _style_button(button: Button, base: Color) -> void:
 func _make_box(color: Color, pressed: bool) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
 	box.bg_color = color
-	box.set_corner_radius_all(24)
-	box.set_border_width_all(4)
+	box.set_corner_radius_all(32)
+	box.set_border_width_all(6)
 	box.border_color = border_color
 	box.shadow_color = Color(0, 0, 0, 0.3)
-	box.shadow_size = 2 if pressed else 6
-	box.shadow_offset = Vector2(0, 2 if pressed else 6)
-	box.content_margin_left = 24
-	box.content_margin_right = 24
+	box.shadow_size = 3 if pressed else 9
+	box.shadow_offset = Vector2(0, 3 if pressed else 9)
+	box.content_margin_left = 32
+	box.content_margin_right = 32
 	return box
 
 
@@ -130,7 +130,7 @@ func _style_help_button() -> void:
 		help_button.add_theme_color_override(state, border_color)
 	if button_font:
 		help_button.add_theme_font_override("font", button_font)
-	help_button.add_theme_font_size_override("font_size", 40)
+	help_button.add_theme_font_size_override("font_size", 64)
 
 
 # ============ เอฟเฟกต์ hover ============

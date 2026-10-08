@@ -11,10 +11,10 @@ func _ready() -> void:
 	subtitle_label.modulate.a = 0.0
 	if button_font:
 		subtitle_label.add_theme_font_override("font", button_font)
-	subtitle_label.add_theme_font_size_override("font_size", 28)
+	subtitle_label.add_theme_font_size_override("font_size", 52)
 	subtitle_label.add_theme_color_override("font_color", text_color)
 	subtitle_label.add_theme_color_override("font_outline_color", title_outline_color)
-	subtitle_label.add_theme_constant_override("outline_size", 8)
+	subtitle_label.add_theme_constant_override("outline_size", 12)
 	super()
 
 

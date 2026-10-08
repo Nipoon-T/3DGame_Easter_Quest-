@@ -28,7 +28,7 @@ color = Color(0, 0, 0, 0.45)
 
 [node name="Panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(520, 0)
+custom_minimum_size = Vector2(900, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,34 +41,34 @@ grow_vertical = 2
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 44
 
 [node name="TitleLabel" type="Label" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.964706, 0.878431, 1)
 theme_override_colors/font_outline_color = Color(0.478431, 0.290196, 0.133333, 1)
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 14
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 72
 text = "SETTINGS"
 horizontal_alignment = 1
 
 [node name="VolumeRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 32
 
 [node name="VolumeLabel" type="Label" parent="Panel/VBox/VolumeRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 44
 text = "VOLUME"
 vertical_alignment = 1
 
 [node name="VolumeSlider" type="HSlider" parent="Panel/VBox/VolumeRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 32)
+custom_minimum_size = Vector2(420, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -78,7 +78,7 @@ value = 1.0
 
 [node name="CloseButton" type="Button" parent="Panel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 64)
+custom_minimum_size = Vector2(340, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "CLOSE"
