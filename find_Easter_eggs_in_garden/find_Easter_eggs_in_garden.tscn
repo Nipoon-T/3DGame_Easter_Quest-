@@ -414,7 +414,7 @@ source = ExtResource("21_pinetreesb")
 part_name = "Resource_PineTree_Group"
 
 [node name="Grove02" type="Node3D" parent="BackdropForest" unique_id=909867840]
-transform = Transform3D(0.6669, 0, -6.1635, 0, 6.1995, 0, 6.1635, 0, 0.6669, -5, 0, -24.5242)
+transform = Transform3D(0.6669, 0, -6.1635, 0, 6.1995, 0, 6.1635, 0, 0.6669, -7.5578475, 0, -24.5242)
 script = ExtResource("7_glb_part")
 source = ExtResource("21_pinetreesb")
 part_name = "Resource_PineTree_Group"
