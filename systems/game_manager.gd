@@ -29,7 +29,7 @@ signal paused_changed(is_paused: bool)
 const LEVELS: Array[String] = [
 	"res://levels/level1_dark_room.tscn",
 	"res://levels/level2_funfair.tscn",
-	"res://levels/level3_secret_garden.tscn",
+	"res://find_Easter_eggs_in_garden/find_Easter_eggs_in_garden.tscn",   # ด่าน 3 Secret Garden (นิปุณ)
 ]
 
 const FINAL_AREA := "res://levels/final_area.tscn"
