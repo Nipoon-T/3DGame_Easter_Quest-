@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b0n7ae87qfes8"]
+
+[ext_resource type="PackedScene" uid="uid://djnkvqdy3aovh" path="res://asset_nhoon/Walk in the Woods by Don Carson - 38m6Q1H12DU.glb" id="1_828rl"]
+[ext_resource type="PackedScene" uid="uid://bqyh0bte6pq5u" path="res://asset_nhoon/Rocks by Quaternius - gYhoEOKItJ (1).glb" id="2_hkqi2"]
+[ext_resource type="PackedScene" uid="uid://btcfl8aj8n00m" path="res://asset_nhoon/Rock by Quaternius - RtLRqYjfMs.glb" id="3_52d1k"]
+
+[node name="Node3D" type="Node3D" unique_id=1403383519]
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU" parent="." unique_id=322602310 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.968986, 0, -0.24711567, 0, 1, 0, 0.24711567, 0, 0.968986, -1.5893543, 0.11695707, 0.3719623)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU5" parent="." unique_id=1455298103 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.6300596, 0, 0.77654755, 0, 1, 0, -0.77654755, 0, 0.6300596, -0.53712976, 0.13536906, 1.682112)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU4" parent="." unique_id=1488873801 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.6722933, -0.045132883, -0.73890895, -0.0007236306, 0.9981793, -0.060310867, 0.74028593, -0.040011864, -0.67110187, 0.51694274, 0.08679044, -1.8363628)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU9" parent="." unique_id=973134703 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.33779064, 0.011405228, 0.941154, -0.05366557, 0.9980664, -0.03135601, -0.9396919, -0.06109923, -0.33652577, 1.1023473, 0.21604386, 1.280623)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU12" parent="." unique_id=1153213918 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.99612635, 0.01140522, 0.08721921, 0.006010741, 0.9980664, -0.0618633, -0.0877558, -0.061099228, -0.9942689, 1.5988767, 0.15878665, -0.3225578)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU11" parent="." unique_id=142036484 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.92355585, 0.014149962, -0.3832109, 0.039289437, 0.9975512, -0.057855092, 0.3814537, -0.06848823, -0.92184985, 1.3119082, 0.11018306, -1.2765682)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU10" parent="." unique_id=1764080389 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.90155786, 0.011405228, 0.432514, -0.016165836, 0.9980664, -0.060015537, -0.43236202, -0.06109923, -0.89963055, 1.5119768, 0.18327536, 0.61616755)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU8" parent="." unique_id=2070770330 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.38961187, -0.045132883, -0.9198742, 0.05446907, 0.9981793, -0.025904618, 0.9193686, -0.040011864, 0.39136118, -1.1329383, 0.04331328, -1.5201113)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU7" parent="." unique_id=266699366 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.9234896, -0.045132883, -0.38096526, 0.05696296, 0.9981793, 0.019828161, 0.3793766, -0.040011864, 0.92437935, -1.5047307, 0.06661734, -0.83338124)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU6" parent="." unique_id=879700063 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.040614903, -0.045132883, -0.99815667, 0.041853055, 0.9981793, -0.043431003, 0.9982997, -0.040011864, 0.042430162, -0.26239932, 0.062179923, -1.8852524)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU3" parent="." unique_id=1315855823 instance=ExtResource("1_828rl")]
+transform = Transform3D(-0.09711316, 0, 0.9952748, 0, 1, 0, -0.9952748, 0, -0.09711316, 0.24401033, 0.14793342, 1.6877692)
+
+[node name="Walk in the Woods by Don Carson - 38m6Q1H12DU2" parent="." unique_id=1419968387 instance=ExtResource("1_828rl")]
+transform = Transform3D(0.86321527, 0, 0.5048376, 0, 1, 0, -0.5048376, 0, 0.86321527, -1.26749, 0.12952143, 1.0837308)
+
+[node name="Root Scene" parent="." unique_id=1422412705 instance=ExtResource("2_hkqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="Root Scene2" parent="." unique_id=1088935785 instance=ExtResource("3_52d1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31625462, 0, -0.7546458)

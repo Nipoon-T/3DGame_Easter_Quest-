@@ -1,11 +1,16 @@
 extends CharacterBody3D
 class_name Player
 
-## First Person Player
-## เดิน / วิ่ง / กระโดด / Mouse Look
-## มองลงแล้วเห็นตัวละคร
-## กด E เพื่อหยิบของ
-## กด ESC เพื่อปล่อยเมาส์
+## =========================================================
+## FIRST PERSON PLAYER
+## =========================================================
+## กล้องอยู่ที่ระดับตา
+## มองขึ้น/ลงแบบมนุษย์
+## หันซ้าย/ขวาได้ 360° แบบ FPS
+## ก้มแล้วเห็นตัวละคร
+## E = หยิบของ
+## ESC = ปล่อยเมาส์
+## =========================================================
 
 
 # =========================================================
@@ -13,6 +18,7 @@ class_name Player
 # =========================================================
 
 @export_group("Movement")
+
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
 @export var jump_velocity: float = 6.0
@@ -21,15 +27,44 @@ class_name Player
 
 
 # =========================================================
-# First Person Camera
+# Crouch
 # =========================================================
 
-@export_group("First Person Camera")
-@export var mouse_sensitivity: float = 0.0025
+@export_group("Crouch")
 
-@export var min_pitch: float = -80.0
-@export var max_pitch: float = 80.0
-@export var camera_height: float = 1.20
+@export var crouch_height: float = 1.0
+@export var normal_height: float = 2.0
+
+
+# =========================================================
+# Human First Person Camera
+# =========================================================
+
+@export_group("Human First Person Camera")
+
+@export var eye_position: Vector3 = Vector3(
+	0.0,
+	1.029,
+	0.39
+)
+
+
+# ---------------------------------------------------------
+# ก้ม / เงย
+# ---------------------------------------------------------
+
+@export_range(30.0, 80.0, 1.0)
+var look_up_limit: float = 60.0
+
+@export_range(30.0, 90.0, 1.0)
+var look_down_limit: float = 70.0
+
+
+# ---------------------------------------------------------
+# Mouse
+# ---------------------------------------------------------
+
+@export var mouse_sensitivity: float = 0.0025
 
 
 # =========================================================
@@ -37,6 +72,7 @@ class_name Player
 # =========================================================
 
 @export_group("Interaction")
+
 @export var interact_distance: float = 2.5
 
 
@@ -61,8 +97,13 @@ var _coyote: float = 0.0
 var _jump_buffer: float = 0.0
 var _spawn_position: Vector3 = Vector3.ZERO
 
+
+# =========================================================
+# มุมมอง
+# =========================================================
+
 var _yaw: float = 0.0
-var _pitch: float = -0.15
+var _pitch: float = 0.0
 
 
 # =========================================================
@@ -72,6 +113,7 @@ var _pitch: float = -0.15
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/Camera3D
 @onready var model: Node3D = $Character_Animated
+@onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 
 # =========================================================
@@ -84,12 +126,48 @@ func _ready() -> void:
 
 	_spawn_position = global_position
 
-	camera.position = Vector3(0.0, 1.35, 0.05)
-	model.visible = true
+	# Duplicate Shape ก่อนแก้ขนาด
+	# เพื่อไม่แก้ Resource ต้นฉบับที่อาจถูกแชร์
+	collision_shape.shape = collision_shape.shape.duplicate()
+
+
+	# =====================================================
+	# CAMERA POSITION
+	# =====================================================
+
+	camera_pivot.position = Vector3.ZERO
+
+	camera.position = eye_position
+
+
+	# =====================================================
+	# CAMERA ROTATION
+	# =====================================================
+
+	camera.rotation = Vector3(
+		0.0,
+		PI,
+		0.0
+	)
 
 	camera.current = true
 
-	rotation.y = _yaw
+
+	# =====================================================
+	# INITIAL LOOK
+	# =====================================================
+
+	_yaw = rotation.y
+	_pitch = 0.0
+
+	camera_pivot.rotation = Vector3.ZERO
+
+	model.visible = true
+
+
+	# =====================================================
+	# GAME MANAGER
+	# =====================================================
 
 	GameManager.game_won.connect(release_mouse)
 	GameManager.game_lost.connect(release_mouse)
@@ -98,31 +176,61 @@ func _ready() -> void:
 
 
 # =========================================================
-# Mouse Look / Input
+# Mouse Look
 # =========================================================
 
 func _unhandled_input(event: InputEvent) -> void:
+
+	# =====================================================
+	# MOUSE LOOK
+	# =====================================================
 
 	if event is InputEventMouseMotion:
 
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 
-			_yaw -= event.relative.x * mouse_sensitivity
+			# -------------------------------------------------
+			# ซ้าย / ขวา
+			# -------------------------------------------------
 
-			_pitch += event.relative.y * mouse_sensitivity
-
-			_pitch = clampf(
-				_pitch,
-				deg_to_rad(min_pitch),
-				deg_to_rad(max_pitch)
+			_yaw -= (
+				event.relative.x
+				* mouse_sensitivity
 			)
-
-			camera_pivot.rotation.x = _pitch
 
 			rotation.y = _yaw
 
+
+			# -------------------------------------------------
+			# ขึ้น / ลง
+			# -------------------------------------------------
+
+			_pitch -= (
+				event.relative.y
+				* mouse_sensitivity
+			)
+
+			_pitch = clampf(
+				_pitch,
+				deg_to_rad(-look_up_limit),
+				deg_to_rad(look_down_limit)
+			)
+
+
+			# -------------------------------------------------
+			# ก้ม / เงยจาก "ดวงตา"
+			# -------------------------------------------------
+
+			camera.rotation.x = _pitch
+			camera.rotation.y = PI
+			camera.rotation.z = 0.0
+
 		return
 
+
+	# =====================================================
+	# ESC
+	# =====================================================
 
 	if event is InputEventKey:
 
@@ -139,7 +247,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 	# =====================================================
-	# E = หยิบของ
+	# E = INTERACT
 	# =====================================================
 
 	if event.is_action_pressed("interact"):
@@ -148,6 +256,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		return
 
+
+	# =====================================================
+	# CLICK = CAPTURE MOUSE
+	# =====================================================
 
 	if event is InputEventMouseButton:
 
@@ -164,6 +276,34 @@ func _unhandled_input(event: InputEvent) -> void:
 # =========================================================
 
 func _physics_process(delta: float) -> void:
+
+	# -------------------------------------------------------
+	# Crouch - CTRL
+	# -------------------------------------------------------
+	# ห้ามใช้ CollisionShape3D.scale
+	# เพราะ Jolt ไม่รองรับ non-uniform scaling
+	# -------------------------------------------------------
+
+	var shape := collision_shape.shape
+
+	if shape is CapsuleShape3D:
+
+		var capsule := shape as CapsuleShape3D
+
+		if Input.is_action_pressed("crouch"):
+			capsule.height = crouch_height
+		else:
+			capsule.height = normal_height
+
+	elif shape is BoxShape3D:
+
+		var box := shape as BoxShape3D
+
+		if Input.is_action_pressed("crouch"):
+			box.size.y = crouch_height
+		else:
+			box.size.y = normal_height
+
 
 	# -------------------------------------------------------
 	# Gravity
@@ -201,7 +341,7 @@ func _physics_process(delta: float) -> void:
 
 
 	# -------------------------------------------------------
-	# รับ Input WASD
+	# WASD
 	# -------------------------------------------------------
 
 	var input_x: float = 0.0
@@ -220,30 +360,28 @@ func _physics_process(delta: float) -> void:
 		input_y += 1.0
 
 
-	var input_dir: Vector2 = Vector2(
+	var input_dir := Vector2(
 		input_x,
 		input_y
 	)
-
 
 	if input_dir.length() > 1.0:
 		input_dir = input_dir.normalized()
 
 
 	# -------------------------------------------------------
-	# ทิศทางเดินตามตัวละคร
+	# Direction
 	# -------------------------------------------------------
 
-	var forward: Vector3 = -global_transform.basis.z
-	var right: Vector3 = global_transform.basis.x
+	var forward := -global_transform.basis.z
+	var right := global_transform.basis.x
 
-	var dir: Vector3 = (
-		right * input_dir.x +
-		forward * input_dir.y
+	var dir := (
+		right * input_dir.x
+		+ forward * input_dir.y
 	)
 
 	dir.y = 0.0
-
 
 	if dir.length() > 1.0:
 		dir = dir.normalized()
@@ -253,7 +391,7 @@ func _physics_process(delta: float) -> void:
 	# Speed
 	# -------------------------------------------------------
 
-	var speed: float = walk_speed
+	var speed := walk_speed
 
 	if Input.is_action_pressed("sprint"):
 		speed = sprint_speed
@@ -263,14 +401,13 @@ func _physics_process(delta: float) -> void:
 	# Acceleration
 	# -------------------------------------------------------
 
-	var accel: float = ground_accel
+	var accel := ground_accel
 
 	if not is_on_floor():
 		accel = air_accel
 
 
-	var target_velocity: Vector3 = dir * speed
-
+	var target_velocity := dir * speed
 
 	velocity.x = move_toward(
 		velocity.x,
@@ -286,14 +423,14 @@ func _physics_process(delta: float) -> void:
 
 
 	# -------------------------------------------------------
-	# เคลื่อนที่
+	# Move
 	# -------------------------------------------------------
 
 	move_and_slide()
 
 
 	# -------------------------------------------------------
-	# ตกจากฉาก
+	# Fall Reset
 	# -------------------------------------------------------
 
 	if global_position.y < FALL_LIMIT:
@@ -308,23 +445,17 @@ func _physics_process(delta: float) -> void:
 
 func try_interact() -> void:
 
-	# ต้องจับเมาส์อยู่
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		return
 
 
 	# -------------------------------------------------------
-	# จุดเริ่ม Ray = ตรงกลางกล้อง
+	# Ray เริ่มจาก "ตา"
 	# -------------------------------------------------------
 
-	var from: Vector3 = camera.global_position
+	var from := camera.global_position
 
-
-	# -------------------------------------------------------
-	# จุดปลาย Ray = ด้านหน้ากล้อง
-	# -------------------------------------------------------
-
-	var to: Vector3 = (
+	var to := (
 		from
 		- camera.global_transform.basis.z
 		* interact_distance
@@ -332,7 +463,7 @@ func try_interact() -> void:
 
 
 	# -------------------------------------------------------
-	# สร้าง Ray
+	# Ray Query
 	# -------------------------------------------------------
 
 	var query := PhysicsRayQueryParameters3D.create(
@@ -340,62 +471,59 @@ func try_interact() -> void:
 		to
 	)
 
-
-	# -------------------------------------------------------
-	# ไม่ให้ Ray ชน Player
-	# -------------------------------------------------------
-
 	query.exclude = [self]
-
-	# ตรวจ Area3D
 	query.collide_with_areas = true
-
-	# ตรวจ PhysicsBody3D
 	query.collide_with_bodies = true
 
 
-	# -------------------------------------------------------
-	# ยิง Ray
-	# -------------------------------------------------------
-
-	var result: Dictionary = (
+	var result := (
 		get_world_3d()
 		.direct_space_state
 		.intersect_ray(query)
 	)
 
 
-	# -------------------------------------------------------
-	# ไม่โดนอะไร
-	# -------------------------------------------------------
-
 	if result.is_empty():
 		return
 
-
-	# -------------------------------------------------------
-	# ตรวจสิ่งที่โดน
-	# -------------------------------------------------------
 
 	var hit: Object = result.get("collider")
 
 
 	# -------------------------------------------------------
-	# ถ้าโดน Egg
+	# Egg โดยตรง
 	# -------------------------------------------------------
 
 	if hit is Egg:
 
 		var egg := hit as Egg
 
-
-		# ป้องกันเก็บซ้ำ
 		if egg.collected:
 			return
 
-
-		# ให้ Egg ตรวจระยะและเก็บตัวเอง
 		egg.try_collect(self)
+
+		return
+
+
+	# -------------------------------------------------------
+	# CollisionShape3D ของ Egg
+	# -------------------------------------------------------
+
+	if hit is Node:
+
+		var parent := (
+			hit as Node
+		).get_parent()
+
+		if parent is Egg:
+
+			var egg := parent as Egg
+
+			if egg.collected:
+				return
+
+			egg.try_collect(self)
 
 
 # =========================================================
@@ -411,6 +539,10 @@ func release_mouse() -> void:
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+
+# =========================================================
+# Exit
+# =========================================================
 
 func _exit_tree() -> void:
 

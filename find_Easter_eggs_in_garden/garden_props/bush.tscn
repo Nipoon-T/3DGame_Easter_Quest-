@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://fovy6c1clbb1" path="res://asset_nhoon/Bushes.glb" id="1_bushes"]
+[ext_resource type="Script" path="res://find_Easter_eggs_in_garden/scripts/glb_part.gd" id="2_glb_part"]
+
+[sub_resource type="CylinderShape3D" id="shape"]
+height = 0.6
+radius = 0.4
+
+[node name="Bush" type="StaticBody3D"]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("2_glb_part")
+source = ExtResource("1_bushes")
+part_name = "Bush"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
