@@ -1,3 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# ไฟล์ชั่วคราว
+*.tmp
+
+# Windows
+Thumbs.db
+desktop.ini
