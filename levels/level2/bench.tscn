@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nsq5x"]
+albedo_color = Color(0.7882353, 0.56078434, 0.3529412, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_oyp1v"]
+size = Vector3(1.6, 0.1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6fvsh"]
+size = Vector3(1.6, 0.5, 0.08)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h1nbd"]
+albedo_color = Color(0.65882355, 0.84705883, 0.9411765, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_gvn7w"]
+size = Vector3(0.1, 0.45, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sjvu"]
+albedo_color = Color(0.65882355, 0.84705883, 0.9411765, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_2loav"]
+size = Vector3(0.1, 0.45, 0.45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xjam8"]
+size = Vector3(1.6, 0.9, 0.5)
+
+[node name="Bench" type="Node3D" unique_id=1792371805]
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=267898177]
+
+[node name="Seat" type="MeshInstance3D" parent="Body" unique_id=1775707989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+material_override = SubResource("StandardMaterial3D_nsq5x")
+mesh = SubResource("BoxMesh_oyp1v")
+
+[node name="Back" type="MeshInstance3D" parent="Body" unique_id=539368396]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0.8, -0.22)
+material_override = SubResource("StandardMaterial3D_nsq5x")
+mesh = SubResource("BoxMesh_6fvsh")
+
+[node name="Leg" type="MeshInstance3D" parent="Body" unique_id=341785524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.225, 0)
+material_override = SubResource("StandardMaterial3D_h1nbd")
+mesh = SubResource("BoxMesh_gvn7w")
+
+[node name="@MeshInstance3D@32" type="MeshInstance3D" parent="Body" unique_id=452209565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.225, 0)
+material_override = SubResource("StandardMaterial3D_7sjvu")
+mesh = SubResource("BoxMesh_2loav")
+
+[node name="Shape" type="CollisionShape3D" parent="Body" unique_id=418486821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("BoxShape3D_xjam8")

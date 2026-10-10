@@ -1,0 +1,138 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/level2/ferris_wheel_spin.gd" id="1_2e15i"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/legs.res" id="2_ehi0m"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/wheel.res" id="3_xtan5"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_00.res" id="4_e12pv"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_01.res" id="5_iowr7"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_02.res" id="6_f1xga"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_03.res" id="7_8k3y0"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_04.res" id="8_tk7sf"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_05.res" id="9_r4dg1"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_06.res" id="10_tlnki"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_07.res" id="11_pln4b"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_08.res" id="12_gx0rj"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_09.res" id="13_cc2xx"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_10.res" id="14_7q1a8"]
+[ext_resource type="ArrayMesh" path="res://levels/level2/ferris_parts/cabin_11.res" id="15_eq1e6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5m0m2"]
+size = Vector3(0.7, 10.873864, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m0xs7"]
+size = Vector3(0.7, 10.873744, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ece6"]
+size = Vector3(0.7, 10.815074, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xi2jm"]
+size = Vector3(0.7, 10.815074, 0.8)
+
+[node name="FerrisWheelSpin" type="Node3D" unique_id=1266574329]
+script = ExtResource("1_2e15i")
+
+[node name="Model" type="Node3D" parent="." unique_id=243105400]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -0.022823453, 8.103592, 0.0054984987)
+
+[node name="Legs" type="MeshInstance3D" parent="Model" unique_id=640211851]
+mesh = ExtResource("2_ehi0m")
+
+[node name="Wheel" type="Node3D" parent="Model" unique_id=1430281551]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00045001507, 0.092879, 0.002341494)
+
+[node name="WheelMesh" type="MeshInstance3D" parent="Model/Wheel" unique_id=828563164]
+mesh = ExtResource("3_xtan5")
+
+[node name="Cabins" type="Node3D" parent="Model/Wheel" unique_id=1524090846]
+unique_name_in_owner = true
+
+[node name="Pivot00" type="Node3D" parent="Model/Wheel/Cabins" unique_id=804312800]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005686462, 0.93370265, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot00" unique_id=1695922348]
+mesh = ExtResource("4_e12pv")
+
+[node name="Pivot01" type="Node3D" parent="Model/Wheel/Cabins" unique_id=1879049444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8039876, -0.47480193, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot01" unique_id=568491321]
+mesh = ExtResource("5_iowr7")
+
+[node name="Pivot02" type="Node3D" parent="Model/Wheel/Cabins" unique_id=1733266886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.81698, -0.45208034, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot02" unique_id=1934424076]
+mesh = ExtResource("6_f1xga")
+
+[node name="Pivot03" type="Node3D" parent="Model/Wheel/Cabins" unique_id=1380675403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8087121, 0.46670938, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot03" unique_id=562243817]
+mesh = ExtResource("7_8k3y0")
+
+[node name="Pivot04" type="Node3D" parent="Model/Wheel/Cabins" unique_id=773755504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010410994, -0.93366194, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot04" unique_id=371350214]
+mesh = ExtResource("8_tk7sf")
+
+[node name="Pivot05" type="Node3D" parent="Model/Wheel/Cabins" unique_id=1950033045]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8000435, 0.481418, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot05" unique_id=368043073]
+mesh = ExtResource("9_r4dg1")
+
+[node name="Pivot06" type="Node3D" parent="Model/Wheel/Cabins" unique_id=978603105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4719211, -0.805682, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot06" unique_id=860944720]
+mesh = ExtResource("10_tlnki")
+
+[node name="Pivot07" type="Node3D" parent="Model/Wheel/Cabins" unique_id=225368184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94791555, 0, -0.0015459945)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot07" unique_id=1873597609]
+mesh = ExtResource("11_pln4b")
+
+[node name="Pivot08" type="Node3D" parent="Model/Wheel/Cabins" unique_id=655614440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4597384, 0.81269526, -0.0015459945)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot08" unique_id=552555361]
+mesh = ExtResource("12_gx0rj")
+
+[node name="Pivot09" type="Node3D" parent="Model/Wheel/Cabins" unique_id=2090351188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9422687, 0, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot09" unique_id=955137184]
+mesh = ExtResource("13_cc2xx")
+
+[node name="Pivot10" type="Node3D" parent="Model/Wheel/Cabins" unique_id=658231642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47149116, 0.80593365, -0.0015455643)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot10" unique_id=1900293969]
+mesh = ExtResource("14_7q1a8")
+
+[node name="Pivot11" type="Node3D" parent="Model/Wheel/Cabins" unique_id=1112986259]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45320255, -0.81635803, -0.00154664)
+
+[node name="Cabin" type="MeshInstance3D" parent="Model/Wheel/Cabins/Pivot11" unique_id=803469182]
+mesh = ExtResource("15_eq1e6")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=2135710883]
+
+[node name="LegShape0" type="CollisionShape3D" parent="Body" unique_id=2146929950]
+transform = Transform3D(0.8050261, -0.5932394, 0, 0.5932394, 0.8050261, 0, 0, 0, 1, 3.415606, 4.376873, 1.5966419)
+shape = SubResource("BoxShape3D_5m0m2")
+
+[node name="LegShape1" type="CollisionShape3D" parent="Body" unique_id=471441881]
+transform = Transform3D(0.80503505, 0.59322727, 0, -0.59322727, 0.80503505, 0, 0, 0, 1, -3.4550543, 4.376873, 1.5966419)
+shape = SubResource("BoxShape3D_m0xs7")
+
+[node name="LegShape2" type="CollisionShape3D" parent="Body" unique_id=163733414]
+transform = Transform3D(0.8094023, 0.5872546, 0, -0.5872546, 0.8094023, 0, 0, 0, 1, -3.405355, 4.376873, -1.5794103)
+shape = SubResource("BoxShape3D_5ece6")
+
+[node name="LegShape3" type="CollisionShape3D" parent="Body" unique_id=1760277927]
+transform = Transform3D(0.8094023, -0.5872546, 0, 0.5872546, 0.8094023, 0, 0, 0, 1, 3.3658047, 4.376873, -1.5794103)
+shape = SubResource("BoxShape3D_xi2jm")

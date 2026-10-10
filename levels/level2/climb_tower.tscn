@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets_mint/kenney/platform.glb" id="1_w2jtm"]
+[ext_resource type="PackedScene" path="res://assets_mint/kenney/platform-medium.glb" id="2_q75dg"]
+[ext_resource type="PackedScene" path="res://assets_mint/kenney/flag.glb" id="3_a2knx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0balt"]
+size = Vector3(2, 0.55, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqqcy"]
+size = Vector3(3, 0.55, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rnn7v"]
+size = Vector3(2, 0.55, 2)
+
+[node name="ClimbTower" type="Node3D" unique_id=119752468]
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1648430712]
+
+[node name="StepAShape" type="CollisionShape3D" parent="Body" unique_id=1082952142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, 0)
+shape = SubResource("BoxShape3D_0balt")
+
+[node name="StepBBaseShape" type="CollisionShape3D" parent="Body" unique_id=1554774944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.275, 0)
+shape = SubResource("BoxShape3D_cqqcy")
+
+[node name="StepBTopShape" type="CollisionShape3D" parent="Body" unique_id=2115474207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.825, 0)
+shape = SubResource("BoxShape3D_rnn7v")
+
+[node name="StepA" type="Node3D" parent="." unique_id=1966830382 instance=ExtResource("1_w2jtm")]
+
+[node name="StepBBase" type="Node3D" parent="." unique_id=143403234 instance=ExtResource("2_q75dg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="StepBTop" type="Node3D" parent="." unique_id=529640252 instance=ExtResource("1_w2jtm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.55, 0)
+
+[node name="Flag" type="Node3D" parent="." unique_id=1406146962 instance=ExtResource("3_a2knx")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3.3, 1.1, -0.7)

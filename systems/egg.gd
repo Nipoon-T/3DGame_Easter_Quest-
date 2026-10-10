@@ -22,6 +22,8 @@ class_name Egg
 @export var is_mystery: bool = false
 @export var spin_speed: float = 1.5
 @export var egg_color: Color = Color(1.0, 0.75, 0.85)
+## ความเรืองแสงของไข่ (0 = ไม่เรืองแสงเลย กลืนกับฉาก, 0.25 = ค่าเดิม)
+@export_range(0.0, 2.0, 0.05) var glow: float = 0.25
 ## เสียงตอนเก็บไข่ — คนที่ 3 ใส่ไฟล์เสียงใน Inspector (ว่างไว้ = ไม่มีเสียง)
 @export var collect_sound: AudioStream
 
@@ -73,6 +75,9 @@ func _ready() -> void:
 				var standard_mat := new_mat as StandardMaterial3D
 
 				standard_mat.albedo_color = egg_color
+				standard_mat.emission = egg_color.lightened(0.2)
+				standard_mat.emission_energy_multiplier = glow
+				standard_mat.emission_enabled = glow > 0.0
 
 				mesh.set_surface_override_material(
 					0,
