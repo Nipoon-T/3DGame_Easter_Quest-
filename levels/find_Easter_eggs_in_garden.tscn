@@ -719,6 +719,9 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 15)
 
 [node name="EggSpawner" parent="." instance=ExtResource("90_spawner")]
 spawn_count = 10
+palette = PackedColorArray(0.33, 0.5, 0.22, 1, 0.45, 0.58, 0.28, 1, 0.42, 0.33, 0.22, 1, 0.55, 0.55, 0.52, 1, 0.62, 0.5, 0.6, 1)
+glow = 0
+spin = false
 
 [node name="P01_EntrancePath" type="Marker3D" parent="EggSpawner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01316, 0, 9.2)

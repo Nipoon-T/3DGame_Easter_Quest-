@@ -19,6 +19,16 @@ class_name EggSpawner
 @export var fixed_seed := 0           ## 0 = สุ่มใหม่ทุกครั้ง, ใส่เลขอื่น = ได้ชุดเดิมทุกครั้ง (ไว้ทดสอบ)
 @export var spawn_all_for_testing := false  ## ติ๊กเพื่อวางไข่ครบทุกจุด (ไว้เช็คว่าทุกจุดเก็บได้)
 
+@export_group("ความยาก: ไข่กลืนกับฉาก")
+## สีที่จะสุ่มให้ไข่ (เว้นว่าง = สีพาสเทลสดใส หาง่าย) — ใส่สีโทนเดียวกับฉากเพื่อให้ไข่กลืน
+@export var palette: PackedColorArray = []
+## สุ่มเฉดสีเพิ่มเล็กน้อย (0 = ตรงตาม palette)
+@export_range(0.0, 0.3, 0.01) var color_jitter := 0.06
+## ความเรืองแสงของไข่ (0 = ไม่เรืองแสง กลืนกับฉาก, 0.25 = แบบเดิม)
+@export_range(0.0, 2.0, 0.05) var glow := 0.25
+## ไข่หมุนไหม (หมุน = สะดุดตา หาง่าย)
+@export var spin := true
+
 const PASTEL := [
 	Color(1, 0.6, 0.75), Color(0.6, 0.85, 1), Color(1, 0.9, 0.4), Color(0.7, 1, 0.6),
 	Color(0.85, 0.7, 1), Color(1, 0.7, 0.5), Color(0.6, 1, 0.9), Color(1, 0.6, 0.6),
@@ -47,11 +57,27 @@ func _ready() -> void:
 		var p: EggSpawnPoint = chosen[i]
 		var egg := egg_scene.instantiate()
 		egg.name = "Egg_" + p.name
-		egg.egg_color = p.egg_color if p.use_custom_color else PASTEL[i % PASTEL.size()]
+		# มี palette = ใช้สีจาก palette เสมอ (ให้กลืนกับฉาก) / ไม่มี = ใช้สีที่ตั้งไว้ในจุดหรือพาสเทล
+		egg.egg_color = p.egg_color if (p.use_custom_color and palette.is_empty()) else _pick_color(i, rng)
+		egg.glow = glow
+		if not spin:
+			egg.spin_speed = 0.0
 		add_child(egg)
 		egg.global_transform = Transform3D(p.global_basis.orthonormalized().scaled(Vector3.ONE * p.egg_scale), p.global_position)
 		spawned_points.append(p)
 	print("EggSpawner: สุ่มไข่ %d ใบ จาก %d จุด -> %s" % [chosen.size(), points.size(), ", ".join(chosen.map(func(x): return x.name))])
+
+
+func _pick_color(i: int, rng: RandomNumberGenerator) -> Color:
+	if palette.is_empty():
+		return PASTEL[i % PASTEL.size()]
+	var c: Color = palette[rng.randi() % palette.size()]
+	if color_jitter > 0.0:
+		c = Color.from_hsv(
+			fposmod(c.h + rng.randf_range(-color_jitter, color_jitter) * 0.5, 1.0),
+			clampf(c.s + rng.randf_range(-color_jitter, color_jitter), 0.0, 1.0),
+			clampf(c.v + rng.randf_range(-color_jitter, color_jitter), 0.0, 1.0))
+	return c
 
 
 ## สุ่มแบบไม่ซ้ำ โดยคิดน้ำหนัก (weight) ของแต่ละจุด
