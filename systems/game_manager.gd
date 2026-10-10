@@ -185,10 +185,13 @@ func _process(delta: float) -> void:
 # ================== เก็บไข่ ==================
 
 func collect_egg(egg: Egg) -> void:
-	if not is_running:
-		return
+	# ไข่ลับ (พื้นที่สุดท้าย) = ชนะทันที
+	# เช็คก่อน is_running เพราะ final_area.tscn อาจไม่ได้ใช้ level.gd (ไม่มีการเรียก start_level)
 	if egg.is_mystery:
-		_win()
+		if not _lose_pending:
+			_win()
+		return
+	if not is_running:
 		return
 	eggs_collected += 1
 	total_eggs_collected += 1
@@ -290,6 +293,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if get_tree().paused:
+		return
+
+	# ---- ปุ่มลัดสำหรับทดสอบ (เฉพาะตอนรันจาก Godot editor ไม่ติดไปใน export) ----
+	# F9 = ผ่านด่านนี้ทันที -> ใช้ทดสอบ flow ด่าน 1 -> 2 -> 3 -> พื้นที่ลับ -> หน้าชนะ
+	if OS.is_debug_build() and is_running and _is_key(event, KEY_F9):
+		print("GameManager: [DEBUG] F9 ข้ามด่าน")
+		_complete_level()
 		return
 
 	# ---- Hint: ใช้ action "hint" ถ้ามี ไม่มีก็ใช้ปุ่ม H ----
