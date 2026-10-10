@@ -37,6 +37,8 @@
 [ext_resource type="Script" path="res://player/player.gd" id="35_stbs6"]
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="36_fmsiw"]
 [ext_resource type="Script" path="res://ui/hud.gd" id="37_emdw0"]
+[ext_resource type="PackedScene" path="res://systems/egg_spawner.tscn" id="90_spawner"]
+[ext_resource type="Script" path="res://systems/egg_spawn_point.gd" id="91_spawnpt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_icgme"]
 sky_top_color = Color(0.5568628, 0.7882353, 0.9411765, 1)
@@ -112,7 +114,6 @@ size = Vector3(56, 12, 1)
 [node name="Level2Funfair" type="Node3D" unique_id=542710826]
 script = ExtResource("1_41xdg")
 time_limit = 210.0
-eggs_required = 10
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1184148889]
 environment = SubResource("Environment_4vui6")
@@ -712,53 +713,6 @@ transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -22.5, 28, -44.97114)
 [node name="Cloud5" type="Node3D" parent="World/KenneyDecor" unique_id=455342106 instance=ExtResource("27_fb3jw")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 22.5, 33, -44.97114)
 
-[node name="Eggs" type="Node3D" parent="World" unique_id=1194291643]
-
-[node name="Egg02_UnderPicnicTable" type="Area3D" parent="World/Eggs" unique_id=1877707199 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 10.2, 0, 5.1)
-script = ExtResource("29_frhf4")
-egg_color = Color(0.6, 0.85, 1, 1)
-
-[node name="Egg03_BehindSign" type="Area3D" parent="World/Eggs" unique_id=2071793801 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -9.5, 0, -12.7)
-script = ExtResource("29_frhf4")
-egg_color = Color(1, 0.9, 0.4, 1)
-
-[node name="Egg04_PopcornStall" type="Area3D" parent="World/Eggs" unique_id=107079815 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -17.9, 0.95, -4.4)
-script = ExtResource("29_frhf4")
-egg_color = Color(0.7, 1, 0.6, 1)
-
-[node name="Egg05_FerrisLeg" type="Area3D" parent="World/Eggs" unique_id=1631782185 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.3, 0, -31.8)
-script = ExtResource("29_frhf4")
-egg_color = Color(0.85, 0.7, 1, 1)
-
-[node name="Egg06_TowerTop" type="Area3D" parent="World/Eggs" unique_id=385502666 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 14.2, 1.12, -25)
-script = ExtResource("29_frhf4")
-egg_color = Color(1, 0.7, 0.5, 1)
-
-[node name="Egg07_CrateTop" type="Area3D" parent="World/Eggs" unique_id=934334637 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, -10.6, 1.52, 18.5)
-script = ExtResource("29_frhf4")
-egg_color = Color(0.6, 1, 0.9, 1)
-
-[node name="Egg08_BehindBouncy" type="Area3D" parent="World/Eggs" unique_id=787429898 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -17.2, 0, -29)
-script = ExtResource("29_frhf4")
-egg_color = Color(1, 0.6, 0.6, 1)
-
-[node name="Egg09_LemonadeStall" type="Area3D" parent="World/Eggs" unique_id=948540552 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 16.95, 1, -18.8)
-script = ExtResource("29_frhf4")
-egg_color = Color(1, 0.95, 0.5, 1)
-
-[node name="Egg10_BehindCandyStall" type="Area3D" parent="World/Eggs" unique_id=1204180621 instance=ExtResource("28_0p2w3")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 20.6, 0, -4)
-script = ExtResource("29_frhf4")
-egg_color = Color(0.75, 0.9, 1, 1)
-
 [node name="HintSpots" type="Node3D" parent="World" unique_id=28866875]
 
 [node name="HintSpot1" type="Area3D" parent="World/HintSpots" unique_id=1746511788 instance=ExtResource("30_ixg7m")]
@@ -782,3 +736,124 @@ script = ExtResource("35_stbs6")
 layer = 10
 script = ExtResource("37_emdw0")
 font = ExtResource("15_6846v")
+
+[node name="EggSpawner" parent="World" instance=ExtResource("90_spawner")]
+spawn_count = 9
+
+[node name="P01_UnderPicnicTable" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 0, 5.1)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+use_custom_color = true
+egg_color = Color(0.6, 0.85, 1, 1)
+
+[node name="P02_BehindSign" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, -12.7)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+use_custom_color = true
+egg_color = Color(1, 0.9, 0.4, 1)
+
+[node name="P03_PopcornStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9, 0.95, -4.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.5
+use_custom_color = true
+egg_color = Color(0.7, 1, 0.6, 1)
+
+[node name="P04_FerrisLeg" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.3, 0, -31.8)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+use_custom_color = true
+egg_color = Color(0.85, 0.7, 1, 1)
+
+[node name="P05_TowerTop" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2, 1.12, -25)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55
+use_custom_color = true
+egg_color = Color(1, 0.7, 0.5, 1)
+
+[node name="P06_CrateTop" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6, 1.52, 18.5)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55
+use_custom_color = true
+egg_color = Color(0.6, 1, 0.9, 1)
+
+[node name="P07_BehindBouncy" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2, 0, -29)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+use_custom_color = true
+egg_color = Color(1, 0.6, 0.6, 1)
+
+[node name="P08_LemonadeStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.95, 1, -18.8)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55
+use_custom_color = true
+egg_color = Color(1, 0.95, 0.5, 1)
+
+[node name="P09_BehindCandyStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6, 0, -4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+use_custom_color = true
+egg_color = Color(0.75, 0.9, 1, 1)
+
+[node name="P10_BouncyCastle" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2, 0, -22.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P11_FountainRim" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1, 9.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.5
+
+[node name="P12_BalloonStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2, 0, -17.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P13_IceCreamStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2, 0, 9.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P14_TargetGameStall" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6, 0, 12)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P15_BenchCarouselW" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 0, -4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55
+
+[node name="P16_FerrisWheel" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0, -27.2)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P17_CottonCandy" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0, -2.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.6
+
+[node name="P18_BenchCarouselE" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 0, -4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55
+
+[node name="P19_CandyStallTop" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8, 0.95, -4.8)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.5
+
+[node name="P20_FountainBenchE" type="Marker3D" parent="World/EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 8.8)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.55

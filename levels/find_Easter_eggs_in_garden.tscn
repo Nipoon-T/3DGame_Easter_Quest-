@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cwv6io4e3dwc6"]
 
-[ext_resource type="Script" uid="uid://b51u2nwma3vin" path="res://levels/level.gd" id="1_igct1"]
+[ext_resource type="Script" uid="uid://cqs6y81xvknry" path="res://levels/level.gd" id="1_igct1"]
 [ext_resource type="Script" uid="uid://8ggvcpq8rjpg" path="res://find_Easter_eggs_in_garden/scripts/part_multimesh.gd" id="2_c5648"]
 [ext_resource type="PackedScene" uid="uid://btcfl8aj8n00m" path="res://asset_nhoon/Rock by Quaternius - RtLRqYjfMs.glb" id="5_7g8fe"]
 [ext_resource type="PackedScene" path="res://find_Easter_eggs_in_garden/garden_props/pine_grove.tscn" id="6_y6tc3"]
@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" path="res://systems/hint_spot.tscn" id="21_h0wiy"]
 [ext_resource type="PackedScene" path="res://systems/easter_spirit.tscn" id="22_no22d"]
 [ext_resource type="PackedScene" uid="uid://c4p3hcvijpfxf" path="res://player/player.tscn" id="24_m8pf5"]
+[ext_resource type="PackedScene" path="res://systems/egg_spawner.tscn" id="90_spawner"]
+[ext_resource type="Script" path="res://systems/egg_spawn_point.gd" id="91_spawnpt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.42, 0.66, 0.92, 1)
@@ -350,7 +352,7 @@ positions = SubResource("rim_mm")
 [node name="Trees" type="Node3D" parent="." unique_id=68144041]
 
 [node name="PineGrove1" parent="Trees" unique_id=1509959790 instance=ExtResource("6_y6tc3")]
-transform = Transform3D(0.82764226, 0, 0.3277749, 0, 1.070916, 0, -0.30121705, 0, 0.9006144, 10.608479, 0, -11.4)
+transform = Transform3D(0.9115, 0, 0.3318, 0, 0.97, 0, -0.3318, 0, 0.9115, 10.608479, 0, -11.4)
 
 [node name="Rocks" type="Node3D" parent="." unique_id=381073489]
 
@@ -699,48 +701,6 @@ source = ExtResource("19_m2rga")
 part_name = "Grass_Large_Extruded"
 positions = SubResource("gr_Grass_Large_Extruded")
 
-[node name="Eggs" type="Node3D" parent="." unique_id=1700011646]
-
-[node name="Egg01_EntrancePath" parent="Eggs" unique_id=1842380170 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.6731, 0, 0.5974, 0, 0.9, 0, -0.5974, 0, 0.6731, 4.013158, 0, 9.2)
-egg_color = Color(1, 0.55, 0.75, 1)
-
-[node name="Egg02_PondPath" parent="Eggs" unique_id=800915206 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.4381, 0, -0.7862, 0, 0.9, 0, 0.7862, 0, 0.4381, -8.226585, 0, -0.28498507)
-egg_color = Color(1, 0.88, 0.3, 1)
-
-[node name="Egg03_WoodsPath" parent="Eggs" unique_id=1302838419 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.8586, 0, -0.2697, 0, 0.9, 0, 0.2697, 0, 0.8586, 6.9, 0, -3.5383098)
-egg_color = Color(0.45, 0.95, 0.75, 1)
-
-[node name="Egg04_BehindRock" parent="Eggs" unique_id=629243083 instance=ExtResource("20_usptd")]
-transform = Transform3D(-0.8, 0, 0.0017, 0, 0.8, 0, -0.0017, 0, -0.8, 14.75, 0, 3.95)
-egg_color = Color(0.7, 0.5, 1, 1)
-
-[node name="Egg05_UnderBush" parent="Eggs" unique_id=1134344041 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.6996, 0, 0.0246, 0, 0.7, 0, -0.0246, 0, 0.6996, -13.25, 0, 6.4)
-egg_color = Color(0.5, 0.75, 1, 1)
-
-[node name="Egg06_FlowerBed" parent="Eggs" unique_id=546699344 instance=ExtResource("20_usptd")]
-transform = Transform3D(-0.6293, 0, -0.3067, 0, 0.7, 0, 0.3067, 0, -0.6293, 2.38, 0, -3.83)
-egg_color = Color(1, 0.6, 0.25, 1)
-
-[node name="Egg07_OnStump" parent="Eggs" unique_id=148344420 instance=ExtResource("20_usptd")]
-transform = Transform3D(-0.637, 0, -0.484, 0, 0.8, 0, 0.484, 0, -0.637, -8.4, 0.82, 10.4)
-egg_color = Color(1, 0.4, 0.45, 1)
-
-[node name="Egg08_WallNook" parent="Eggs" unique_id=206547842 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.6282, 0, -0.1668, 0, 0.65, 0, 0.1668, 0, 0.6282, -16.15, 0, 16.15)
-egg_color = Color(0.8, 0.65, 1, 1)
-
-[node name="Egg09_BehindWoods" parent="Eggs" unique_id=1917444555 instance=ExtResource("20_usptd")]
-transform = Transform3D(0.4812, 0, -0.5083, 0, 0.7, 0, 0.5083, 0, 0.4812, 10, 0, -16.05)
-egg_color = Color(0.35, 0.6, 1, 1)
-
-[node name="Egg10_RockTop" parent="Eggs" unique_id=1009230637 instance=ExtResource("20_usptd")]
-transform = Transform3D(-0.4562, 0, 0.6572, 0, 0.8, 0, -0.6572, 0, -0.4562, 14.36, 1.97, 10.25)
-egg_color = Color(1, 0.82, 0.2, 1)
-
 [node name="HintSpots" type="Node3D" parent="." unique_id=1177143941]
 
 [node name="HintPineForest" parent="HintSpots" unique_id=1099658507 instance=ExtResource("21_h0wiy")]
@@ -756,3 +716,126 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.4, 11.6)
 
 [node name="Player" parent="." unique_id=298404267 instance=ExtResource("24_m8pf5")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 15)
+
+[node name="EggSpawner" parent="." instance=ExtResource("90_spawner")]
+spawn_count = 10
+
+[node name="P01_EntrancePath" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01316, 0, 9.2)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.9
+use_custom_color = true
+egg_color = Color(1, 0.55, 0.75, 1)
+
+[node name="P02_PondPath" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.22659, 0, -0.284985)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.9
+use_custom_color = true
+egg_color = Color(1, 0.88, 0.3, 1)
+
+[node name="P03_WoodsPath" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9, 0, -3.53831)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.9
+use_custom_color = true
+egg_color = Color(0.45, 0.95, 0.75, 1)
+
+[node name="P04_BehindRock" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.75, 0, 3.95)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.8
+use_custom_color = true
+egg_color = Color(0.7, 0.5, 1, 1)
+
+[node name="P05_UnderBush" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25, 0, 6.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+use_custom_color = true
+egg_color = Color(0.5, 0.75, 1, 1)
+
+[node name="P06_FlowerBed" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38, 0, -3.83)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+use_custom_color = true
+egg_color = Color(1, 0.6, 0.25, 1)
+
+[node name="P07_OnStump" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 0.82, 10.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.8
+use_custom_color = true
+egg_color = Color(1, 0.4, 0.45, 1)
+
+[node name="P08_WallNook" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.15, 0, 16.15)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.65
+use_custom_color = true
+egg_color = Color(0.8, 0.65, 1, 1)
+
+[node name="P09_BehindWoods" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -16.05)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+use_custom_color = true
+egg_color = Color(0.35, 0.6, 1, 1)
+
+[node name="P10_RockTop" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.36, 1.97, 10.25)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.8
+use_custom_color = true
+egg_color = Color(1, 0.82, 0.2, 1)
+
+[node name="P11_BehindRockMid2" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2, 0, -3.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P12_BehindRockLow2" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 0, -10.5)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P13_RockTall2" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3, 0, -7.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P14_Bush14" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 0, -11.2)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P15_Bush16" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, 0, -13.9)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P16_FlowerBush17" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0, -4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.65
+
+[node name="P17_Bush10" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 7.4)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P18_RockRound1" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3, 0, -1)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
+
+[node name="P19_FlowerBush13" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.3, 0, 9.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.65
+
+[node name="P20_PineGrove" type="Marker3D" parent="EggSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4, 0, -10.6)
+script = ExtResource("91_spawnpt")
+egg_scale = 0.7
