@@ -2,9 +2,12 @@
 .godot/
 /android/
 
+
 # ไฟล์ชั่วคราว
 *.tmp
 
 # Windows
 Thumbs.db
 desktop.ini
+# ไฟล์ที่แอป Claude ใส่ไว้ (ภาพตัวอย่าง) ไม่ต้องขึ้น GitHub
+Claude outputs/
