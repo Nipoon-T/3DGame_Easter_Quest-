@@ -35,7 +35,9 @@ const WORD_QUESTIONS := [
 ]
 
 # static = จำค่าข้ามรอบ (หน้ามินิเกมถูกสร้างใหม่ทุกครั้งที่กด Hint)
-static var _next_is_math := true          # สลับ บวกเลข -> เติมคำ -> บวกเลข ...
+static var _last_was_math := false        # ประเภทโจทย์ครั้งก่อน
+static var _streak := 0                   # ได้ประเภทเดิมติดกันกี่ครั้งแล้ว
+const MAX_SAME_IN_ROW := 2                ## สุ่มประเภทโจทย์ แต่ห้ามซ้ำเกินกี่ครั้งติด
 static var _word_deck: Array = []         # สำรับคำที่ยังไม่ได้ใช้ (ไม่ซ้ำจนกว่าจะครบทุกคำ)
 
 var _answer := ""
@@ -56,12 +58,16 @@ var _done := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	# สลับประเภทโจทย์ทุกครั้ง ไม่ให้เจอแบบเดียวกันติดกัน
-	if _next_is_math:
+	# สุ่มประเภทโจทย์ 50:50 แต่ถ้าได้แบบเดิมครบ MAX_SAME_IN_ROW ครั้งแล้ว บังคับเป็นอีกแบบ
+	var is_math := randf() < 0.5
+	if _streak >= MAX_SAME_IN_ROW and is_math == _last_was_math:
+		is_math = not is_math
+	_streak = _streak + 1 if (is_math == _last_was_math and _streak > 0) else 1
+	_last_was_math = is_math
+	if is_math:
 		_make_math()
 	else:
 		_make_word()
-	_next_is_math = not _next_is_math
 	_choices.shuffle()
 	for i in buttons.size():
 		buttons[i].text = "%d)  %s" % [i + 1, _choices[i]]
