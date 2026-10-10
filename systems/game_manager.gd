@@ -118,7 +118,7 @@ func load_level(index: int) -> void:
 	if index < LEVELS.size():
 		get_tree().change_scene_to_file.call_deferred(LEVELS[index])
 	else:
-		_change_scene_safe(FINAL_AREA)
+		_win()
 
 
 ## ลองด่านเดิมใหม่ — คืนค่าไข่รวมและ Hint กลับเป็นตอนเริ่มด่าน
