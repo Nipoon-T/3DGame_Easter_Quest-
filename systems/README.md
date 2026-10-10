@@ -13,7 +13,7 @@
    - `eggs_required` = จำนวนไข่ที่ต้องเก็บ — ใส่ `0` = ต้องเก็บทุกใบในด่าน
 3. instance `res://player/player.tscn` เข้าด่าน
 4. ชื่อไฟล์ด่านต้องตรงกับ `LEVELS` ใน `game_manager.gd`
-   (`levels/level1_dark_room.tscn`, `levels/level2_funfair.tscn`, `find_Easter_eggs_in_garden/find_Easter_eggs_in_garden.tscn`)
+   (`levels/level1_dark_room.tscn`, `levels/level2_funfair.tscn`, `levels/find_Easter_eggs_in_garden.tscn`)
 5. ทดสอบ: เปิดไฟล์ด่านแล้วกด **F6** ได้เลย ไม่ต้องผ่านเมนู
 
 ## 2. ของที่ลากใส่ด่านได้
@@ -24,6 +24,20 @@
 | `hint_spot.tscn` | ดาวสีทอง เดินชนแล้วได้ Hint +1 | `hint_amount` |
 | `easter_spirit.tscn` | ภูติพูดอธิบายภารกิจตอนเริ่มด่าน | `intro_lines` บทพูดเอง (เว้นว่าง = ใช้บทตั้งต้นของด่านนั้น), ใช้ `{eggs}` `{time}` ในข้อความได้ |
 | `dev_hud.tscn` | HUD ชั่วคราว: เวลา / ไข่ / Hint / Pause | — |
+| `egg_spawner.tscn` + `EggSpawnPoint` | **สุ่มไข่** จากหลายจุด (ดูข้อ 2.1) | `spawn_count`, `fixed_seed`, `spawn_all_for_testing` |
+
+### 2.1 สุ่มตำแหน่งไข่ (แนะนำ)
+
+1. ลาก `systems/egg_spawner.tscn` เข้าด่าน
+2. คลิกขวาที่ EggSpawner > **Add Child Node** > ค้นหา `EggSpawnPoint` แล้ววางตามจุดซ่อนต่างๆ (แนะนำ ~20 จุด)
+   - ใน editor จะเห็นไข่โปร่งแสงสีชมพูให้กะตำแหน่ง — วางให้ก้นไข่แตะพื้นผิว
+   - ทำจุดเพิ่มเร็วๆ: เลือกจุดแล้วกด **Ctrl+D** แล้วลากไปที่ใหม่
+   - ตั้งได้ต่อจุด: `egg_scale` (ขนาด), `weight` (โอกาสถูกสุ่ม), สีเอง
+3. ตั้ง `spawn_count` = จำนวนไข่ที่จะสุ่มขึ้นมา (เช่น 8 หรือ 10)
+4. ที่ root ของด่าน ตั้ง `eggs_required = 0` (= ต้องเก็บทุกใบที่สุ่มได้)
+5. ทดสอบว่าทุกจุดเก็บได้: ติ๊ก `spawn_all_for_testing` แล้วกด F6 เดินเก็บดู (อย่าลืมเอาติ๊กออก)
+
+ทุกครั้งที่เริ่มด่าน/กดลองใหม่ ไข่จะได้ชุดใหม่ (ถ้าอยากได้ชุดเดิมตอนทดสอบ ใส่ `fixed_seed` เป็นเลขอะไรก็ได้)
 
 **ไข่:** ห้ามสร้างไข่เอง ให้ลาก `egg.tscn` เท่านั้น ย่อขยายได้ด้วย Scale (เช่น 0.5–0.6 สำหรับซ่อนบนชั้น)
 **ไข่บนที่สูง:** ทดสอบว่ากระโดดถึง/เล็งถึงจริง (ระยะเก็บ 2.5 ม. วัดจากกล้อง)
@@ -33,7 +47,8 @@
 | ปุ่ม | ทำอะไร |
 |---|---|
 | E / คลิกซ้าย | เก็บไข่ |
-| H | ใช้ Hint (ไข่ที่ใกล้ที่สุดจะเด้งและเรืองแสง) |
+| H | ใช้ Hint → ขึ้นมินิเกม (บวกเลขเร็ว / เติมคำ) ตอบถูกแล้วไข่ที่ใกล้ที่สุดจะเด้งและเรืองแสง |
+| 1–4 | เลือกคำตอบในมินิเกม (หรือคลิก) |
 | P | หยุดชั่วคราว / เล่นต่อ |
 | ESC | ปล่อยเมาส์ |
 
@@ -53,6 +68,9 @@ UI **ฟัง signal เท่านั้น** ไม่อ่านค่า�
 | `level_completed` | `level_index` | "ผ่านด่าน!" |
 | `game_won` / `game_lost` | – | เสียง/เอฟเฟกต์ก่อนเปลี่ยนหน้า |
 | `paused_changed` | `is_paused` | โชว์/ซ่อนเมนู Pause |
+| `time_low` | – | เวลาเหลือ 30 วิ → เปลี่ยนเป็นเพลงเร่ง/เสียงนาฬิกา |
+| `hint_quiz_opened` | – | เสียงเปิดมินิเกม |
+| `hint_quiz_finished` | `correct` | เสียงตอบถูก/ผิด |
 
 ฟังก์ชันที่ปุ่มใน UI เรียกได้:
 
@@ -77,11 +95,17 @@ GameManager.selected_character = "leo"  # หน้าเลือกตัว�
 | `START_HINTS` | 3 | Hint ตอนเริ่มเกม |
 | `LEVEL_BONUS_HINTS` | `[0, 1, 2]` | Hint ที่ได้เพิ่มตอนเข้าแต่ละด่าน |
 | `NEXT_LEVEL_DELAY` | 1.5 | วินาทีก่อนเปลี่ยนด่าน |
+| `LOW_TIME_WARNING` | 30 | วินาทีที่ส่ง `time_low` |
+| `USE_HINT_QUIZ` | true | false = กด H ได้ Hint ทันที ไม่มีมินิเกม |
+| `QUIZ_WRONG_COSTS_HINT` | true | ตอบผิด/หมดเวลา เสีย Hint 1 ครั้ง |
 
-เวลาของแต่ละด่านปรับที่ `time_limit` ของด่านนั้น (Dark Room = 180 วินาที, ไข่ 8 ใบ)
+**มินิเกม Hint** (`systems/hint_quiz.tscn`): ให้เวลาตอบ 10 วิ (`time_limit`) ระหว่างนั้นเกมหยุดแต่ **นาฬิกาด่านยังเดิน**
+เพิ่ม/แก้คำถามเติมคำได้ที่ `WORD_QUESTIONS` ใน `systems/hint_quiz.gd`
+
+เวลาของแต่ละด่านปรับที่ `time_limit` ของด่านนั้น (Dark Room = 180 วินาที, สุ่มไข่ 8 ใบจาก 20 จุด)
 
 ## 6. ไฟล์อื่นในโฟลเดอร์นี้
 
-- `game_manager.gd` — Autoload: นับไข่, Timer, Hint, Pause, ชนะ/แพ้, เปลี่ยนด่าน
+- `game_manager.gd` — Autoload: นับไข่, Timer, Hint + มินิเกม, Pause, ชนะ/แพ้, เปลี่ยนด่าน
 - `flicker_light.gd` — แปะกับ Light3D ให้กะพริบแบบหลอดไฟเก่า
 - `follow_player_light.gd` — แสงสลัวตามตัวผู้เล่น (ใช้ในห้องมืด)
