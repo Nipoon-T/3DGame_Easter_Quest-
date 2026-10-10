@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets_mint/kenney/brick.glb" id="1_1lpj6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lstsq"]
+size = Vector3(0.75, 0.75, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j162v"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="CratePile" type="Node3D" unique_id=1890510493]
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=158753475]
+
+[node name="StepAShape" type="CollisionShape3D" parent="Body" unique_id=1217211593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, 0.375, 0)
+shape = SubResource("BoxShape3D_lstsq")
+
+[node name="StepBShape" type="CollisionShape3D" parent="Body" unique_id=1511518324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.75, 0)
+shape = SubResource("BoxShape3D_j162v")
+
+[node name="BrickA" type="Node3D" parent="." unique_id=79829899 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, 0, -0.375)
+
+[node name="BrickB" type="Node3D" parent="." unique_id=1973665892 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0, -0.375)
+
+[node name="@Node3D@44" type="Node3D" parent="." unique_id=1130397567 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.75, -0.375)
+
+[node name="@Node3D@45" type="Node3D" parent="." unique_id=2127521329 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.125, 0, -0.375)
+
+[node name="@Node3D@46" type="Node3D" parent="." unique_id=591792665 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.125, 0.75, -0.375)
+
+[node name="@Node3D@47" type="Node3D" parent="." unique_id=465323813 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, 0, 0.375)
+
+[node name="@Node3D@48" type="Node3D" parent="." unique_id=365233405 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0, 0.375)
+
+[node name="@Node3D@49" type="Node3D" parent="." unique_id=1873743153 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.75, 0.375)
+
+[node name="@Node3D@50" type="Node3D" parent="." unique_id=24667566 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.125, 0, 0.375)
+
+[node name="@Node3D@51" type="Node3D" parent="." unique_id=1014481398 instance=ExtResource("1_1lpj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.125, 0.75, 0.375)

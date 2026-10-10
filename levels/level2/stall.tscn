@@ -1,0 +1,135 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/level2/stall.gd" id="1_m88xw"]
+[ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="2_lyanf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwe8b"]
+albedo_color = Color(0.47843137, 0.2901961, 0.13333334, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_35ps2"]
+size = Vector3(3.2, 1, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3jjh6"]
+size = Vector3(3.2, 1, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0x07n"]
+albedo_color = Color(1, 0.9647059, 0.8784314, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_ejsqy"]
+size = Vector3(3.2, 2.5, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6bnn"]
+size = Vector3(3.2, 2.5, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ljbua"]
+size = Vector3(0.15, 2.5, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ictii"]
+size = Vector3(0.15, 2.5, 1.7)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ltl7f"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 2.4
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_8unq1"]
+size = Vector3(0.15, 2.5, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_typvp"]
+size = Vector3(0.15, 2.5, 1.7)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fssky"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 2.4
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oe0mo"]
+size = Vector3(3.4, 0.5, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3kee"]
+size = Vector3(3.6, 0.08, 2.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sb4ap"]
+size = Vector3(2.6, 0.55, 0.1)
+
+[node name="Stall" type="Node3D" unique_id=730599996]
+script = ExtResource("1_m88xw")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1540417707]
+
+[node name="Counter" type="MeshInstance3D" parent="Body" unique_id=166373484]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.55)
+material_override = SubResource("StandardMaterial3D_nwe8b")
+mesh = SubResource("BoxMesh_35ps2")
+
+[node name="CounterShape" type="CollisionShape3D" parent="Body" unique_id=1336776342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.55)
+shape = SubResource("BoxShape3D_3jjh6")
+
+[node name="BackWall" type="MeshInstance3D" parent="Body" unique_id=1136854692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -0.8)
+material_override = SubResource("StandardMaterial3D_0x07n")
+mesh = SubResource("BoxMesh_ejsqy")
+
+[node name="BackShape" type="CollisionShape3D" parent="Body" unique_id=2117735335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -0.8)
+shape = SubResource("BoxShape3D_i6bnn")
+
+[node name="SideWall" type="MeshInstance3D" parent="Body" unique_id=1680906376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_0x07n")
+mesh = SubResource("BoxMesh_ljbua")
+
+[node name="SideShape" type="CollisionShape3D" parent="Body" unique_id=1428403207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.25, 0)
+shape = SubResource("BoxShape3D_ictii")
+
+[node name="FrontPost" type="MeshInstance3D" parent="Body" unique_id=1435365528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.2, 1.25)
+material_override = SubResource("StandardMaterial3D_nwe8b")
+mesh = SubResource("CylinderMesh_ltl7f")
+
+[node name="@MeshInstance3D@26" type="MeshInstance3D" parent="Body" unique_id=435928411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_0x07n")
+mesh = SubResource("BoxMesh_8unq1")
+
+[node name="@CollisionShape3D@27" type="CollisionShape3D" parent="Body" unique_id=664738829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.25, 0)
+shape = SubResource("BoxShape3D_typvp")
+
+[node name="@MeshInstance3D@28" type="MeshInstance3D" parent="Body" unique_id=637201213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.2, 1.25)
+material_override = SubResource("StandardMaterial3D_nwe8b")
+mesh = SubResource("CylinderMesh_fssky")
+
+[node name="RoofShape" type="CollisionShape3D" parent="Body" unique_id=258078381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0.2)
+shape = SubResource("BoxShape3D_oe0mo")
+
+[node name="Awning" type="MeshInstance3D" parent="." unique_id=1731466752]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9702957, -0.2419219, 0, 0.2419219, 0.9702957, 0, 2.55, 0.45)
+mesh = SubResource("BoxMesh_l3kee")
+
+[node name="SignBoard" type="MeshInstance3D" parent="." unique_id=1018463815]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 0.3)
+mesh = SubResource("BoxMesh_sb4ap")
+
+[node name="Label" type="Label3D" parent="." unique_id=991188955]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 0.37)
+pixel_size = 0.01
+modulate = Color(0.47843137, 0.2901961, 0.13333334, 1)
+text = "ICE CREAM"
+font = ExtResource("2_lyanf")
+font_size = 56
+outline_size = 0

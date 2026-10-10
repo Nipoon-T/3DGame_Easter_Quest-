@@ -32,11 +32,13 @@ const LEVELS: Array[String] = [
 const FINAL_AREA := "res://levels/final_area.tscn"
 const WIN_SCREEN := "res://ui/win_screen.tscn"
 const LOSE_SCREEN := "res://ui/lose_screen.tscn"
+const MAIN_MENU := "res://ui/main_menu.tscn"   # เพิ่มโดยคนที่ 3 (UI) สำหรับปุ่ม Main Menu
 
 # ---- ค่าที่ปรับตอนบาลานซ์ ----
 const START_HINTS := 3                  ## Hint ตอนเริ่มเกม
 const LEVEL_BONUS_HINTS: Array[int] = [0, 1, 2]   ## Hint ที่ได้เพิ่มตอนเข้าแต่ละด่าน
 const NEXT_LEVEL_DELAY := 1.5           ## วินาทีก่อนเปลี่ยนด่าน (ให้ UI โชว์ "ผ่านด่าน!")
+const LOSE_DELAY := 1.5                 ## วินาทีก่อนไปหน้าแพ้ (ให้ UI โชว์ "Time's Up!") — คนที่ 3
 const LOW_TIME_WARNING := 30.0          ## เหลือเวลาเท่านี้จะส่ง signal time_low
 
 # ---- มินิเกมก่อนได้ Hint ----
@@ -61,6 +63,7 @@ var _total_at_level_start := 0
 var _hints_at_level_start := START_HINTS
 var _bonus_given_for := -1
 var _time_low_sent := false
+var _lose_pending := false   # กำลังรอ LOSE_DELAY — quit_to_menu() ยกเลิกได้ (คนที่ 3)
 var _quiz: Node = null
 
 
@@ -106,6 +109,7 @@ func load_level(index: int) -> void:
 
 	current_level = index
 	is_running = false
+	_lose_pending = false
 	_close_hint_quiz()
 	set_paused(false)
 	_total_at_level_start = total_eggs_collected
@@ -339,14 +343,31 @@ func _win() -> void:
 
 
 func _lose() -> void:
+	if _lose_pending:
+		return
 	is_running = false
+	_lose_pending = true
 	_close_hint_quiz()
 	game_lost.emit()
+	await get_tree().create_timer(LOSE_DELAY).timeout
+	if not _lose_pending:   # ผู้เล่นกด Main Menu ระหว่างรอ -> ไม่ไปหน้าแพ้
+		return
+	_lose_pending = false
 	if not _change_scene_safe(LOSE_SCREEN):
 		# ยังไม่มีหน้าแพ้ -> รอสักครู่แล้วเริ่มด่านเดิมใหม่ให้ทดสอบต่อได้
 		print("GameManager: หมดเวลา! (ยังไม่มี lose_screen.tscn) เริ่มด่านใหม่ใน 2 วินาที")
 		await get_tree().create_timer(2.0).timeout
 		retry_level()
+
+
+## กลับเมนูหลัก (ปุ่ม MAIN MENU ใน Pause / หน้าแพ้ / หน้าชนะ) — เพิ่มโดยคนที่ 3
+func quit_to_menu() -> void:
+	is_running = false
+	_lose_pending = false
+	_close_hint_quiz()
+	set_paused(false)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE   # เมนูหลักต้องใช้เมาส์
+	_change_scene_safe(MAIN_MENU)
 
 
 ## เปลี่ยน scene เฉพาะเมื่อไฟล์มีอยู่จริง คืนค่า false ถ้าไม่มีไฟล์

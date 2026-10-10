@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets_mint/Cotton_candy.glb" id="1_ij0o1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qjlq2"]
+height = 2.4
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6wao7"]
+height = 2.4
+
+[node name="CottonCandyDeco" type="Node3D" unique_id=1103256614]
+
+[node name="Model" type="Node3D" parent="." unique_id=570759026 instance=ExtResource("1_ij0o1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.6324197, 0.54153764, 0.0073396205)
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1261535012]
+
+[node name="ShapePink" type="CollisionShape3D" parent="Body" unique_id=697564139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.2, 0)
+shape = SubResource("CylinderShape3D_qjlq2")
+
+[node name="ShapeBlue" type="CollisionShape3D" parent="Body" unique_id=811661293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.2, 0)
+shape = SubResource("CylinderShape3D_6wao7")

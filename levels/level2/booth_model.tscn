@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets_mint/Carnival_Booth.glb" id="1_3i1ns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ulbp"]
+size = Vector3(3.2, 2.9, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kk887"]
+size = Vector3(0.15, 2.9, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w4hlp"]
+size = Vector3(0.15, 2.9, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mve2o"]
+size = Vector3(3.2, 0.95, 0.5)
+
+[node name="BoothModel" type="Node3D" unique_id=826266804]
+
+[node name="Model" type="Node3D" parent="." unique_id=2087457159 instance=ExtResource("1_3i1ns")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 1.2, 0)
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1382878393]
+
+[node name="BackShape" type="CollisionShape3D" parent="Body" unique_id=1534386623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, -0.78)
+shape = SubResource("BoxShape3D_7ulbp")
+
+[node name="LeftShape" type="CollisionShape3D" parent="Body" unique_id=786707959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 1.45, 0)
+shape = SubResource("BoxShape3D_kk887")
+
+[node name="RightShape" type="CollisionShape3D" parent="Body" unique_id=137225923]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 1.45, 0)
+shape = SubResource("BoxShape3D_w4hlp")
+
+[node name="CounterShape" type="CollisionShape3D" parent="Body" unique_id=1384555822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.475, 0.55)
+shape = SubResource("BoxShape3D_mve2o")

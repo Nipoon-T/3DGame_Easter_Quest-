@@ -55,7 +55,7 @@
 [ext_resource type="Script" uid="uid://cikjnk2li704s" path="res://systems/follow_player_light.gd" id="53_follow_playe"]
 [ext_resource type="PackedScene" uid="uid://c4p3hcvijpfxf" path="res://player/player.tscn" id="54_player"]
 [ext_resource type="PackedScene" path="res://systems/easter_spirit.tscn" id="55_easter_spiri"]
-[ext_resource type="PackedScene" path="res://systems/dev_hud.tscn" id="56_dev_hud"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="56_hud"]
 [ext_resource type="PackedScene" path="res://systems/hint_spot.tscn" id="57_hint_spot"]
 [ext_resource type="PackedScene" path="res://systems/egg.tscn" id="58_egg"]
 [ext_resource type="PackedScene" path="res://systems/egg_spawner.tscn" id="90_spawner"]
@@ -844,7 +844,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 0.05, 2.4)
 [node name="Player" parent="." unique_id=1363889016 instance=ExtResource("54_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -4.4)
 
-[node name="DevHUD" parent="." unique_id=1432181262 instance=ExtResource("56_dev_hud")]
+[node name="HUD" parent="." unique_id=1339984357 instance=ExtResource("56_hud")]
 
 [node name="EggSpawner" parent="World" instance=ExtResource("90_spawner")]
 spawn_count = 8
