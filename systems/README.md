@@ -114,3 +114,8 @@ GameManager.selected_character = "leo"  # หน้าเลือกตัว�
 - `game_manager.gd` — Autoload: นับไข่, Timer, Hint + มินิเกม, Pause, ชนะ/แพ้, เปลี่ยนด่าน
 - `flicker_light.gd` — แปะกับ Light3D ให้กะพริบแบบหลอดไฟเก่า
 - `follow_player_light.gd` — แสงสลัวตามตัวผู้เล่น (ใช้ในห้องมืด)
+- `sound_manager.gd` — เพลง/เสียงทั้งเกม (GameManager สร้างเอง ไม่ต้องตั้ง Autoload)
+  - เพลงเปลี่ยนเองตามฉาก: เมนู → `sound/menu.mp3`, ด่าน 1-3 → `sound/level1-3.mp3`, ชนะ → `win.mp3`, แพ้ → `gameover.mp3`
+  - เสียงเก็บไข่ `egg_collect.mp3`, ผ่านด่าน `level_complete.mp3`, เวลาเหลือ 30 วิ เพลงเร่งขึ้นนิดหน่อย
+  - เปลี่ยนเพลง: วางไฟล์ใหม่ใน `sound/` แล้วแก้ path ด้านบนของ `systems/sound_manager.gd`
+  - ปรับความดัง: `music_volume_db` / `sfx_volume_db` ในไฟล์เดียวกัน (ปุ่ม Volume ในหน้า Settings ก็ใช้ได้)

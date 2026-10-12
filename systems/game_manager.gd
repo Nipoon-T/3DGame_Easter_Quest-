@@ -78,6 +78,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_window()
 	_build_loading_overlay()
+	# เพลง/เสียง (systems/sound_manager.gd) — สร้างเป็นลูกของ GameManager อยู่ตลอดเกม
+	var sm: Node = load("res://systems/sound_manager.gd").new()
+	sm.name = "SoundManager"
+	add_child(sm)
 
 
 ## ตั้งค่าหน้าต่างเกม (Windowed, มีกรอบ, ย่อ/ขยายได้, 1280x720 กลางจอ) — โดยชนินาถ
