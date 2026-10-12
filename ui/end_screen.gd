@@ -38,6 +38,7 @@ var _busy := false
 
 
 func _ready() -> void:
+	GameSettings.ensure_setup()
 	# ตอนเล่นเมาส์ถูกซ่อนและเกมอาจ pause อยู่ ต้องคืนค่าไม่งั้นคลิกปุ่มไม่ได้
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = false

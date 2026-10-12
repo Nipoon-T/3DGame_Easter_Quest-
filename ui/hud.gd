@@ -91,6 +91,7 @@ var _guide_active: bool = false
 
 
 func _ready() -> void:
+	GameSettings.ensure_setup()
 	layer = 10
 	margin.add_theme_constant_override("margin_left", screen_margin)
 	margin.add_theme_constant_override("margin_right", screen_margin)

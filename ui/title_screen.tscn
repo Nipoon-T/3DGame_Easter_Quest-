@@ -56,3 +56,4 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=303809192]
+bus = &"SFX"

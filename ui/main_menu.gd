@@ -36,6 +36,7 @@ var _busy := false
 
 
 func _ready() -> void:
+	GameSettings.ensure_setup()
 	# ---- หน้าตาปุ่ม ----
 	_style_button(start_button, start_color)
 	_style_button(settings_button, settings_color)

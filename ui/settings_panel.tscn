@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/settings_panel.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="2_font"]
+[ext_resource type="Script" path="res://ui/toggle_switch.gd" id="3_switch"]
 
 [node name="SettingsPanel" type="Control"]
 process_mode = 3
@@ -28,7 +29,7 @@ color = Color(0, 0, 0, 0.45)
 
 [node name="Panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(900, 0)
+custom_minimum_size = Vector2(1100, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,7 +42,7 @@ grow_vertical = 2
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 44
+theme_override_constants/separation = 26
 
 [node name="TitleLabel" type="Label" parent="Panel/VBox"]
 layout_mode = 2
@@ -53,22 +54,23 @@ theme_override_font_sizes/font_size = 72
 text = "SETTINGS"
 horizontal_alignment = 1
 
-[node name="VolumeRow" type="HBoxContainer" parent="Panel/VBox"]
+[node name="MasterRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 28
 
-[node name="VolumeLabel" type="Label" parent="Panel/VBox/VolumeRow"]
+[node name="MasterLabel" type="Label" parent="Panel/VBox/MasterRow"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 44
-text = "VOLUME"
+text = "MASTER"
 vertical_alignment = 1
 
-[node name="VolumeSlider" type="HSlider" parent="Panel/VBox/VolumeRow"]
+[node name="MasterSlider" type="HSlider" parent="Panel/VBox/MasterRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(420, 56)
+custom_minimum_size = Vector2(300, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -76,9 +78,155 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="CloseButton" type="Button" parent="Panel/VBox"]
+[node name="MasterPercent" type="Label" parent="Panel/VBox/MasterRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "100%"
+vertical_alignment = 1
+horizontal_alignment = 2
+
+[node name="MusicRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="MusicLabel" type="Label" parent="Panel/VBox/MusicRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "MUSIC"
+vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MusicPercent" type="Label" parent="Panel/VBox/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "100%"
+vertical_alignment = 1
+horizontal_alignment = 2
+
+[node name="SfxRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="SfxLabel" type="Label" parent="Panel/VBox/SfxRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "SFX"
+vertical_alignment = 1
+
+[node name="SfxSlider" type="HSlider" parent="Panel/VBox/SfxRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SfxPercent" type="Label" parent="Panel/VBox/SfxRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "100%"
+vertical_alignment = 1
+horizontal_alignment = 2
+
+[node name="FullscreenRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="FullscreenLabel" type="Label" parent="Panel/VBox/FullscreenRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "FULLSCREEN"
+vertical_alignment = 1
+
+[node name="FullscreenSpacer" type="Control" parent="Panel/VBox/FullscreenRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="FullscreenSwitch" type="Button" parent="Panel/VBox/FullscreenRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 76)
+layout_mode = 2
+size_flags_vertical = 4
+toggle_mode = true
+script = ExtResource("3_switch")
+
+[node name="FpsRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="FpsLabel" type="Label" parent="Panel/VBox/FpsRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "SHOW FPS"
+vertical_alignment = 1
+
+[node name="FpsSpacer" type="Control" parent="Panel/VBox/FpsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="FpsSwitch" type="Button" parent="Panel/VBox/FpsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 76)
+layout_mode = 2
+size_flags_vertical = 4
+toggle_mode = true
+script = ExtResource("3_switch")
+
+[node name="ButtonRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="Panel/VBox/ButtonRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 96)
 layout_mode = 2
-size_flags_horizontal = 4
+text = "RESET"
+
+[node name="CloseButton" type="Button" parent="Panel/VBox/ButtonRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 96)
+layout_mode = 2
 text = "CLOSE"
