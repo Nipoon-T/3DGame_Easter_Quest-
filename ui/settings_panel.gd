@@ -20,30 +20,22 @@ signal button_hovered
 
 @onready var panel: PanelContainer = %Panel
 @onready var master_slider: HSlider = %MasterSlider
-@onready var music_slider: HSlider = %MusicSlider
-@onready var sfx_slider: HSlider = %SfxSlider
 @onready var master_percent: Label = %MasterPercent
-@onready var music_percent: Label = %MusicPercent
-@onready var sfx_percent: Label = %SfxPercent
 @onready var fullscreen_switch: ToggleSwitch = %FullscreenSwitch
 @onready var fps_switch: ToggleSwitch = %FpsSwitch
 @onready var reset_button: Button = %ResetButton
 @onready var close_button: Button = %CloseButton
 
-var _sliders: Array[HSlider] = []
-var _buses: Array[String] = [GS.MASTER, GS.MUSIC, GS.SFX]
 
 
 func _ready() -> void:
 	GS.ensure_setup()
-	_sliders = [master_slider, music_slider, sfx_slider]
 	_style_panel()
-	for s in _sliders:
-		_style_slider(s)
-		s.min_value = 0.0
-		s.max_value = 1.0
-		s.step = 0.05
-		s.value_changed.connect(_on_volume_changed.bind(s))
+	_style_slider(master_slider)
+	master_slider.min_value = 0.0
+	master_slider.max_value = 1.0
+	master_slider.step = 0.05
+	master_slider.value_changed.connect(_on_volume_changed)
 	UIStyle.style_button(close_button, close_color, text_color, border_color, button_font, font_size)
 	UIStyle.style_button(reset_button, reset_color, text_color, border_color, button_font, font_size)
 	UIStyle.setup_hover(close_button, _on_hover)
@@ -64,7 +56,7 @@ func _ready() -> void:
 
 ## ขังโฟกัสไว้ในแผง: ขึ้น/ลง/Tab วนตามลำดับแถว  ซ้าย/ขวาบน slider ปรับค่า
 func _setup_focus() -> void:
-	var order: Array[Control] = [master_slider, music_slider, sfx_slider,
+	var order: Array[Control] = [master_slider,
 		fullscreen_switch, fps_switch, reset_button, close_button]
 	for i in order.size():
 		var c := order[i]
@@ -123,23 +115,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _sync_all() -> void:
 	# แสดงค่าจริงตอนนี้ (ไม่ยิง signal จะได้ไม่ปัดค่าเสียงเอง)
-	for i in _sliders.size():
-		var v := GS.get_volume(_buses[i])
-		_sliders[i].set_value_no_signal(v)
-		_update_percent(i)
+	master_slider.set_value_no_signal(GS.get_volume(GS.MASTER))
+	master_percent.text = "%d%%" % roundi(master_slider.value * 100.0)
 	fullscreen_switch.set_on(GS.is_fullscreen())
 	fps_switch.set_on(GS.is_fps_shown())
 
 
-func _update_percent(i: int) -> void:
-	var labels: Array[Label] = [master_percent, music_percent, sfx_percent]
-	labels[i].text = "%d%%" % roundi(_sliders[i].value * 100.0)
-
-
-func _on_volume_changed(value: float, slider: HSlider) -> void:
-	var i := _sliders.find(slider)
-	GS.set_volume(_buses[i], value)
-	_update_percent(i)
+func _on_volume_changed(value: float) -> void:
+	GS.set_volume(GS.MASTER, value)
+	master_percent.text = "%d%%" % roundi(value * 100.0)
 
 
 func _on_fullscreen_toggled(on: bool) -> void:

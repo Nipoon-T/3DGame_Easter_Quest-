@@ -1,13 +1,11 @@
 class_name GameSettings
 extends RefCounted
 ## ตัวช่วยกลางของหน้า Settings (static ทั้งหมด ไม่ใช้ Autoload)
-## - bus "Music" และ "SFX" มาจาก res://default_bus_layout.tres (ไม่สร้างด้วยโค้ด เพราะเว็บมีปัญหา)
+## - ปรับเสียงรวมที่ bus Master เท่านั้น (เว็บไม่รองรับ bus เพิ่ม)
 ## - จำค่าระหว่างเล่น (ไม่บันทึกไฟล์) / Fullscreen / ตัวเลข FPS มุมซ้ายล่าง
 ## ensure_setup() เรียกซ้ำได้ปลอดภัย: title_screen, main_menu, hud, level_map, pause_menu, settings_panel
 
 const MASTER := "Master"
-const MUSIC := "Music"
-const SFX := "SFX"
 
 const DEFAULT_VOLUME := 1.0
 const FONT_PATH := "res://ui/fonts/Fredoka-SemiBold.ttf"
@@ -91,8 +89,7 @@ static func set_fps_shown(on: bool) -> void:
 # ---------------- คืนค่าเริ่มต้น ----------------
 
 static func reset_all() -> void:
-	for bus_name: String in [MASTER, MUSIC, SFX]:
-		set_volume(bus_name, DEFAULT_VOLUME)
+	set_volume(MASTER, DEFAULT_VOLUME)
 	set_fullscreen(false)
 	set_fps_shown(false)
 

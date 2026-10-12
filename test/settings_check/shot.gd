@@ -15,8 +15,7 @@ func _ready() -> void:
 	if a[0] == "pause":
 		GameManager.set_paused(true)
 		for i in 30: await get_tree().process_frame
-	GameSettings.set_volume("Music", 0.6)
-	GameSettings.set_volume("SFX", 0.35)
+	GameSettings.set_volume("Master", 0.6)
 	GameSettings.set_fps_shown("fps" in a)
 	scene.settings_panel.open()
 	for i in 40: await get_tree().process_frame

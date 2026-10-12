@@ -318,8 +318,6 @@ func _play_collect_sound() -> void:
 
 	var p := AudioStreamPlayer3D.new()
 	p.stream = collect_sound
-	# แก้โดยคนที่ 3 (UI): ส่งเสียงเข้า bus Music/SFX
-	p.bus = &"SFX"
 	get_tree().current_scene.add_child(p)
 	p.global_position = global_position
 	p.finished.connect(p.queue_free)
