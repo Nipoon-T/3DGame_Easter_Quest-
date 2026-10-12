@@ -1,7 +1,7 @@
 class_name GameSettings
 extends RefCounted
 ## ตัวช่วยกลางของหน้า Settings (static ทั้งหมด ไม่ใช้ Autoload)
-## - สร้าง bus "Music" และ "SFX" ด้วยโค้ด ส่งเข้า Master
+## - bus "Music" และ "SFX" มาจาก res://default_bus_layout.tres (ไม่สร้างด้วยโค้ด เพราะเว็บมีปัญหา)
 ## - จำค่าระหว่างเล่น (ไม่บันทึกไฟล์) / Fullscreen / ตัวเลข FPS มุมซ้ายล่าง
 ## ensure_setup() เรียกซ้ำได้ปลอดภัย: title_screen, main_menu, hud, level_map, pause_menu, settings_panel
 
@@ -27,27 +27,21 @@ static func ensure_setup() -> void:
 	if _ready_done:
 		return
 	_ready_done = true
-	for bus_name: String in [MUSIC, SFX]:
-		if AudioServer.get_bus_index(bus_name) == -1:
-			AudioServer.add_bus()
-			var idx := AudioServer.bus_count - 1
-			AudioServer.set_bus_name(idx, bus_name)
-			AudioServer.set_bus_send(idx, MASTER)
 	_build_fps_overlay()
 
 
 # ---------------- เสียง ----------------
 
 static func get_volume(bus_name: String) -> float:
-	ensure_setup()
 	var idx := AudioServer.get_bus_index(bus_name)
-	if idx == -1 or AudioServer.is_bus_mute(idx):
+	if idx == -1:
+		return DEFAULT_VOLUME
+	if AudioServer.is_bus_mute(idx):
 		return 0.0
 	return db_to_linear(AudioServer.get_bus_volume_db(idx))
 
 
 static func set_volume(bus_name: String, value: float) -> void:
-	ensure_setup()
 	var idx := AudioServer.get_bus_index(bus_name)
 	if idx == -1:
 		return

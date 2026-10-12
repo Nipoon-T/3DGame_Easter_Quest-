@@ -8,7 +8,7 @@ func _ready() -> void:
 	get_tree().current_scene = null
 	GameSettings.ensure_setup()
 	GameSettings.ensure_setup()
-	_check("bus Music/SFX มีและไม่ซ้ำ", AudioServer.get_bus_index("Music") > 0 and AudioServer.get_bus_index("SFX") > 0 and AudioServer.bus_count == 3)
+	_check("bus Music/SFX มีและไม่ซ้ำ", AudioServer.get_bus_index("Music") > 0 and AudioServer.get_bus_index("SFX") > 0 and AudioServer.bus_count == 3 and not AudioServer.is_bus_mute(0))
 	_check("ส่งเข้า Master", AudioServer.get_bus_send(AudioServer.get_bus_index("SFX")) == &"Master")
 	for path in ["res://ui/title_screen.tscn", "res://ui/main_menu.tscn", "res://ui/level_map.tscn", "res://ui/settings_panel.tscn", "res://ui/pause_menu.tscn", "res://ui/hud.tscn"]:
 		var s: Node = load(path).instantiate()
