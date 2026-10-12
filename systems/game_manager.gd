@@ -39,7 +39,12 @@ const START_HINTS := 3                  ## Hint ตอนเริ่มเก�
 const LEVEL_BONUS_HINTS: Array[int] = [0, 1, 2]   ## Hint ที่ได้เพิ่มตอนเข้าแต่ละด่าน
 const NEXT_LEVEL_DELAY := 1.5           ## วินาทีก่อนเปลี่ยนด่าน (ให้ UI โชว์ "ผ่านด่าน!")
 const LOSE_DELAY := 1.5                 ## วินาทีก่อนไปหน้าแพ้ (ให้ UI โชว์ "Time's Up!") — คนที่ 3
-const LOW_TIME_WARNING := 30.0          ## เหลือเวลาเท่านี้จะส่ง signal time_low
+const LOW_TIME_WARNING := 30.0
+
+# ---- คุณภาพภาพเฉพาะตอนเล่นบนเว็บ (บนคอมพิวเตอร์ไม่เปลี่ยน) ----
+const WEB_RENDER_SCALE := 0.7           ## วาดฉาก 3D ที่ 70% ของความละเอียดจอ (UI/ตัวหนังสือยังคมเท่าเดิม)
+const WEB_SHADOW_SIZE := 2048           ## ขนาดเงาดวงอาทิตย์ (ค่าเดิม 4096)
+const WEB_HARD_SHADOWS := true          ## เงาขอบคม (เร็วกว่าเงาฟุ้ง)          ## เหลือเวลาเท่านี้จะส่ง signal time_low
 
 # ---- มินิเกมก่อนได้ Hint ----
 const HINT_QUIZ_SCENE := "res://systems/hint_quiz.tscn"
@@ -77,11 +82,24 @@ func _ready() -> void:
 	# ต้องทำงานตอน pause ด้วย ไม่งั้นกดปุ่ม unpause ไม่ได้
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_window()
+	if OS.has_feature("web"):
+		apply_web_quality()
 	_build_loading_overlay()
 	# เพลง/เสียง (systems/sound_manager.gd) — สร้างเป็นลูกของ GameManager อยู่ตลอดเกม
 	var sm: Node = load("res://systems/sound_manager.gd").new()
 	sm.name = "SoundManager"
 	add_child(sm)
+
+
+## ลดความละเอียด 3D + คุณภาพเงา ให้เล่นบนเบราว์เซอร์ลื่นขึ้น (เรียกเองตอนรันบนเว็บ)
+func apply_web_quality() -> void:
+	var vp := get_viewport()
+	vp.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+	vp.scaling_3d_scale = WEB_RENDER_SCALE
+	RenderingServer.directional_shadow_atlas_set_size(WEB_SHADOW_SIZE, true)
+	if WEB_HARD_SHADOWS:
+		RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_HARD)
+		RenderingServer.positional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_HARD)
 
 
 ## ตั้งค่าหน้าต่างเกม (Windowed, มีกรอบ, ย่อ/ขยายได้, 1280x720 กลางจอ) — โดยชนินาถ

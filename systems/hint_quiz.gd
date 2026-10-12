@@ -40,6 +40,43 @@ static var _streak := 0                   # ได้ประเภทเดิ
 const MAX_SAME_IN_ROW := 2                ## สุ่มประเภทโจทย์ แต่ห้ามซ้ำเกินกี่ครั้งติด
 static var _word_deck: Array = []         # สำรับคำที่ยังไม่ได้ใช้ (ไม่ซ้ำจนกว่าจะครบทุกคำ)
 
+# ---- ธีมเดียวกับ UI ของคนที่ 3 (ครีม + ขอบน้ำตาลไม้ + ฟอนต์ Fredoka) ----
+const UI_FONT := preload("res://ui/fonts/Fredoka-SemiBold.ttf")
+const CREAM := Color("fff6e0")
+const BROWN := Color("7a4a22")
+const MINT := Color("a8e6cf")
+const PINK := Color("f2b8dc")
+const BLUE := Color("a8d8f0")
+const YELLOW := Color("f7e08a")
+const GOLD := Color("f5b800")
+
+
+static func _panel_box(radius: int, pad: int, alpha := 0.95) -> StyleBoxFlat:
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color(CREAM, alpha)
+	box.set_corner_radius_all(radius)
+	box.set_border_width_all(6)
+	box.border_color = BROWN
+	box.shadow_color = Color(0, 0, 0, 0.3)
+	box.shadow_size = 9
+	box.shadow_offset = Vector2(0, 6)
+	box.content_margin_left = pad + 6
+	box.content_margin_right = pad + 6
+	box.content_margin_top = pad - 4
+	box.content_margin_bottom = pad - 4
+	return box
+
+
+static func _style_label(label: Label, size: int, color := BROWN, outline := 0, outline_color := BROWN) -> void:
+	label.add_theme_font_override("font", UI_FONT)
+	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_constant_override("outline_size", outline)
+	label.add_theme_color_override("font_outline_color", outline_color)
+const UIStyle := preload("res://ui/ui_style.gd")
+const BUTTON_COLORS := [MINT, PINK, BLUE, YELLOW]
+
+
 var _answer := ""
 var _choices: Array[String] = []
 var _time_left := 0.0
@@ -58,6 +95,7 @@ var _done := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_apply_theme()
 	# สุ่มประเภทโจทย์ 50:50 แต่ถ้าได้แบบเดิมครบ MAX_SAME_IN_ROW ครั้งแล้ว บังคับเป็นอีกแบบ
 	var is_math := randf() < 0.5
 	if _streak >= MAX_SAME_IN_ROW and is_math == _last_was_math:
@@ -76,6 +114,46 @@ func _ready() -> void:
 	bar.max_value = time_limit
 	bar.value = time_limit
 	result_label.text = ""
+
+
+func _apply_theme() -> void:
+	var vbox := $Center/Panel/Margin/VBox as VBoxContainer
+	var panel := $Center/Panel as PanelContainer
+	panel.custom_minimum_size = Vector2(980, 0)
+	panel.add_theme_stylebox_override("panel", _panel_box(54, 40))
+	var margin := $Center/Panel/Margin as MarginContainer
+	for side in ["left", "top", "right", "bottom"]:
+		margin.add_theme_constant_override("margin_" + side, 6)
+	vbox.add_theme_constant_override("separation", 14)
+	_style_label($Center/Panel/Margin/VBox/Title, 34, GOLD, 10, BROWN)
+	_style_label(kind_label, 48, BROWN)
+	_style_label(question_label, 104, CREAM, 18, BROWN)
+	_style_label(sub_label, 34, Color(BROWN, 0.8))
+	_style_label(result_label, 40, BROWN)
+	_style_label($Center/Panel/Margin/VBox/Keys, 26, Color(BROWN, 0.7))
+	var grid := $Center/Panel/Margin/VBox/Grid as GridContainer
+	grid.add_theme_constant_override("h_separation", 22)
+	grid.add_theme_constant_override("v_separation", 22)
+	for i in buttons.size():
+		var b: Button = buttons[i]
+		b.custom_minimum_size = Vector2(0, 104)
+		UIStyle.style_button(b, BUTTON_COLORS[i], CREAM, BROWN, UI_FONT, 52)
+		b.add_theme_stylebox_override("disabled", UIStyle.make_box(BUTTON_COLORS[i], BROWN, false))
+		b.add_theme_color_override("font_disabled_color", CREAM)
+		UIStyle.setup_hover(b, func(btn: Button, hovered: bool) -> void:
+			if not btn.disabled: UIStyle.hover_tween(btn, hovered))
+	# แถบเวลา
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color("ead9b8")
+	bg.set_corner_radius_all(12)
+	bg.set_border_width_all(4)
+	bg.border_color = BROWN
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = GOLD
+	fill.set_corner_radius_all(12)
+	bar.custom_minimum_size = Vector2(0, 26)
+	bar.add_theme_stylebox_override("background", bg)
+	bar.add_theme_stylebox_override("fill", fill)
 
 
 func _make_math() -> void:
@@ -147,16 +225,18 @@ func _choose(i: int) -> void:
 	for j in buttons.size():
 		buttons[j].disabled = true
 		if _choices[j] == _answer:
-			buttons[j].modulate = Color(0.6, 1, 0.6)
+			buttons[j].add_theme_stylebox_override("disabled", UIStyle.make_box(Color("6fcf8f"), BROWN, false))
+		elif j != i:
+			buttons[j].modulate = Color(1, 1, 1, 0.55)
 	if not ok:
-		buttons[i].modulate = Color(1, 0.5, 0.5)
+		buttons[i].add_theme_stylebox_override("disabled", UIStyle.make_box(Color("ee6b6b"), BROWN, true))
 	_finish(ok, "Correct! The nearest egg will glow." if ok else "Wrong! The answer is " + _answer)
 
 
 func _finish(ok: bool, msg: String) -> void:
 	_done = true
 	result_label.text = msg
-	result_label.add_theme_color_override("font_color", Color(0.6, 1, 0.6) if ok else Color(1, 0.55, 0.55))
+	result_label.add_theme_color_override("font_color", Color("3f9e5a") if ok else Color("e03b3b"))
 	await get_tree().create_timer(1.2, true).timeout
 	finished.emit(ok)
 	queue_free()
