@@ -66,11 +66,18 @@ var _time_low_sent := false
 var _lose_pending := false   # กำลังรอ LOSE_DELAY — quit_to_menu() ยกเลิกได้ (คนที่ 3)
 var _quiz: Node = null
 
+# ---- หน้าโหลดด่าน (กันเวลาเดินระหว่างเบราว์เซอร์คอมไพล์ shader) ----
+const WARMUP_FRAMES := 3                ## รอให้วาดฉากกี่เฟรมก่อนเริ่มนับเวลา
+var _warming := false                   # กำลังโหลด/วาดฉากแรกอยู่
+var _pending_start := false             # ด่านโหลดเสร็จแล้ว รอเริ่มหลัง warm-up
+var _loading_layer: CanvasLayer
+
 
 func _ready() -> void:
 	# ต้องทำงานตอน pause ด้วย ไม่งั้นกดปุ่ม unpause ไม่ได้
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_window()
+	_build_loading_overlay()
 
 
 ## ตั้งค่าหน้าต่างเกม (Windowed, มีกรอบ, ย่อ/ขยายได้, 1280x720 กลางจอ) — โดยชนินาถ
@@ -115,10 +122,12 @@ func load_level(index: int) -> void:
 	_total_at_level_start = total_eggs_collected
 	_hints_at_level_start = hints_left
 
+	_show_loading()
 	if index < LEVELS.size():
 		get_tree().change_scene_to_file.call_deferred(LEVELS[index])
 	else:
 		_change_scene_safe(FINAL_AREA)
+	_finish_warmup()
 
 
 ## ลองด่านเดิมใหม่ — คืนค่าไข่รวมและ Hint กลับเป็นตอนเริ่มด่าน
@@ -151,7 +160,6 @@ func start_level(level: Node, time_limit: float, required: int) -> void:
 
 	has_timer = time_limit > 0.0
 	time_left = time_limit
-	is_running = true
 	_time_low_sent = false
 
 	# Hint โบนัสประจำด่าน (ให้ครั้งเดียวต่อด่าน แม้จะกดลองใหม่)
@@ -160,11 +168,81 @@ func start_level(level: Node, time_limit: float, required: int) -> void:
 		hints_left += LEVEL_BONUS_HINTS[current_level]
 		_hints_at_level_start = hints_left
 
-	level_started.emit(current_level)
 	egg_collected.emit(eggs_collected, eggs_required)
 	hints_changed.emit(hints_left)
 	if has_timer:
 		time_changed.emit(time_left)
+
+	if _warming:
+		_pending_start = true    # รอให้ฉากวาดเสร็จก่อน ค่อยเริ่มนับเวลา (ดู _finish_warmup)
+	else:
+		_begin_level()           # เปิดด่านตรงๆ ด้วย F6 -> เริ่มเลย
+
+
+func _begin_level() -> void:
+	is_running = true
+	level_started.emit(current_level)
+
+
+# ================== หน้าโหลด / warm-up ==================
+# บนเว็บ (WebGL) เบราว์เซอร์ต้องคอมไพล์ shader ของวัตถุทุกชนิดตอนวาดครั้งแรก อาจค้างหลายวินาที
+# จึงโชว์หน้า "กำลังโหลด" ค้างไว้ และยังไม่เริ่มนับเวลา จนกว่าฉากจะถูกวาดครบ WARMUP_FRAMES เฟรม
+
+func _finish_warmup() -> void:
+	_warming = true
+	_pending_start = false
+	# รอให้ scene ใหม่ถูกสลับเข้ามา
+	await get_tree().process_frame
+	await get_tree().process_frame
+	# รอให้วาดฉากจริงๆ (shader คอมไพล์ในเฟรมเหล่านี้)
+	for i in WARMUP_FRAMES:
+		if DisplayServer.get_name() == "headless":
+			await get_tree().process_frame   # ไม่มีการวาดภาพ (เช่นรันทดสอบอัตโนมัติ)
+		else:
+			await RenderingServer.frame_post_draw
+	_warming = false
+	_hide_loading()
+	if _pending_start:
+		_pending_start = false
+		_begin_level()
+
+
+func _build_loading_overlay() -> void:
+	_loading_layer = CanvasLayer.new()
+	_loading_layer.layer = 100
+	_loading_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	var bg := ColorRect.new()
+	bg.color = Color(0.03, 0.04, 0.08)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_loading_layer.add_child(bg)
+	var label := Label.new()
+	label.text = "กำลังโหลดด่าน..."
+	label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	if ResourceLoader.exists("res://systems/fonts/NotoSansThai.ttf"):
+		label.add_theme_font_override("font", load("res://systems/fonts/NotoSansThai.ttf"))
+	label.add_theme_font_size_override("font_size", 40)
+	label.add_theme_color_override("font_color", Color(1, 0.85, 0.5))
+	bg.add_child(label)
+	_loading_layer.visible = false
+	add_child(_loading_layer)
+
+
+func _show_loading() -> void:
+	if _loading_layer:
+		_loading_layer.visible = true
+		(_loading_layer.get_child(0) as ColorRect).modulate.a = 1.0
+
+
+func _hide_loading() -> void:
+	if not _loading_layer:
+		return
+	var bg := _loading_layer.get_child(0) as ColorRect
+	var t := create_tween()
+	t.tween_property(bg, "modulate:a", 0.0, 0.35)
+	t.tween_callback(func(): _loading_layer.visible = false)
 
 
 # ================== Timer ==================
