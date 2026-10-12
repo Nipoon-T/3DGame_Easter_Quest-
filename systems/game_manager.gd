@@ -87,6 +87,12 @@ func _ready() -> void:
 ## ตั้งค่าหน้าต่างเกม (Windowed, มีกรอบ, ย่อ/ขยายได้, 1280x720 กลางจอ) — โดยชนินาถ
 func _setup_window() -> void:
 	var window := get_window()
+	# บนเว็บ: ห้ามบังคับขนาด 1280x720 ไม่งั้นเกมวาดแค่มุมซ้ายล่างของ canvas
+	# ให้ขนาดตาม canvas ของเบราว์เซอร์แทน (canvas_resize_policy = Adaptive)
+	if OS.has_feature("web"):
+		await get_tree().process_frame
+		window.size = DisplayServer.window_get_size()
+		return
 	window.mode = Window.MODE_WINDOWED
 	window.borderless = false
 	window.unresizable = false
@@ -126,11 +132,12 @@ func load_level(index: int) -> void:
 	_total_at_level_start = total_eggs_collected
 	_hints_at_level_start = hints_left
 
+	if index >= LEVELS.size():
+		# ครบทุกด่านแล้ว -> ไปหน้าชนะทันที (ไม่ผ่านพื้นที่ลับ) — ตามที่กลุ่มตกลง
+		_win()
+		return
 	_show_loading()
-	if index < LEVELS.size():
-		get_tree().change_scene_to_file.call_deferred(LEVELS[index])
-	else:
-		_change_scene_safe(FINAL_AREA)
+	get_tree().change_scene_to_file.call_deferred(LEVELS[index])
 	_finish_warmup()
 
 
