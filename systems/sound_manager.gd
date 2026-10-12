@@ -37,12 +37,17 @@ var _last_eggs := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS   # เพลงเล่นต่อตอน Pause / มินิเกม
+	# แก้โดยคนที่ 3 (UI): ส่งเสียงเข้า bus Music/SFX
+	GameSettings.ensure_setup()
 	_music = AudioStreamPlayer.new()
+	_music.bus = &"Music"
 	_music.volume_db = music_volume_db
 	add_child(_music)
 	for i in 4:
 		var p := AudioStreamPlayer.new()
 		p.volume_db = sfx_volume_db
+		# แก้โดยคนที่ 3 (UI): ส่งเสียงเข้า bus Music/SFX
+		p.bus = &"SFX"
 		add_child(p)
 		_sfx.append(p)
 
