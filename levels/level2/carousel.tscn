@@ -344,7 +344,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yveyj"]
 top_radius = 0.07
@@ -361,7 +361,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_uetc7"]
 top_radius = 0.07
@@ -378,7 +378,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3olwx"]
 top_radius = 0.07
@@ -395,7 +395,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7x2nb"]
 top_radius = 0.07
@@ -412,7 +412,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f6c16"]
 top_radius = 0.07
@@ -429,7 +429,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yd2c5"]
 top_radius = 0.07
@@ -446,7 +446,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_c6vvn"]
 top_radius = 0.07
@@ -463,7 +463,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.16
+emission_energy_multiplier = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_itraw"]
 top_radius = 0.07
@@ -524,7 +524,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.32
+emission_energy_multiplier = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_r3lc2"]
 radius = 0.35
