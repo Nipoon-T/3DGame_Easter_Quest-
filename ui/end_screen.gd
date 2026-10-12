@@ -1,9 +1,10 @@
 extends Control
 ## ฐานของหน้าแพ้/ชนะ (lose_screen.gd, win_screen.gd สืบทอดไฟล์นี้)
-## ทำหน้าที่: พื้นหลัง (ภาพจริง/สำรอง), สไตล์ปุ่ม, hover, เฟด, กันกดซ้ำ, ปุ่ม MAIN MENU
+## ทำหน้าที่: พื้นหลัง (ภาพจริง/สำรอง), สไตล์ปุ่ม, hover, เฟด, กันกดซ้ำ, ปุ่ม MAP และ MAIN MENU
 ## ปุ่มแรก (PrimaryButton) ให้คลาสลูกกำหนดการทำงานเองใน _on_primary_pressed()
 
 const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
+const LEVEL_MAP_SCENE := "res://ui/level_map.tscn"
 
 # ---------- พื้นหลัง ----------
 ## ถ้าใส่ภาพ จะแสดงภาพนี้ ถ้าว่างจะใช้พื้นหลังสำรองที่วาดด้วยโค้ด
@@ -15,6 +16,7 @@ const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
 @export var title_font_size: int = 132
 @export var primary_color := Color("a8d8f0")   # ฟ้า
 @export var menu_color := Color("f2b8dc")      # ชมพู
+@export var map_color := Color("a8d8f0")       # ฟ้า (ปุ่ม MAP ตรงกลาง)
 @export var text_color := Color("fff6e0")      # ครีม
 @export var border_color := Color("7a4a22")    # น้ำตาลไม้
 @export var title_color := Color("fff6e0")
@@ -27,6 +29,7 @@ const MAIN_MENU_SCENE := "res://ui/main_menu.tscn"
 @onready var title_label: Label = %TitleLabel
 @onready var primary_button: Button = %PrimaryButton
 @onready var menu_button: Button = %MenuButton
+@onready var map_button: Button = %MapButton
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var hover_sound: AudioStreamPlayer = %HoverSound
 @onready var click_sound: AudioStreamPlayer = %ClickSound
@@ -49,11 +52,13 @@ func _ready() -> void:
 	_style_title()
 	_style_button(primary_button, primary_color)
 	_style_button(menu_button, menu_color)
-	for b in [primary_button, menu_button]:
+	_style_button(map_button, map_color)
+	for b in [primary_button, map_button, menu_button]:
 		_setup_hover(b)
 
 	primary_button.pressed.connect(_on_primary_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
+	map_button.pressed.connect(_on_map_pressed)
 
 	# ---- เฟดเข้า ----
 	fade_rect.show()
@@ -188,6 +193,13 @@ func _on_hover(button: Button, hovered: bool) -> void:
 func _on_menu_pressed() -> void:
 	# ผ่าน quit_to_menu() เพื่อให้ GameManager ล้างสถานะ (เปิดหน้านี้ตรง ๆ ด้วย F6 ก็ยังไม่ค้าง ดู _call_game_manager)
 	_leave_to_game_manager(&"quit_to_menu")
+
+
+## เปิดแผนที่เลือกเลเวล เปลี่ยน scene ตรงได้ปลอดภัย: ตอนอยู่หน้านี้ GameManager หยุดแล้ว
+## (is_running = false, ไม่มี _lose_pending/มินิเกมค้าง) และหน้านี้คืนค่าเมาส์/pause เองใน _ready()
+func _on_map_pressed() -> void:
+	_play_click()
+	_leave(func() -> void: get_tree().change_scene_to_file(LEVEL_MAP_SCENE))
 
 
 ## เรียกฟังก์ชันของ GameManager หลังเฟดดำ (ใช้จากคลาสลูก)
