@@ -15,6 +15,8 @@ emission_energy_multiplier = 0.25
 material = SubResource("StandardMaterial3D_egg")
 radius = 0.25
 height = 0.5
+radial_segments = 20
+rings = 10
 
 [node name="Egg" type="Area3D"]
 script = ExtResource("1_egg")
