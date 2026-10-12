@@ -110,7 +110,7 @@ environment = SubResource("Environment_4vui6")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=518675612]
 transform = Transform3D(0.81915206, 0.45198438, -0.35312894, 0, 0.6156615, 0.7880107, 0.57357645, -0.6455006, 0.5043204, 0, 0, 0)
-light_color = Color(1, 0.8039216, 0.72156864, 1)
+light_color = Color(0.63, 0.50652003, 0.45360002, 1)
 light_energy = 0.3
 shadow_enabled = true
 directional_shadow_mode = 0
