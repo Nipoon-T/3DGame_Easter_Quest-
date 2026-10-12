@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://systems/hint_quiz.gd" id="1_quiz"]
-[ext_resource type="FontFile" path="res://systems/fonts/NotoSansThai.ttf" id="2_font"]
+[ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="Style_panel"]
 bg_color = Color(0.06, 0.08, 0.18, 0.96)
@@ -98,13 +98,13 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
 theme_override_font_sizes/font_size = 20
-text = "ตอบให้ถูกเพื่อรับ Hint"
+text = "Answer correctly to get a Hint"
 horizontal_alignment = 1
 
 [node name="Kind" type="Label" parent="Center/Panel/Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "บวกเลขเร็ว!"
+text = "Quick Math!"
 horizontal_alignment = 1
 
 [node name="Question" type="Label" parent="Center/Panel/Margin/VBox"]
@@ -163,5 +163,5 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.65, 0.8, 1)
 theme_override_font_sizes/font_size = 16
-text = "กดปุ่ม 1-4 หรือคลิกคำตอบ"
+text = "Press 1-4 or click an answer"
 horizontal_alignment = 1

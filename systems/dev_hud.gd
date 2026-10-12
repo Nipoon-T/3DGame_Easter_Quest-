@@ -26,8 +26,8 @@ func _ready() -> void:
 	GameManager.time_changed.connect(_on_time_changed)
 	GameManager.egg_collected.connect(_on_egg_collected)
 	GameManager.hints_changed.connect(_on_hints_changed)
-	GameManager.level_completed.connect(func(_i): _show_banner("ผ่านด่าน!", Color(0.6, 1, 0.6)))
-	GameManager.game_lost.connect(func(): _show_banner("หมดเวลา!", Color(1, 0.45, 0.45)))
+	GameManager.level_completed.connect(func(_i): _show_banner("Level Clear!", Color(0.6, 1, 0.6)))
+	GameManager.game_lost.connect(func(): _show_banner("Time's Up!", Color(1, 0.45, 0.45)))
 	# ค่าเริ่มต้น (กรณี signal ถูกส่งไปก่อน HUD พร้อม)
 	_on_time_changed(GameManager.time_left)
 	_on_egg_collected(GameManager.eggs_collected, GameManager.eggs_required)
@@ -56,7 +56,7 @@ func _on_egg_collected(collected: int, required: int) -> void:
 
 
 func _on_hints_changed(hints_left: int) -> void:
-	hint_label.text = "Hint %d  (กด H)   หยุด: P" % hints_left
+	hint_label.text = "Hint %d  [H]   Pause [P]" % hints_left
 
 
 func _show_banner(text: String, color: Color) -> void:
