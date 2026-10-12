@@ -71,6 +71,18 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "PLAY AGAIN"
 
+[node name="MapButton" type="Button" parent="AspectRatioContainer/Stage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3837
+anchor_top = 0.836
+anchor_right = 0.6163
+anchor_bottom = 0.948
+grow_horizontal = 2
+grow_vertical = 2
+text = "MAP"
+
 [node name="MenuButton" type="Button" parent="AspectRatioContainer/Stage"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -99,7 +111,9 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 unique_name_in_owner = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 unique_name_in_owner = true

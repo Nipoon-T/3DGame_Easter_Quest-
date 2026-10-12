@@ -1,0 +1,167 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/level_map.gd" id="1_script"]
+[ext_resource type="Script" path="res://ui/level_info.gd" id="2_info"]
+[ext_resource type="Texture2D" path="res://ui/backgrounds/map_bg.jpg" id="3_bg"]
+[ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="4_font"]
+
+[sub_resource type="Resource" id="Level_1"]
+script = ExtResource("2_info")
+level_name = "Easter Hunt"
+description = "Dark Room · Funfair · Secret Garden"
+unlocked = true
+map_position = Vector2(0.36, 0.70)
+
+[sub_resource type="Resource" id="Level_2"]
+script = ExtResource("2_info")
+level_name = "Coming Soon"
+map_position = Vector2(0.515, 0.755)
+
+[sub_resource type="Resource" id="Level_3"]
+script = ExtResource("2_info")
+level_name = "Coming Soon"
+map_position = Vector2(0.58, 0.42)
+
+[sub_resource type="Resource" id="Level_4"]
+script = ExtResource("2_info")
+level_name = "Coming Soon"
+map_position = Vector2(0.77, 0.55)
+
+[sub_resource type="Resource" id="Level_5"]
+script = ExtResource("2_info")
+level_name = "Coming Soon"
+map_position = Vector2(0.92, 0.32)
+
+[node name="LevelMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+levels = Array[ExtResource("2_info")]([SubResource("Level_1"), SubResource("Level_2"), SubResource("Level_3"), SubResource("Level_4"), SubResource("Level_5")])
+button_font = ExtResource("4_font")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 1.7778
+stretch_mode = 3
+
+[node name="Stage" type="Control" parent="AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="AspectRatioContainer/Stage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_bg")
+expand_mode = 1
+
+[node name="PathLayer" type="Control" parent="AspectRatioContainer/Stage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SlotLayer" type="Control" parent="AspectRatioContainer/Stage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConfirmPanel" type="PanelContainer" parent="AspectRatioContainer/Stage"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 300.0
+custom_minimum_size = Vector2(640, 0)
+
+[node name="VBox" type="VBoxContainer" parent="AspectRatioContainer/Stage/ConfirmPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PanelTitle" type="Label" parent="AspectRatioContainer/Stage/ConfirmPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+text = "Easter Hunt"
+horizontal_alignment = 1
+
+[node name="PanelDesc" type="Label" parent="AspectRatioContainer/Stage/ConfirmPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(576, 0)
+layout_mode = 2
+mouse_filter = 2
+text = "Dark Room · Funfair · Secret Garden"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayButton" type="Button" parent="AspectRatioContainer/Stage/ConfirmPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "PLAY"
+
+[node name="TitleLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 144.0
+grow_horizontal = 2
+mouse_filter = 2
+text = "Choose a Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 44.0
+offset_top = 44.0
+offset_right = 304.0
+offset_bottom = 144.0
+text = "BACK"
+
+[node name="FadeRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+unique_name_in_owner = true
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+unique_name_in_owner = true

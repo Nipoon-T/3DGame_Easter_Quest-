@@ -14,7 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
-character_select_scene = ""
 button_font = ExtResource("3_font")
 font_size = 56
 
@@ -68,7 +67,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "SETTINGS"
 
-[node name="QuitButton" type="Button" parent="AspectRatioContainer/Stage" unique_id=1044639699]
+[node name="LevelsButton" type="Button" parent="AspectRatioContainer/Stage" unique_id=1044639699]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -78,21 +77,43 @@ anchor_right = 0.3503
 anchor_bottom = 0.6771
 grow_horizontal = 2
 grow_vertical = 2
-text = "QUIT"
+text = "LEVELS"
 
-[node name="HelpButton" type="Button" parent="."]
-unique_name_in_owner = true
+[node name="TopRightButtons" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -144.0
+offset_left = -244.0
 offset_top = 44.0
 offset_right = -44.0
 offset_bottom = 144.0
 grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="HelpButton" type="Button" parent="TopRightButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 tooltip_text = "How to Play"
 text = "?"
+
+[node name="QuitButton" type="Button" parent="TopRightButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Quit"
+
+[node name="Icon" type="Control" parent="TopRightButtons/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SettingsPanel" parent="." instance=ExtResource("4_settings")]
 unique_name_in_owner = true
@@ -113,7 +134,9 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1175842990]
+bus = &"SFX"
 unique_name_in_owner = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1292853546]
+bus = &"SFX"
 unique_name_in_owner = true

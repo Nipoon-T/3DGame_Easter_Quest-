@@ -153,7 +153,9 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=94690627]
+bus = &"SFX"
 unique_name_in_owner = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=537696781]
+bus = &"SFX"
 unique_name_in_owner = true

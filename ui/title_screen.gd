@@ -19,6 +19,7 @@ var _blink_tween: Tween
 
 
 func _ready() -> void:
+	GameSettings.ensure_setup()
 	# เริ่มจากจอดำ แล้วค่อย ๆ สว่างขึ้น
 	fade_rect.visible = true
 	fade_rect.modulate.a = 1.0

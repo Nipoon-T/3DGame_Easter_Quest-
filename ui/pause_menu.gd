@@ -48,6 +48,7 @@ var _leaving := false   # กำลังกลับเมนูหลัก (�
 
 
 func _ready() -> void:
+	GameSettings.ensure_setup()
 	layer = 20   # สูงกว่า HUD (10)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
