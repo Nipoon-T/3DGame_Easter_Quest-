@@ -31,22 +31,25 @@
 [ext_resource type="Script" uid="uid://cniay4gpx5uv2" path="res://systems/egg_spawn_point.gd" id="91_spawnpt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_icgme"]
-sky_top_color = Color(0.5568628, 0.7882353, 0.9411765, 1)
-sky_horizon_color = Color(0.9843137, 0.9137255, 0.9411765, 1)
-ground_bottom_color = Color(0.8117647, 0.92156863, 0.84705883, 1)
-ground_horizon_color = Color(0.9843137, 0.9137255, 0.9411765, 1)
+sky_top_color = Color(0.38, 0.6, 0.86, 1)
+sky_horizon_color = Color(0.82, 0.74, 0.8, 1)
+sky_energy_multiplier = 0.75
+ground_bottom_color = Color(0.3, 0.42, 0.34, 1)
+ground_horizon_color = Color(0.78, 0.72, 0.76, 1)
 
 [sub_resource type="Sky" id="Sky_ewelk"]
 sky_material = SubResource("ProceduralSkyMaterial_icgme")
 
 [sub_resource type="Environment" id="Environment_4vui6"]
 background_mode = 2
+background_energy_multiplier = 0.7
 sky = SubResource("Sky_ewelk")
 ambient_light_source = 3
-ambient_light_sky_contribution = 0.7
-ambient_light_energy = 0.3
-tonemap_mode = 3
-tonemap_exposure = 0.9
+ambient_light_sky_contribution = 0.5
+ambient_light_energy = 0.35
+tonemap_mode = 2
+tonemap_exposure = 0.75
+tonemap_white = 6.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gll2j"]
 albedo_color = Color(0.44705883, 0.77254903, 0.5568628, 1)
@@ -110,8 +113,8 @@ environment = SubResource("Environment_4vui6")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=518675612]
 transform = Transform3D(0.81915206, 0.45198438, -0.35312894, 0, 0.6156615, 0.7880107, 0.57357645, -0.6455006, 0.5043204, 0, 0, 0)
-light_color = Color(0.63, 0.50652003, 0.45360002, 1)
-light_energy = 0.3
+light_color = Color(1, 0.88, 0.8, 1)
+light_energy = 0.6
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 55.0

@@ -43,7 +43,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.6
+emission_energy_multiplier = 0.24
 
 [sub_resource type="SphereMesh" id="SphereMesh_wr4cb"]
 radius = 0.4
@@ -62,7 +62,7 @@ albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
 roughness = 0.85
 emission_enabled = true
 emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
-emission_energy_multiplier = 0.6
+emission_energy_multiplier = 0.24
 
 [sub_resource type="SphereMesh" id="SphereMesh_yidiq"]
 radius = 0.4
