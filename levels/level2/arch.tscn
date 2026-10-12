@@ -1,0 +1,140 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="1_723xg"]
+
+[sub_resource type="Shader" id="Shader_jn1ma"]
+code = "
+shader_type spatial;
+uniform vec4 color_a : source_color = vec4(0.95, 0.72, 0.86, 1.0);
+uniform vec4 color_b : source_color = vec4(1.0, 0.96, 0.88, 1.0);
+uniform float count = 8.0;
+uniform bool radial = false;
+varying vec3 local_pos;
+void vertex() {
+	local_pos = VERTEX;
+}
+void fragment() {
+	float a = UV.x;
+	if (radial) {
+		a = atan(local_pos.x, local_pos.z) / 6.2831853 + 0.5;
+	}
+	float s = step(0.5, fract(a * count));
+	ALBEDO = mix(color_a.rgb, color_b.rgb, s);
+	ROUGHNESS = 0.85;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gjjxf"]
+render_priority = 0
+shader = SubResource("Shader_jn1ma")
+shader_parameter/color_a = Color(0.9490196, 0.72156864, 0.8627451, 1)
+shader_parameter/color_b = Color(1, 0.9647059, 0.8784314, 1)
+shader_parameter/count = 6.0
+shader_parameter/radial = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_76hvu"]
+size = Vector3(0.7, 3.6, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_irce6"]
+size = Vector3(0.7, 3.6, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdhkq"]
+albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_wr4cb"]
+radius = 0.4
+height = 0.8
+radial_segments = 16
+rings = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh_rkyce"]
+size = Vector3(0.7, 3.6, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bt20"]
+size = Vector3(0.7, 3.6, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wwik"]
+albedo_color = Color(0.96862745, 0.84313726, 0.45490196, 1)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.96862745, 0.84313726, 0.45490196, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_yidiq"]
+radius = 0.4
+height = 0.8
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tyapj"]
+albedo_color = Color(0.65882355, 0.84705883, 0.9411765, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_gps8c"]
+size = Vector3(7.4, 0.9, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k2djy"]
+size = Vector3(7.4, 0.9, 0.8)
+
+[node name="EntranceArch" type="Node3D" unique_id=1675737706]
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=927866877]
+
+[node name="Pillar" type="MeshInstance3D" parent="Body" unique_id=1537072350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.8, 0)
+material_override = SubResource("ShaderMaterial_gjjxf")
+mesh = SubResource("BoxMesh_76hvu")
+
+[node name="PillarShape" type="CollisionShape3D" parent="Body" unique_id=1299752877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.8, 0)
+shape = SubResource("BoxShape3D_irce6")
+
+[node name="PillarBall" type="MeshInstance3D" parent="Body" unique_id=2118317043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 3.95, 0)
+material_override = SubResource("StandardMaterial3D_tdhkq")
+mesh = SubResource("SphereMesh_wr4cb")
+
+[node name="@MeshInstance3D@29" type="MeshInstance3D" parent="Body" unique_id=1203027050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.8, 0)
+material_override = SubResource("ShaderMaterial_gjjxf")
+mesh = SubResource("BoxMesh_rkyce")
+
+[node name="@CollisionShape3D@30" type="CollisionShape3D" parent="Body" unique_id=1055211450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.8, 0)
+shape = SubResource("BoxShape3D_1bt20")
+
+[node name="@MeshInstance3D@31" type="MeshInstance3D" parent="Body" unique_id=490735867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 3.95, 0)
+material_override = SubResource("StandardMaterial3D_3wwik")
+mesh = SubResource("SphereMesh_yidiq")
+
+[node name="Beam" type="MeshInstance3D" parent="Body" unique_id=1595868428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+material_override = SubResource("StandardMaterial3D_tyapj")
+mesh = SubResource("BoxMesh_gps8c")
+
+[node name="BeamShape" type="CollisionShape3D" parent="Body" unique_id=1119624281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+shape = SubResource("BoxShape3D_k2djy")
+
+[node name="Label" type="Label3D" parent="." unique_id=1885635363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0.42)
+pixel_size = 0.01
+modulate = Color(1, 0.9647059, 0.8784314, 1)
+text = "FUNFAIR"
+font = ExtResource("1_723xg")
+font_size = 57
+outline_size = 0
+
+[node name="LabelBack" type="Label3D" parent="." unique_id=1911646335]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3.6, -0.42)
+pixel_size = 0.01
+modulate = Color(1, 0.9647059, 0.8784314, 1)
+text = "SEE YOU!"
+font = ExtResource("1_723xg")
+font_size = 57
+outline_size = 0

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://i2pemo8f7rjr"]
 
-[ext_resource type="Script" uid="uid://cpxi34recutqy" path="res://levels/final_area.gd" id="1_gdc5o"]
+[ext_resource type="Script" uid="uid://cqs6y81xvknry" path="res://levels/level.gd" id="1_gdc5o"]
 [ext_resource type="PackedScene" uid="uid://c4p3hcvijpfxf" path="res://player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://systems/egg.tscn" id="3_egg"]
 
@@ -41,6 +41,7 @@ size = Vector3(2, 1, 2)
 
 [node name="FinalArea" type="Node3D" unique_id=827512447]
 script = ExtResource("1_gdc5o")
+time_limit = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=77314483]
 environment = SubResource("Environment_1")

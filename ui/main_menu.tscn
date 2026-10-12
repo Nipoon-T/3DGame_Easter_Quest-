@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://b3qep3u2bfouq"]
+
+[ext_resource type="Script" uid="uid://5go5yt872x2y" path="res://ui/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://2nmuoeibkep2" path="res://ui/backgrounds/menu_bg.jpg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://ui/settings_panel.tscn" id="4_settings"]
+[ext_resource type="PackedScene" path="res://ui/controls_panel.tscn" id="5_controls"]
+[ext_resource type="FontFile" uid="uid://rajlp8esewom" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="3_font"]
+
+[node name="MainMenu" type="Control" unique_id=2031561457]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+character_select_scene = ""
+button_font = ExtResource("3_font")
+font_size = 56
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=2012266371]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 1.7778
+stretch_mode = 3
+
+[node name="Stage" type="Control" parent="AspectRatioContainer" unique_id=519832985]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="AspectRatioContainer/Stage" unique_id=1027430967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="StartButton" type="Button" parent="AspectRatioContainer/Stage" unique_id=2055966626]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1664
+anchor_top = 0.3503
+anchor_right = 0.3503
+anchor_bottom = 0.4453
+grow_horizontal = 2
+grow_vertical = 2
+text = "START"
+
+[node name="SettingsButton" type="Button" parent="AspectRatioContainer/Stage" unique_id=1770796079]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1664
+anchor_top = 0.4661
+anchor_right = 0.3503
+anchor_bottom = 0.5612
+grow_horizontal = 2
+grow_vertical = 2
+text = "SETTINGS"
+
+[node name="QuitButton" type="Button" parent="AspectRatioContainer/Stage" unique_id=1044639699]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1664
+anchor_top = 0.5807
+anchor_right = 0.3503
+anchor_bottom = 0.6771
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+
+[node name="HelpButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -144.0
+offset_top = 44.0
+offset_right = -44.0
+offset_bottom = 144.0
+grow_horizontal = 0
+tooltip_text = "How to Play"
+text = "?"
+
+[node name="SettingsPanel" parent="." instance=ExtResource("4_settings")]
+unique_name_in_owner = true
+
+[node name="ControlsPanel" parent="." instance=ExtResource("5_controls")]
+unique_name_in_owner = true
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=480185881]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1175842990]
+unique_name_in_owner = true
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1292853546]
+unique_name_in_owner = true

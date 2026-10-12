@@ -1,0 +1,60 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xe2f"]
+albedo_color = Color(0.7254902, 0.52156866, 0.3529412, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lea2k"]
+top_radius = 0.25
+bottom_radius = 0.35
+height = 2.4
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5alsa"]
+height = 2.4
+radius = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6rkk"]
+albedo_color = Color(0.56078434, 0.8392157, 0.627451, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_44vm2"]
+top_radius = 0.0
+bottom_radius = 1.9
+height = 2.2
+radial_segments = 8
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12502"]
+albedo_color = Color(0.65882355, 0.9019608, 0.6901961, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3fc21"]
+top_radius = 0.0
+bottom_radius = 1.5
+radial_segments = 8
+rings = 1
+
+[node name="Tree" type="Node3D" unique_id=1032114512]
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1124325118]
+
+[node name="Trunk" type="MeshInstance3D" parent="Body" unique_id=959487119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+material_override = SubResource("StandardMaterial3D_2xe2f")
+mesh = SubResource("CylinderMesh_lea2k")
+
+[node name="TrunkShape" type="CollisionShape3D" parent="Body" unique_id=276966237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CylinderShape3D_5alsa")
+
+[node name="Leaves1" type="MeshInstance3D" parent="." unique_id=743293142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+material_override = SubResource("StandardMaterial3D_d6rkk")
+mesh = SubResource("CylinderMesh_44vm2")
+
+[node name="Leaves2" type="MeshInstance3D" parent="." unique_id=1983265548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
+material_override = SubResource("StandardMaterial3D_12502")
+mesh = SubResource("CylinderMesh_3fc21")

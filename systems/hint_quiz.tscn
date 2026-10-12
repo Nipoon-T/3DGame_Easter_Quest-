@@ -1,0 +1,167 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://systems/hint_quiz.gd" id="1_quiz"]
+[ext_resource type="FontFile" path="res://systems/fonts/NotoSansThai.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+bg_color = Color(0.06, 0.08, 0.18, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.8, 0.35, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="Style_btn"]
+bg_color = Color(0.2, 0.25, 0.45, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Style_btn_hover"]
+bg_color = Color(0.32, 0.4, 0.7, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Style_bar_bg"]
+bg_color = Color(0.15, 0.15, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="Style_bar_fill"]
+bg_color = Color(1, 0.75, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Theme" id="Theme_quiz"]
+default_font = ExtResource("2_font")
+default_font_size = 26
+Button/styles/normal = SubResource("Style_btn")
+Button/styles/hover = SubResource("Style_btn_hover")
+Button/styles/pressed = SubResource("Style_btn_hover")
+Button/styles/disabled = SubResource("Style_btn")
+Button/styles/focus = SubResource("Style_btn_hover")
+Button/colors/font_disabled_color = Color(1, 1, 1, 1)
+PanelContainer/styles/panel = SubResource("Style_panel")
+
+[node name="HintQuiz" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_quiz")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_quiz")
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "ตอบให้ถูกเพื่อรับ Hint"
+horizontal_alignment = 1
+
+[node name="Kind" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "บวกเลขเร็ว!"
+horizontal_alignment = 1
+
+[node name="Question" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "7 + 5 = ?"
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="B1" type="Button" parent="Center/Panel/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1)"
+
+[node name="B2" type="Button" parent="Center/Panel/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2)"
+
+[node name="B3" type="Button" parent="Center/Panel/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3)"
+
+[node name="B4" type="Button" parent="Center/Panel/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "4)"
+
+[node name="TimeBar" type="ProgressBar" parent="Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_bar_fill")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+
+[node name="Result" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Keys" type="Label" parent="Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.8, 1)
+theme_override_font_sizes/font_size = 16
+text = "กดปุ่ม 1-4 หรือคลิกคำตอบ"
+horizontal_alignment = 1

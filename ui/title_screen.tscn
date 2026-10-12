@@ -1,15 +1,58 @@
-[gd_scene format=3 uid="uid://obnhudhh7emd"]
+[gd_scene format=3 uid="uid://bk4pi7gapuen3"]
 
-[ext_resource type="PackedScene" uid="uid://i2pemo8f7rjr" path="res://levels/final_area.tscn" id="1_7xhpk"]
+[ext_resource type="Script" uid="uid://cyr3iniltblmu" path="res://ui/title_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d36jewluxiiy6" path="res://ui/backgrounds/title_bg.jpg" id="2_bg"]
+[ext_resource type="FontFile" uid="uid://rajlp8esewom" path="res://ui/fonts/Fredoka-SemiBold.ttf" id="3_font"]
 
-[node name="TitleScreen" type="Node2D" unique_id=1088370987]
+[node name="TitleScreen" type="Control" unique_id=2108226523]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
 
-[node name="FinalArea" parent="." unique_id=827512447 instance=ExtResource("1_7xhpk")]
+[node name="Background" type="TextureRect" parent="." unique_id=1773271428]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="MeshInstance3D" parent="FinalArea/RockLeft" parent_id_path=PackedInt32Array(827512447, 1836825931) index="1" unique_id=823295369]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="PromptLabel" type="Label" parent="." unique_id=1908227803]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -230.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.964706, 0.878431, 1)
+theme_override_colors/font_outline_color = Color(0.478431, 0.290196, 0.133333, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 72
+text = "Click anywhere to start"
+horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="MeshInstance3D" parent="FinalArea/RockRight" parent_id_path=PackedInt32Array(827512447, 5712411) index="1" unique_id=1407785799]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="FadeRect" type="ColorRect" parent="." unique_id=825409167]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
-[editable path="FinalArea"]
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=303809192]
