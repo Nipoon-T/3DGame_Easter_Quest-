@@ -42,6 +42,41 @@ const DEFAULT_LINES := [
 	],
 ]
 
+# ---- ธีมเดียวกับ UI ของคนที่ 3 (ครีม + ขอบน้ำตาลไม้ + ฟอนต์ Fredoka) ----
+const UI_FONT := preload("res://ui/fonts/Fredoka-SemiBold.ttf")
+const CREAM := Color("fff6e0")
+const BROWN := Color("7a4a22")
+const MINT := Color("a8e6cf")
+const PINK := Color("f2b8dc")
+const BLUE := Color("a8d8f0")
+const YELLOW := Color("f7e08a")
+const GOLD := Color("f5b800")
+
+
+static func _panel_box(radius: int, pad: int, alpha := 0.95) -> StyleBoxFlat:
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color(CREAM, alpha)
+	box.set_corner_radius_all(radius)
+	box.set_border_width_all(6)
+	box.border_color = BROWN
+	box.shadow_color = Color(0, 0, 0, 0.3)
+	box.shadow_size = 9
+	box.shadow_offset = Vector2(0, 6)
+	box.content_margin_left = pad + 6
+	box.content_margin_right = pad + 6
+	box.content_margin_top = pad - 4
+	box.content_margin_bottom = pad - 4
+	return box
+
+
+static func _style_label(label: Label, size: int, color := BROWN, outline := 0, outline_color := BROWN) -> void:
+	label.add_theme_font_override("font", UI_FONT)
+	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_constant_override("outline_size", outline)
+	label.add_theme_color_override("font_outline_color", outline_color)
+
+
 var _queue: Array[String] = []
 var _line_timer := 0.0
 var _typing := false
@@ -58,6 +93,7 @@ var _base_y := 0.0
 func _ready() -> void:
 	_base_y = body.position.y
 	panel.visible = false
+	_apply_theme()
 	GameManager.level_started.connect(_on_level_started)
 	GameManager.egg_collected.connect(_on_egg_collected)
 	GameManager.time_changed.connect(_on_time_changed)
@@ -87,6 +123,21 @@ func _process(delta: float) -> void:
 	_line_timer -= delta
 	if _line_timer <= 0.0:
 		_next_line()
+
+
+func _apply_theme() -> void:
+	# กล่องข้อความล่างจอ ขนาดอิงจอ 1920x1080 เหมือน HUD
+	panel.add_theme_stylebox_override("panel", _panel_box(36, 26))
+	panel.offset_left = -560.0
+	panel.offset_right = 560.0
+	panel.offset_top = -215.0
+	panel.offset_bottom = -44.0
+	var margin := $Dialogue/Panel/Margin as MarginContainer
+	for side in ["left", "top", "right", "bottom"]:
+		margin.add_theme_constant_override("margin_" + side, 0)
+	var name_label := $Dialogue/Panel/Margin/VBox/Name as Label
+	_style_label(name_label, 34, PINK, 10, BROWN)
+	_style_label(text_label, 40, BROWN)
 
 
 ## ให้ภูติพูดประโยคใหม่ (ระบบอื่นเรียกใช้ได้ เช่น EasterSpirit.say("..."))
