@@ -15,23 +15,23 @@ signal finished(correct: bool)
 @export var time_limit := 10.0   ## วินาทีที่ให้ตอบ
 
 const WORD_QUESTIONS := [
-	{"word": "กระ_่าย", "answer": "ต", "wrong": ["ด", "ถ", "ฎ"], "hint": "สัตว์หูยาว"},
-	{"word": "ไข่อี_เตอร์", "answer": "ส", "wrong": ["ศ", "ษ", "ซ"], "hint": "สิ่งที่เรากำลังตามหา"},
-	{"word": "ดอก_ม้", "answer": "ไ", "wrong": ["ใ", "เ", "แ"], "hint": "บานในสวน"},
-	{"word": "ผี_สื้อ", "answer": "เ", "wrong": ["แ", "โ", "ไ"], "hint": "แมลงปีกสวย"},
-	{"word": "แค_อท", "answer": "ร", "wrong": ["ล", "ว", "น"], "hint": "ผักสีส้มที่กระต่ายชอบ"},
-	{"word": "ช็อก_กแลต", "answer": "โ", "wrong": ["เ", "แ", "ไ"], "hint": "ขนมหวานสีน้ำตาล"},
-	{"word": "ส_นสนุก", "answer": "ว", "wrong": ["ร", "ล", "น"], "hint": "มีชิงช้าสวรรค์"},
-	{"word": "ตะ_ร้า", "answer": "ก", "wrong": ["ข", "ค", "ง"], "hint": "ใช้ใส่ไข่"},
-	{"word": "ลูก_วาด", "answer": "ก", "wrong": ["ข", "ด", "บ"], "hint": "ขนมหวานเม็ดเล็ก"},
-	{"word": "ฤดูใบไม้_ลิ", "answer": "ผ", "wrong": ["พ", "ฝ", "ฟ"], "hint": "ฤดูของเทศกาลอีสเตอร์"},
-	{"word": "พระอา_ิตย์", "answer": "ท", "wrong": ["ธ", "ต", "ด"], "hint": "ขึ้นตอนเช้า"},
-	{"word": "สีชม_ู", "answer": "พ", "wrong": ["ภ", "ผ", "บ"], "hint": "สีของไข่บางใบ"},
-	{"word": "_ันทร์", "answer": "จ", "wrong": ["ฉ", "ช", "ซ"], "hint": "ส่องแสงตอนกลางคืน"},
-	{"word": "BUN_Y", "answer": "N", "wrong": ["M", "D", "R"], "hint": "กระต่ายภาษาอังกฤษ"},
-	{"word": "E_G", "answer": "G", "wrong": ["C", "Q", "J"], "hint": "ไข่ภาษาอังกฤษ"},
-	{"word": "BASK_T", "answer": "E", "wrong": ["A", "I", "O"], "hint": "ตะกร้าภาษาอังกฤษ"},
-	{"word": "CARR_T", "answer": "O", "wrong": ["A", "U", "E"], "hint": "แครอทภาษาอังกฤษ"},
+	{"word": "BUN_Y", "answer": "N", "wrong": ["M", "D", "R"], "hint": "A cute animal with long ears"},
+	{"word": "E_G", "answer": "G", "wrong": ["C", "Q", "J"], "hint": "What you are looking for"},
+	{"word": "BASK_T", "answer": "E", "wrong": ["A", "I", "O"], "hint": "You carry eggs in it"},
+	{"word": "CARR_T", "answer": "O", "wrong": ["A", "U", "E"], "hint": "Orange vegetable bunnies love"},
+	{"word": "FLOW_R", "answer": "E", "wrong": ["A", "O", "I"], "hint": "It blooms in the garden"},
+	{"word": "SPR_NG", "answer": "I", "wrong": ["A", "E", "O"], "hint": "The season of Easter"},
+	{"word": "CHOCO_ATE", "answer": "L", "wrong": ["R", "N", "T"], "hint": "Sweet and brown"},
+	{"word": "CHI_K", "answer": "C", "wrong": ["K", "S", "T"], "hint": "A baby chicken"},
+	{"word": "CAN_Y", "answer": "D", "wrong": ["T", "B", "N"], "hint": "A small sweet treat"},
+	{"word": "BUTT_RFLY", "answer": "E", "wrong": ["A", "O", "U"], "hint": "Insect with pretty wings"},
+	{"word": "RAIN_OW", "answer": "B", "wrong": ["D", "P", "V"], "hint": "Seven colors in the sky"},
+	{"word": "S_N", "answer": "U", "wrong": ["A", "O", "I"], "hint": "It shines in the morning"},
+	{"word": "M_ON", "answer": "O", "wrong": ["A", "E", "U"], "hint": "It shines at night"},
+	{"word": "GARD_N", "answer": "E", "wrong": ["A", "I", "O"], "hint": "Where flowers grow"},
+	{"word": "PIN_", "answer": "K", "wrong": ["G", "T", "C"], "hint": "A soft egg color"},
+	{"word": "HUN_", "answer": "T", "wrong": ["D", "G", "K"], "hint": "Egg ___ = searching for eggs"},
+	{"word": "LAM_", "answer": "B", "wrong": ["P", "D", "M"], "hint": "A baby sheep"},
 ]
 
 # static = จำค่าข้ามรอบ (หน้ามินิเกมถูกสร้างใหม่ทุกครั้งที่กด Hint)
@@ -79,7 +79,7 @@ func _ready() -> void:
 
 
 func _make_math() -> void:
-	kind_label.text = "บวกเลขเร็ว!"
+	kind_label.text = "Quick Math!"
 	var a := randi_range(3, 25)
 	var b := randi_range(2, 15)
 	var ans := a + b
@@ -107,9 +107,9 @@ func _make_word() -> void:
 		_word_deck = WORD_QUESTIONS.duplicate()
 		_word_deck.shuffle()
 	var q: Dictionary = _word_deck.pop_back()
-	kind_label.text = "เติมคำให้ถูก!"
-	question_label.text = q["word"].replace("_", "□")
-	sub_label.text = "คำใบ้: " + q["hint"]
+	kind_label.text = "Fill in the Missing Letter!"
+	question_label.text = q["word"].replace("_", " _ ").strip_edges()
+	sub_label.text = "Clue: " + q["hint"]
 	_answer = q["answer"]
 	_choices.clear()
 	_choices.append(q["answer"])
@@ -123,7 +123,7 @@ func _process(delta: float) -> void:
 	_time_left -= delta
 	bar.value = max(_time_left, 0.0)
 	if _time_left <= 0.0:
-		_finish(false, "หมดเวลา! คำตอบคือ " + _answer)
+		_finish(false, "Time's up! The answer is " + _answer)
 
 
 func _input(event: InputEvent) -> void:
@@ -150,7 +150,7 @@ func _choose(i: int) -> void:
 			buttons[j].modulate = Color(0.6, 1, 0.6)
 	if not ok:
 		buttons[i].modulate = Color(1, 0.5, 0.5)
-	_finish(ok, "ถูกต้อง! ไข่ที่ใกล้ที่สุดจะเรืองแสง" if ok else "ผิด! คำตอบคือ " + _answer)
+	_finish(ok, "Correct! The nearest egg will glow." if ok else "Wrong! The answer is " + _answer)
 
 
 func _finish(ok: bool, msg: String) -> void:

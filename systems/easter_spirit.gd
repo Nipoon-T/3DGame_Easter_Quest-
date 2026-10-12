@@ -20,25 +20,25 @@ class_name EasterSpirit
 ## บทพูดตั้งต้นของแต่ละด่าน (index ตรงกับ GameManager.LEVELS, ตัวสุดท้าย = พื้นที่ลับ)
 const DEFAULT_LINES := [
 	[
-		"สวัสดีจ้ะ ฉันคือภูติแห่งอีสเตอร์",
-		"ไข่อีสเตอร์ {eggs} ใบถูกซ่อนอยู่ในห้องมืดแห่งนี้",
-		"เล็งไปที่ไข่แล้วกด E เพื่อเก็บ ไข่จะเรืองแสงจางๆ ในความมืด",
-		"หาไม่เจอก็ใช้ Hint ได้ และมีดาวสีทองซ่อนอยู่ เก็บแล้วได้ Hint เพิ่ม",
-		"เวลามี {time} วินาที ขอให้โชคดีนะ!",
+		"Hello! I'm the Easter Spirit.",
+		"{eggs} Easter eggs are hidden in this dark room.",
+		"Aim at an egg and press E to collect it.",
+		"Stuck? Use a Hint! Golden stars give you extra hints.",
+		"You have {time} seconds. Good luck!",
 	],
 	[
-		"ยินดีต้อนรับสู่สวนสนุก!",
-		"ไข่ {eggs} ใบซ่อนอยู่ตามเครื่องเล่น ใต้โต๊ะ และหลังป้าย",
-		"มีเวลา {time} วินาที ลุยเลย!",
+		"Welcome to the Funfair!",
+		"{eggs} eggs are hidden around the rides, tables and signs.",
+		"You have {time} seconds. Let's go!",
 	],
 	[
-		"นี่คือสวนลับ ด่านที่ยากที่สุด",
-		"ไข่ {eggs} ใบซ่อนอยู่ในพุ่มไม้และบนต้นไม้ ลองกระโดดดูนะ",
-		"มีเวลา {time} วินาที",
+		"This is the Secret Garden, the hardest level!",
+		"{eggs} eggs are hidden behind rocks and bushes.",
+		"You have {time} seconds.",
 	],
 	[
-		"เธอทำได้! ไข่ปริศนาใบสุดท้ายอยู่ที่นี่",
-		"ตามหาไข่สีทองให้เจอ แล้วภารกิจจะสำเร็จ",
+		"You made it! The last mystery egg is here.",
+		"Find the golden egg to finish your quest.",
 	],
 ]
 
@@ -134,20 +134,20 @@ func _on_egg_collected(collected: int, required: int) -> void:
 		return
 	if required - collected == 1 and not _said_last_egg:
 		_said_last_egg = true
-		say(["อีกใบเดียวเท่านั้น!"])
+		say(["Just one more egg!"])
 	elif collected < required:
-		say(["เก่งมาก! เหลืออีก %d ใบ" % (required - collected)])
+		say(["Great job! %d more to go." % (required - collected)])
 
 
 func _on_time_changed(seconds_left: float) -> void:
 	if low_time_warning > 0.0 and not _warned_low_time and seconds_left <= low_time_warning:
 		_warned_low_time = true
-		say(["รีบหน่อย! เหลือเวลาอีก %d วินาที" % int(seconds_left)], false)
+		say(["Hurry! Only %d seconds left!" % int(seconds_left)], false)
 
 
 func _on_level_completed(_level_index: int) -> void:
-	say(["เยี่ยมมาก! เก็บไข่ครบแล้ว ไปด่านต่อไปกัน!"])
+	say(["Amazing! You found them all!"])
 
 
 func _on_game_lost() -> void:
-	say(["หมดเวลาแล้ว... ลองใหม่อีกครั้งนะ"])
+	say(["Time's up... Let's try again!"])

@@ -90,7 +90,7 @@ GameManager.selected_character = "leo"  # หน้าเลือกตัว�
 
 - เมนู Pause ต้องตั้ง `process_mode = Always` ไม่งั้นกดปุ่มไม่ได้ตอนเกมหยุด
 - HUD จริงให้ `add_to_group("hud")` แล้ว `dev_hud` จะซ่อนตัวเองอัตโนมัติ
-- ฟอนต์ไทย: `systems/fonts/NotoSansThai.ttf` (ฟรี, OFL) ใช้กับ UI ทั้งเกมได้
+- ฟอนต์: ระบบของคนที่ 2 ใช้ `ui/fonts/Fredoka-SemiBold.ttf` ตัวเดียวกับ UI — **ข้อความในเกมเป็นภาษาอังกฤษทั้งหมด** (บนเว็บไม่มีฟอนต์ไทยสำรอง ตัวไทยจะไม่ขึ้น)
 - ยังขาด: `ui/win_screen.tscn`, `ui/lose_screen.tscn` (ระหว่างนี้แพ้แล้วระบบจะเริ่มด่านใหม่ให้เอง)
 
 ## 5. ค่าที่ปรับตอนบาลานซ์ (วันที่ 9) — ใน `game_manager.gd`
@@ -105,7 +105,7 @@ GameManager.selected_character = "leo"  # หน้าเลือกตัว�
 | `QUIZ_WRONG_COSTS_HINT` | true | ตอบผิด/หมดเวลา เสีย Hint 1 ครั้ง |
 
 **มินิเกม Hint** (`systems/hint_quiz.tscn`): ให้เวลาตอบ 10 วิ (`time_limit`) ระหว่างนั้นเกมหยุดแต่ **นาฬิกาด่านยังเดิน**
-เพิ่ม/แก้คำถามเติมคำได้ที่ `WORD_QUESTIONS` ใน `systems/hint_quiz.gd`
+เพิ่ม/แก้คำถามเติมคำ (ภาษาอังกฤษ) ได้ที่ `WORD_QUESTIONS` ใน `systems/hint_quiz.gd`
 
 เวลาของแต่ละด่านปรับที่ `time_limit` ของด่านนั้น (Dark Room = 180 วินาที, สุ่มไข่ 8 ใบจาก 20 จุด)
 

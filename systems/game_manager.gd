@@ -228,12 +228,12 @@ func _build_loading_overlay() -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_loading_layer.add_child(bg)
 	var label := Label.new()
-	label.text = "กำลังโหลดด่าน..."
+	label.text = "Loading..."
 	label.set_anchors_preset(Control.PRESET_FULL_RECT)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	if ResourceLoader.exists("res://systems/fonts/NotoSansThai.ttf"):
-		label.add_theme_font_override("font", load("res://systems/fonts/NotoSansThai.ttf"))
+	if ResourceLoader.exists("res://ui/fonts/Fredoka-SemiBold.ttf"):
+		label.add_theme_font_override("font", load("res://ui/fonts/Fredoka-SemiBold.ttf"))
 	label.add_theme_font_size_override("font_size", 40)
 	label.add_theme_color_override("font_color", Color(1, 0.85, 0.5))
 	bg.add_child(label)
