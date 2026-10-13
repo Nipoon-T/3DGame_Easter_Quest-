@@ -24,6 +24,11 @@ P	Pause
 🐣 Grab your basket, beat the clock, and become the greatest egg hunter of all time!
 👉 Play now, right in your browser!
 
+	Github : https://github.com/Nipoon-T/3DGame_Easter_Quest-.git
+	Game play : https://nipoon-t.github.io/3DGame_Easter_Quest-/
+	Itch.io play : https://gamedev-07.itch.io/easter-quest
+
+
 Short version (for an itch.io tagline or the GitHub “About” box):
 
 🐰 A cute low-poly 3D Easter egg hunt! Race the clock through a dark room, a funfair and a secret garden, solve quick puzzles for hints, and find the legendary Golden Egg. Play free in your browser! 🥚✨
